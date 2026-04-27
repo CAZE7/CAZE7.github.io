@@ -1,6 +1,12 @@
-# Willkommen beim OBD-Expert Guide 🚗💻
+# OBD Expert Guide: Fahrzeug-Diagnose & Codierung Ratgeber
 
-Finde in wenigen Klicks genau das richtige **Diagnose-Werkzeug**, das perfekt zu deinem Fahrzeug und deinem Vorhaben passt. Unser Finder ist nun auf professionelle Standards vorkonfiguriert.
+Die Wahl der richtigen Hard- und Software für die Fahrzeug-Diagnose und Codierung ist entscheidend, um versteckte Potenziale deines Autos sicher zu nutzen. Ob du einen VW, Audi, Seat, Skoda (VAG) oder einen Mercedes-Benz fährst – jedes System hat seine eigenen, strengen Anforderungen.
+
+Einsteiger suchen oft nach schnellen und einfachen Lösungen wie OBDeleven, während ambitionierte Schrauber und Profis auf leistungsstarke Systeme wie VCDS, VCP, ODIS oder Xentry mit Passthru-Geräten setzen. Unser Ratgeber erklärt dir Schritt für Schritt, wie du lästige Funktionen deaktivierst, versteckte Menüs freischaltest oder neue Hardware sicher parametrierst. 
+
+Unsere detaillierten Praxis-Anleitungen begleiten dich von der ersten Verbindung mit dem OBD-Port bis zum erfolgreichen Codieren. Dabei legen wir höchsten Wert auf Sicherheit: Lerne die Bedeutung von Backups (Admaps) kennen und erfahre, wie du mit modernen Schutzmechanismen wie SFD (Software Finger Print Detection) bei VAG oder Seed & Key bei Mercedes-Benz richtig umgehst, um teure Schäden an den Steuergeräten zu vermeiden.
+
+Finde in wenigen Klicks genau das richtige **Diagnose-Werkzeug**, das perfekt zu deinem Fahrzeug und deinem spezifischen Vorhaben passt. Unser interaktiver Finder ist auf professionelle Standards vorkonfiguriert.
 
 <div id="obd-finder-app">
   
@@ -67,7 +73,7 @@ function calculateResult() {
         tool = "OBDeleven";
         desc = "Die einzige empfehlenswerte Smartphone-App für VAG. Ideal für einfache Codierungen und Diagnose via Bluetooth-Dongle.";
       }
-    } else { // Laptop
+    } else { 
       if (answers.goal === 'Profi') {
         tool = "VCP (VAG CAN PRO) oder ODIS";
         desc = "Professionelle Lösungen für Flashen und ZDC-Container. ODIS für Werkstatt-Niveau, VCP für ambitionierte Experten.";
@@ -80,7 +86,7 @@ function calculateResult() {
     if (answers.device === 'Smartphone') {
       tool = "Keine Empfehlung";
       desc = "Für Mercedes-Fahrzeuge wird keine Codierung oder Diagnose per Smartphone empfohlen (Gefahr von EZS-Schäden). Nutzen Sie für sichere Arbeit zwingend einen Laptop.";
-    } else { // Laptop
+    } else { 
       tool = "VXDIAG (VCX SE) oder Passthru-Kabel";
       desc = "Die empfohlenen Schnittstellen für Mercedes. VXDIAG für moderne DoIP-Fahrzeuge, Passthru-Kabel (J2534) für Standard-Diagnose und Codierung mit Xentry oder DTS Monaco.";
     }
@@ -104,23 +110,23 @@ function resetFinder() {
 </style>
 
 ---
-## Schnelleinstieg Ratgeber
+## Schnelleinstieg in die Codier-Ratgeber
 
 <div class="grid cards" markdown>
 
--   :material-car-cog:{ .lg .middle } __VAG Konzern__
+-   :material-car-cog:{ .lg .middle } **VAG Konzern**
     ---
-    Alles zu VCDS, VCP, ODIS und OBDeleven.
-    [:octicons-arrow-right-24: Zum VAG Guide](vag-codierung-neu.md)
+    Alles zu VCDS, VCP, ODIS und OBDeleven für VW, Audi & Co.
+    [:octicons-arrow-right-24: Zum VAG Diagnose Guide](vag-codierung-neu.md)
 
--   :material-car-info:{ .lg .middle } __Mercedes-Benz__
+-   :material-car-info:{ .lg .middle } **Mercedes-Benz**
     ---
     Diagnose via Passthru, VXDIAG und Engineering-Tools.
-    [:octicons-arrow-right-24: Zum Mercedes Guide](mercedes-codierung-neu.md)
+    [:octicons-arrow-right-24: Zum Mercedes Codierungs Guide](mercedes-codierung-neu.md)
 
--   :material-shield-check:{ .lg .middle } __Sicherheit__
+-   :material-shield-check:{ .lg .middle } **Sicherheit**
     ---
-    Wichtige Hinweise und Haftungsausschluss.
-    [:octicons-arrow-right-24: Rechtliches lesen](haftungsausschluss.md)
+    Wichtige rechtliche Hinweise und unser Haftungsausschluss.
+    [:octicons-arrow-right-24: Rechtliche Hinweise lesen](haftungsausschluss.md)
 
 </div>
