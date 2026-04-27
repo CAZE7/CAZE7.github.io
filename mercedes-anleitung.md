@@ -106,4 +106,4 @@ Bevor du mit einer spezifischen Codierung beginnst, müssen diese Voraussetzunge
     2. **HU6:** `Exterior Mirror Convenience` auf **installed**.
     3. **Türsteuergeräte (Fahrer & Beifahrer - z. B. DMFL222 / DMFR222):** * `Einklappen beim Verriegeln verfügbar` auf **on** setzen.
         * `Gehäuseklappung beginnt bereits bei Entriegelung` auf **on** setzen.
-    4. Non-volatile Memory Sync und ECU Hard Reset ausführen.
+    4. Non-volatile Memory Sync und ECU Hard Reset ausführen

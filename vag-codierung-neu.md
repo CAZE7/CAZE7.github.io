@@ -1,211 +1,108 @@
-# VAG-Codierung: Der komplette Ratgeber 🔧
+# :material-car-cog: VAG-Konzern: Diagnose, Codierung und Parametrierung
 
-Der Weg zur eigenen Fahrzeug-Codierung bei VAG-Fahrzeugen (VW, Audi, Seat, Skoda) ist zugänglich, aber verantwortungsvoll. Dieses Handbuch zeigt dir, was möglich ist, welche Tools du brauchst, und wie du sicher vorgehen kannst.
-
----
-
-## Was ist VAG-Codierung?
-
-VAG-Codierung ändert die **Konfiguration** von Steuergeräten, nicht die Firmware. Das ist reversibel und weniger kritisch als ECU-Flashen:
-
-| **Möglichkeit** | **Beispiele** | **Schwierigkeitsgrad** |
-|---|---|---|
-| **Komfort-Features freischalten** | Gurtwarner, Licht an bei Fahrt, Rückfahrkamera immer an | ⭐ Einfach |
-| **Visuelle Anpassungen** | LED-Codierung, Blinkergeschwindigkeit, Instrumentencluster-Design | ⭐ Einfach |
-| **Funktionale Erweiterungen** | VIM (Video-in-Motion), Abgaswarnlamp freigeben, Standheizung | ⭐⭐ Mittel |
-| **Motorhaube-Nachrüstungen** | Zusätzliche Sensoren, Kameras, Radarmodule einkodieren | ⭐⭐⭐ Profi |
-| **Steuergerät-Flashen** | ECU-Tuning, TCU-Optimierung | ⭐⭐⭐ Profi |
+Dieses Dokument beschreibt die technischen Grundlagen sowie die verfügbaren Werkzeuge für Fahrzeuge der Marken VW, Audi, Seat und Skoda (VAG). Der Fokus liegt auf für Privatanwender zugänglichen Lösungen und dem korrekten technischen Vorgehen.
 
 ---
 
-## Tool-Vergleich: VCDS, OBDeleven, VCP, ODIS
+## 1. Diagnose-Architektur bei VAG
 
-### 1. VCDS (VAG-COM) – Der Standard
+Die Steuergeräte-Kommunikation im VAG-Konzern hat sich über drei Generationen entwickelt:
 
-**Profil:** Windows-Software, seit 2005, unterstützt alle VAG-Marken
+### Protokolle und Transport
 
-| **Feature** | **VCDS** |
-|---|---|
-| **Diagnose & Fehlerauslesen** | ✅ Hervorragend |
-| **Kodierung** | ✅ Sehr gut |
-| **Advanced Coding** | ✅ Mit Modul-Assistenten |
-| **Firmware-Flashen** | ❌ Nein |
-| **Block-Lesen** | ✅ Ja |
-| **ZDC-Container schreiben** | ❌ Nein |
-| **SFD-System (ab 2020)** | ❌ Nein |
-| **Preis** | ~€300–600 |
+* :material-serial-port: **K-Line (ISO 9141):** Einsatz in älteren Modellen (ca. vor 2005). Die Kommunikation ist langsam und erfolgt seriell.
+* :material-network-outline: **CAN-Bus:** Der Standard für Fahrzeuge von ca. 2005 bis heute. Er nutzt Protokolle wie KWP2000 (älter) oder UDS (modern, ab ca. 2009/2010).
+* :material-ethernet: **DoIP (Ethernet):** Bei neuesten Modellen (z.B. Golf 8, ID-Serie) für große Datenmengen (Karten-Updates, Flash-Vorgänge) am Infotainment oder Gateway genutzt.
 
-**Ideal für:** Anfänger und Fortgeschrittene, stabile Diagnose und einfache Codierung.
+### Sicherheitsmechanismen
 
----
-
-### 2. OBDeleven – Smartphone-Lösung
-
-**Profil:** iOS/Android App + Bluetooth-Adapter
-
-| **Feature** | **OBDeleven** |
-|---|---|
-| **One-Click-Apps** | ✅ Umfangreiche Sammlung |
-| **Personalisierung** | ✅ Für Profis auch möglich |
-| **Diagnose** | ✅ Grundlagen vorhanden |
-| **Firmware-Flashen** | ❌ Nein |
-| **SFD-System Support** | ⚠️ Mit VCTool möglich |
-| **Preis** | ~€200–400 |
-
-**Ideal für:** Komfortable Smartphone-Codierung ohne PC.
-
-!!! info "SFD-Fahrzeuge (ab 2020)"
-    Bei modernen VAG-Fahrzeugen ist das **SFD-System** aktiv. OBDeleven kann dies mit **VCTool** (Authentifizierungs-Token) umgehen. **Motorhaube MUSS beim Codieren offen sein** – das ist Hardware-Sicherheit.
+!!! abstract "Sicherheitskonzept: SFD (ab 2020)"
+    Ab dem Modelljahr 2020 (MQB-evo Plattform) hat VAG die **Software-Sicherungs-Funktion (SFD)** eingeführt. 
+    
+    1. **Schutz:** Schreibzugriffe auf kritische Steuergeräte sind gesperrt.
+    2. **Freischaltung:** Erfordert ein Online-Token. Tools wie OBDeleven oder VCP bieten hierfür mittlerweile automatisierte Lösungen an.
+    3. **Hardware-Sperre:** Bei fast allen SFD-geschützten Fahrzeugen **muss die Motorhaube offen sein**, um Codierungen zu schreiben.
 
 ---
 
-### 3. VCP (VAG CAN PRO) – Die Profi-Brücke
+## 2. Software-Werkzeuge
 
-**Profil:** Software + Hardware-Interface für ambitionierte Hobbyanwender
+Für VAG-Fahrzeuge gibt es ein breites Ökosystem an Software, die sich in Funktionsumfang und Zielgruppe unterscheidet:
 
-| **Feature** | **VCP** |
-|---|---|
-| **Kodierung** | ✅ Erweitert |
-| **ZDC-Container schreiben** | ✅ Ja (großer Vorteil) |
-| **Diagnose** | ✅ Umfassend |
-| **ECU-Flashen** | ⚠️ Limited (spezielle Module) |
-| **SFD-System Support** | ✅ Token-Unterstützung |
-| **Preis** | ~€800–1500 |
+=== "VCDS (Ross-Tech)"
+    **Profil:** Der langjährige Standard für Windows-Laptops.
+    
+    * **Stärken:** Extrem stabil, riesige Label-Datenbank (Klartext-Erklärungen), sehr sicher bei der Diagnose und Standard-Codierung.
+    * **Einsatz:** Ideal für Fahrzeuge von 1995 bis ca. 2020. Unterstützt kein Flashen und nur eingeschränkt SFD.
+    * **Technik:** Nutzt die klassische Long-Coding- und Anpassungs-Struktur.
 
-**Ideal für:** Hardware-Nachrüstungen (neue Sensoren, Kameras) und neuere Fahrzeuge (2015+).
+=== "OBDeleven"
+    **Profil:** Smartphone-basierte Lösung (iOS/Android) mit Bluetooth-Dongle.
+    
+    * **Stärken:** Sehr komfortabel, "One-Click-Apps" für Anfänger, voller SFD-Support (automatisiert).
+    * **Einsatz:** Ideal für Nutzer, die keinen Laptop mitführen möchten und schnelle Anpassungen (z.B. Gurtwarner, Zeigertest) suchen.
+    * **Besonderheit:** Benötigt für fast alle Funktionen eine aktive Internetverbindung.
 
-**Besonderheit:** ZDC-Container sind Konfigurations-Dateien, die Hardware-Änderungen erlauben. VCDS und OBDeleven können diese **nicht** schreiben.
+=== "VCP (VAG CAN PRO)"
+    **Profil:** Professionelles Tool für Fortgeschrittene und Experten.
+    
+    * **Stärken:** Kann **ZDC-Container** (Datensätze) schreiben. Dies ist notwendig, um nachgerüstete Hardware (z.B. Rückfahrkameras oder Matrix-LED) zu parametrieren. Unterstützt zudem das Flashen von Steuergeräten.
+    * **Einsatz:** Notwendig für Retrofits und tiefe Eingriffe in die Steuergeräte-Logik.
 
----
-
-### 4. ODIS – Enterprise-Level
-
-**Profil:** Offizielle VAG-Werkstatt-Software (lizenzpflichtig)
-
-| **Feature** | **ODIS E** | **ODIS S** |
-|---|---|---|
-| **Kodierung** | ✅ Vollumfang | ✅ Vollumfang |
-| **Firmware-Flashen** | ✅ Ja | ✅ Ja |
-| **ZDC-Container** | ✅ Ja | ✅ Ja |
-| **SFD-System** | ✅ Vollständig | ✅ Vollständig |
-| **Preis** | ~€2000+/Jahr | ~€5000+/Jahr |
-
-**ODIS E** = E-Learning Version  
-**ODIS S** = Standard mit allen Diagnose-Funktionen
-
-**Ideal für:** Gewerbliche Nutzung mit Garantie.
+=== "ODIS (Service-Software)"
+    **Profil:** Die offizielle Software der Vertragswerkstätten.
+    
+    * **Stärken:** Geführte Fehlersuche, direkter Zugriff auf das Hersteller-Backend für Software-Updates (SVM).
+    * **Einsatz:** Primär im gewerblichen Umfeld für offizielle Reparaturleitfäden und Komponenten-Freischaltungen relevant.
 
 ---
 
-## Das SFD-System: ab 2020/2021
+## 3. Datenformate und Coding-Logik
 
-**SFD (Software Finger Print Detection)** erkennt nicht-originale Codierung:
+Im Gegensatz zu anderen Herstellern ist die VAG-Struktur sehr modular aufgebaut:
 
-- ✅ **VCP & ODIS:** Vollständiger Support
-- ⚠️ **OBDeleven:** Mit VCTool möglich
-- ❌ **VCDS:** Keine Unterstützung (nur pre-2020 Fahrzeuge)
-
-**Wichtig:** Bei SFD-Fahrzeugen **Motorhaube beim Codieren offen** – keine Ausnahme!
+* **Lange Codierung (Long Coding):** Hexadezimale Werte, die Funktionen im Steuergerät aktivieren oder deaktivieren (z.B. Byte 18 für die Lichtkonfiguration).
+* **Anpassungskanäle (Adaptations):** Einzelne Parameter, die oft im Klartext geändert werden können (z.B. die Helligkeit der Tagfahrleuchten in %).
+* **Datensätze (ZDC/Datasets):** Enthalten Kennlinien und komplexe Konfigurationen, die nicht über Codierung erreichbar sind (z.B. Sound-Charakteristik des Radios).
 
 ---
 
-## Sichere Codierung: Best Practices
+## 4. Sicherheitsaspekte & Best Practices
 
-### Backup ist dein Lebensversicherung
+!!! danger "Achtung: Bricking-Gefahr durch instabile Hardware"
+    Billige ELM327-Klone oder schlechte USB-Kabel können während des Schreibvorgangs die Kommunikation unterbrechen. Dies führt oft zum Absturz des Bootloaders im Steuergerät. Nutzen Sie nur validierte Interfaces (VCDS, VCP, OBDeleven).
 
-**Vor jeder Codierung:**
-```
-VCDS > [Steuergerät] > Funktionen > "Do it yourself"
-> "Save/Read Coding Data" > "Read" > [Datei speichern]
-```
-
-**Warum?** Falls etwas schiefgeht, kannst du in 2 Minuten alles zurücksetzen.
-
----
-
-### Admap & Block-Daten verstehen
-
-- **Admap:** Speicher-Map des Steuergeräts
-- **Blöcke:** Einzelne Datensegmente
-
-**Workflow:**
-1. **Read Block** vor Codierung durchführen
-2. Jeden Block einzeln speichern
-3. **Checksumme** notieren
+| **Regel** | **Bedeutung** |
+| :--- | :--- |
+| **Backup zuerst** | Erstellen Sie vor jedem Eingriff ein "Abbild" (Admap) des Steuergeräts. |
+| **Spannung halten** | Die Bordspannung sollte stabil über 12.5V liegen (Ladegerät nutzen). |
+| **Einzelne Schritte** | Nie mehrere Änderungen gleichzeitig schreiben; nach jedem Schritt Funktion prüfen. |
+| **Label prüfen** | Codieren Sie nur, wenn das Tool die Bedeutung der Bits im Klartext anzeigt. |
 
 ---
 
-### Strategie: Recherche vor Aktion
+## 5. Praxis-Anleitungen (Quick-Access)
 
-1. **Recherchiere zuerst** – vwcoding.ru oder Digital-Eliteboard
-2. **Notiere genaue HEX-Werte** – Keine Spekulationen
-3. **Ein Change pro Durchgang** – Nicht mehrere gleichzeitig
-4. **Test fahren** – Nach jeder Änderung 10+ km
-5. **Backup fallback** – Bei Problemen sofort zurückfahren
+Hier findest du typische Anpassungen, sortiert nach Kategorien.
 
----
+??? info ":material-bell-off: Gurtwarner deaktivieren"
+    1. Steuergerät `17` (Schalttafeleinsatz) wählen.
+    2. Funktion `07` (Codierung) -> Assistent für lange Codierung.
+    3. Bit für "Gurtwarnung aktiv" suchen und deaktivieren.
+    4. Bestätigen und Speichern.
 
-## Steuergeräte: Sicherheits-Hierarchie
+??? info ":material-gauge: Zeigertest / Inszenierung"
+    *Lässt die Tachonadeln beim Einschalten der Zündung einmal voll ausschlagen.*
+    
+    1. Steuergerät `17` (Schalttafeleinsatz) wählen.
+    2. `Anpassung` (Kanal 10) öffnen.
+    3. Kanal `Inszenierung` oder `Staging` wählen.
+    4. Wert auf `aktiv` setzen und speichern.
 
-| **Steuergerät** | **Kritikalität** | **Für Anfänger?** |
-|---|---|---|
-| **ACP (Komfort)** | 🟢 Sicher | ✅ Ja |
-| **Infotainment** | 🟢 Sicher | ✅ Ja |
-| **BCM (Body Control)** | 🟡 Mittel | ⚠️ Mit Backup |
-| **TCU (Getriebe)** | 🔴 Kritisch | ❌ Nur Profis |
-| **Gateway (GW)** | 🔴 Kritisch | ❌ Nur Profis |
-
-!!! danger "Gateway ist zentral für alle Netzwerk-Funktionen!"
-    Ein Fehler im Gateway kann das gesamte Auto lahmlegen. Nicht für Anfänger!
-
----
-
-## Anfänger-Codierungen
-
-### Gurtwarner abschalten (sicherste Codierung)
-
-**VCDS-Weg:**
-```
-Adresse 3E (Komfort-Elektronik)
-Kanal 10 "Sicherheits-Funktionen"
-Byte 0, Bit 2: von 1 auf 0
-```
-
-**OBDeleven-Weg:**
-Einfach vorgefertigte App "Gurtwarner aus" nutzen.
-
-### Licht an bei Fahrt
-
-**Steuergerät:** Lichtkontrollmodul (ca. Adresse 52)
-
-!!! warning "Gesetzliche Warnung"
-    Nicht alle Länder erlauben "Licht an bei Fahrt". Lokale Verkehrsregeln überprüfen!
-
----
-
-## Checkliste für deine erste Codierung
-
-- [ ] Backup durchgeführt und getestet
-- [ ] Recherche auf vwcoding.ru abgeschlossen
-- [ ] Batterie vollgeladen (mind. 12,5V)
-- [ ] Nur eine Änderung geplant
-- [ ] Motorhaube offen (bei SFD-Fahrzeugen)
-- [ ] Test-Fahrt geplant (mind. 10 km)
-- [ ] Fehler-Scanner bereit
-
----
-
-## Ressourcen
-
-- **vwcoding.ru** – Detaillierte VAG-Codierungen
-- **Digital-Eliteboard** – Deutsches Profi-Forum
-- **VCDS-Forum** – Offizielle Ross-Tech Community
-- **OBDeleven Community** – App-Support
-
----
-
-## Fazit
-
-VAG-Codierung ist **zugänglich mit gründlicher Vorbereitung**. Mit dem richtigen Tool (VCDS für Anfänger, VCP für Fortgeschrittene) und klarer Strategie kannst du sicher dein Auto anpassen.
-
-**Golden Rule:** Immer Backup, immer recherchieren, immer kleine Schritte. 🎯
+??? info ":material-lightbulb-outline: Komfortblinken Zyklus ändern"
+    *Ändert die Anzahl der Blinkvorgänge beim Tippen des Hebels (Standard: 3).*
+    
+    1. Steuergerät `09` (Zentralelektrik) wählen.
+    2. `Anpassung` öffnen.
+    3. Kanal `Komfortblinken (Blinkzyklen)` suchen.
+    4. Wert (1-5) anpassen und speichern.
