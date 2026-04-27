@@ -1,0 +1,91 @@
+# --- Projekt Informationen ---
+site_name: OBD Expert Guide
+site_description: Der ultimative Ratgeber für Fahrzeug-Codierung und Diagnose-Hardware.
+site_author: Jonas
+site_url: https://dein-projekt.de/
+
+# --- Theme-Konfiguration ---
+theme:
+  name: material
+  language: de
+  
+  # Icons & Logo
+  icon:
+    logo: material/car-connected
+    repo: fontawesome/brands/github
+
+  # Features für maximale Übersichtlichkeit und Interaktion
+  features:
+    - navigation.tabs              
+    - navigation.tabs.sticky       
+    - navigation.sections          
+    - navigation.expand            
+    - navigation.path              
+    - navigation.top               
+    - navigation.tracking          
+    - navigation.footer            # NEU: Schicker Vor/Zurück Footer
+    - search.suggest               
+    - search.highlight             
+    - search.share                 
+    - content.code.annotate        
+    - content.code.copy            
+    - content.tooltips             
+
+  # Palette (Dark Mode Fokus mit weichem Wechsel)
+  palette:
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Licht anmachen
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Dunkelmodus aktivieren
+
+  # Schriften
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+# --- Plugins ---
+plugins:
+  - search:
+      lang: de
+      separator: '[\s\-\.]+'
+
+# --- Markdown-Erweiterungen ---
+markdown_extensions:
+  - admonition                
+  - attr_list                 
+  - md_in_html                
+  - pymdownx.details          
+  - pymdownx.superfences      
+  - pymdownx.tabbed:          
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - tables                    
+  - toc:
+      permalink: true         
+
+# --- Navigation (Mit Icons!) ---
+# --- Navigation ---
+nav:
+  - Startseite: index.md
+  - Ratgeber:
+    - VAG Konzern: vag-codierung-neu.md
+    - Mercedes-Benz: mercedes-codierung-neu.md
+    - VAG Anleitung: vag-anleitung.md
+    - Mercedes Anleitung: mercedes-anleitung.md
+  - Haftungsausschluss: haftungsausschluss.md
+
+# --- Extra CSS einbinden ---
+extra_css:
+  - stylesheets/extra.css
