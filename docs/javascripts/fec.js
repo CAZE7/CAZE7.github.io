@@ -35,17 +35,17 @@ function hasCode(list, code) {
 }
 
 function renderCodes() {
-  const codesContainer = document.getElementById("codes-container");
-  const vinInput = document.getElementById("vin");
-  const vcrnInput = document.getElementById("vcrn");
-  const jumbotron = document.getElementById("no-codes-message");
+  const codesContainerEl = document.getElementById("codes-container");
+  const vinInputEl = document.getElementById("vin");
+  const vcrnInputEl = document.getElementById("vcrn");
+  const jumbotronEl = document.getElementById("no-codes-message");
 
-  if (!codesContainer || !vinInput || !vcrnInput) return;
+  if (!codesContainerEl || !vinInputEl || !vcrnInputEl) return;
 
-  codesContainer.innerHTML = "";
+  codesContainerEl.innerHTML = "";
 
-  const vin = vinInput.value;
-  const vcrn = vcrnInput.value;
+  const vin = vinInputEl.value;
+  const vcrn = vcrnInputEl.value;
 
   const timestampHex = Math.floor(Date.now() / 1000)
     .toString(16)
@@ -81,9 +81,17 @@ function renderCodes() {
     textarea.style.color = "var(--md-default-fg-color)";
     textarea.style.fontFamily = "var(--md-code-font)";
     textarea.style.fontSize = "0.85em";
+    textarea.setAttribute("aria-label", "Generierter Code für " + item.name);
 
-    textarea.addEventListener("click", function () {
+    textarea.addEventListener("click", async function () {
       this.select();
+      try {
+        await navigator.clipboard.writeText(this.value);
+        // Optional: Kurzes visuelles Feedback durch eine Notifikation (hier nur Console wegen Limitierungen)
+        console.log('Copied to clipboard');
+      } catch (err) {
+        console.error('Failed to copy: ', err);
+      }
     });
     textarea.addEventListener("focus", function () {
       this.select();
@@ -91,37 +99,38 @@ function renderCodes() {
 
     wrapper.appendChild(label);
     wrapper.appendChild(textarea);
-    codesContainer.appendChild(wrapper);
+    codesContainerEl.appendChild(wrapper);
   });
 
-  if (jumbotron) {
-    jumbotron.style.display = selectedCount > 0 ? "none" : "block";
+  if (jumbotronEl) {
+    jumbotronEl.style.display = selectedCount > 0 ? "none" : "block";
   }
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    const vinEl = document.getElementById("vin");
-    if (vinEl) {
-      vinEl.addEventListener("keyup", function () {
+    const vinInputEl = document.getElementById("vin");
+    const vcrnInputEl = document.getElementById("vcrn");
+
+    if (vinInputEl) {
+      vinInputEl.addEventListener("keyup", function () {
         const value = this.value;
         codes.forEach(item => (item.vin = value));
         validateLength(value.length, 17, "avin", "VIN");
         renderCodes();
       });
       // Initial validation
-      validateLength(vinEl.value.length, 17, "avin", "VIN");
+      validateLength(vinInputEl.value.length, 17, "avin", "VIN");
     }
     
-    const vcrnEl = document.getElementById("vcrn");
-    if (vcrnEl) {
-      vcrnEl.addEventListener("keyup", function () {
+    if (vcrnInputEl) {
+      vcrnInputEl.addEventListener("keyup", function () {
         const value = this.value;
         codes.forEach(item => (item.vcrn = value));
         validateLength(value.length, 10, "avcrn", "VCRN");
         renderCodes();
       });
       // Initial validation
-      validateLength(vcrnEl.value.length, 10, "avcrn", "VCRN");
+      validateLength(vcrnInputEl.value.length, 10, "avcrn", "VCRN");
     }
     
     document.querySelectorAll(".fec-checkbox").forEach(input => {
@@ -135,8 +144,8 @@ document.addEventListener("DOMContentLoaded", function() {
               if (item.code === codeValue) item.visible = true;
             });
           } else {
-            const vinVal = vinEl ? vinEl.value : "";
-            const vcrnVal = vcrnEl ? vcrnEl.value : "";
+            const vinVal = vinInputEl ? vinInputEl.value : "";
+            const vcrnVal = vcrnInputEl ? vcrnInputEl.value : "";
     
             codes.push({
               code: codeValue,
