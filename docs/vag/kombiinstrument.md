@@ -14,20 +14,20 @@ Beim Einschalten der Zündung schwenken die Tachonadeln einmal bis zum Anschlag 
 !!! info ""
     Funktioniert nur beim Active Info Display der ersten Generation (5NA920790A/B/C, 5NA920791A/B/C). Die zweite Generation (5NA920790D) wird nicht unterstützt.
 
-!!! abstract ":material-laptop: ODIS"
+!!! abstract "ODIS"
     ``` yaml title="Login: 20103"
     Steuergerät 17 → Codierung:
     Demonstration: Aktivieren
     → Übernehmen (mit Neustart des Steuergeräts)
     ```
 
-!!! info ":material-cellphone-link: OBDeleven"
+!!! info "OBDeleven"
     ``` yaml title="Login: 20103"
     Steuergerät 17 – Kombiinstrument → Lange Codierung:
     Demonstration: ja
     ```
 
-!!! example ":material-cable-data: VCDS"
+!!! example "VCDS"
     ``` yaml title="Login: 20103"
     17 – Schalttafeleinsatz → Codierung - 07 → Lange Codierung:
     Byte 1 – Bit 0 (Gauge test / Needle Sweep / Staging): Aktivieren
@@ -40,20 +40,20 @@ Beim Einschalten der Zündung schwenken die Tachonadeln einmal bis zum Anschlag 
 
 Zeigt auf dem Display an, wie viel Liter noch getankt werden können.
 
-!!! abstract ":material-laptop: ODIS"
+!!! abstract "ODIS"
     ``` yaml title="Login: 20103"
     Steuergerät 17 → Codierung:
     Objektiv, das nachgefüllt werden muss: Aktivieren
     → Übernehmen (mit Neustart des Steuergeräts)
     ```
 
-!!! info ":material-cellphone-link: OBDeleven"
+!!! info "OBDeleven"
     ``` yaml title="Login: 20103"
     Steuergerät 17 – Kombiinstrument → Lange Codierung:
     Volumen, das nachgefüllt werden muss: ja
     ```
 
-!!! example ":material-cable-data: VCDS"
+!!! example "VCDS"
     ``` yaml title="Login: 20103"
     17 – Schalttafeleinsatz → Codierung - 07 → Lange Codierung:
     Byte 10 – Bit 4 (Nachtankmenge): Aktivieren
@@ -69,14 +69,14 @@ Zeigt auf dem Display an, wie viel Liter noch getankt werden können.
 
 Aktiviert einen Rundentimer im Kombiinstrument, z.B. für die Rennstrecke.
 
-!!! abstract ":material-laptop: ODIS"
+!!! abstract "ODIS"
     ``` yaml title="Login: 20103"
     Steuergerät 17 → Codierung:
     Rundentimer: Aktivieren
     → Übernehmen (mit Neustart des Steuergeräts)
     ```
 
-!!! example ":material-cable-data: VCDS"
+!!! example "VCDS"
     ``` yaml title="Login: 20103"
     17 – Schalttafeleinsatz → Codierung - 07 → Lange Codierung:
     Byte 1 – Bit 3 (Rundentimer aktiv): Aktivieren
@@ -225,14 +225,14 @@ Zurücksetzen der erweiterten Service-Intervallzähler: Zurücksetzen
 
 Bei Änderung der Reifengröße kann der Tacho angepasst werden.
 
-!!! abstract ":material-laptop: ODIS"
+!!! abstract "ODIS"
     ``` yaml title="Login: 20103"
     Steuergerät 17 → Codierung:
     Reifenumfang / Tire Circumference: Variante 3
     → Übernehmen
     ```
 
-!!! example ":material-cable-data: VCDS"
+!!! example "VCDS"
     ``` yaml title="Login: 20103"
     17 – Schalttafeleinsatz → Codierung - 07 → Lange Codierung:
     Byte 3 – Bit 0-2: Variante 3

@@ -8,7 +8,7 @@ Codierungen und Anpassungen für die Zentralverriegelung, Alarmanlage und Zugang
 
 Beim ersten Druck auf die Entriegelungstaste am Schlüssel öffnet sich nur die Fahrertür. Beim zweiten Druck (innerhalb von 5 Sekunden) öffnen sich alle Türen.
 
-!!! abstract ":material-laptop: ODIS"
+!!! abstract "ODIS"
     ``` yaml title="Login: 31347"
     Steuergerät 09 → Anpassung:
     Central Locking:
@@ -16,7 +16,7 @@ Beim ersten Druck auf die Entriegelungstaste am Schlüssel öffnet sich nur die 
     → Übernehmen
     ```
 
-!!! example ":material-cable-data: VCDS"
+!!! example "VCDS"
     ``` yaml title="Login: 31347"
     09 – Bordnetzsteuergerät
     Codierung - 07 → Lange Codierung:
@@ -42,7 +42,7 @@ ZV Autolock:
 
 Ermöglicht das Bedienen der Zentralverriegelung per Funkschlüssel, auch wenn die Zündung eingeschaltet ist. So kann das Auto laufend abgeschlossen und per Fernbedienung wieder geöffnet werden.
 
-!!! abstract ":material-laptop: ODIS"
+!!! abstract "ODIS"
     ``` yaml title="Login: 31347"
     Steuergerät 09 → Anpassung:
     ZV allgemein (Zugangskontrolle):
@@ -50,7 +50,7 @@ Ermöglicht das Bedienen der Zentralverriegelung per Funkschlüssel, auch wenn d
     → Übernehmen
     ```
 
-!!! info ":material-cellphone-link: OBDeleven"
+!!! info "OBDeleven"
     ``` yaml title="Login: 31347"
     Steuergerät 09 → Anpassung:
     ZV allgemein:
@@ -63,7 +63,7 @@ Ermöglicht das Bedienen der Zentralverriegelung per Funkschlüssel, auch wenn d
 
 Die schlüssellose Bedienung (KESSY) funktioniert auch bei eingeschalteter Zündung.
 
-!!! abstract ":material-laptop: ODIS"
+!!! abstract "ODIS"
     ``` yaml
     Steuergerät B7 → Codierung:
     Terminal 15 characteristics of passive entry exit function:
@@ -72,7 +72,7 @@ Die schlüssellose Bedienung (KESSY) funktioniert auch bei eingeschalteter Zünd
     → Übernehmen
     ```
 
-!!! example ":material-cable-data: VCDS"
+!!! example "VCDS"
     ``` yaml
     Steuergerät B7
     Codierung - 07 → Lange Codierung → ASAM-Daten erlauben:
@@ -84,14 +84,14 @@ Die schlüssellose Bedienung (KESSY) funktioniert auch bei eingeschalteter Zünd
 
 ## Automatisches Verriegeln beim Zuschlagen der Fahrertür
 
-!!! abstract ":material-laptop: ODIS"
+!!! abstract "ODIS"
     ``` yaml
     Steuergerät B7 → Codierung:
     Locking for door slamming active: Aktivieren
     → Übernehmen
     ```
 
-!!! example ":material-cable-data: VCDS"
+!!! example "VCDS"
     ``` yaml
     Steuergerät B7
     Codierung - 07 → Lange Codierung → ASAM-Daten erlauben:
@@ -201,7 +201,7 @@ Steuergerät B7 → Anpassung:
 
 Das Fahrzeug verriegelt sich automatisch komplett, wenn der Kofferraum über die Easy-Close-Taste geschlossen wird.
 
-!!! abstract ":material-laptop: ODIS"
+!!! abstract "ODIS"
     ``` yaml title="Login: 20103"
     Steuergerät B7 → Codierung:
     byte9_Vip:
@@ -209,7 +209,7 @@ Das Fahrzeug verriegelt sich automatisch komplett, wenn der Kofferraum über die
     → Übernehmen
     ```
 
-!!! info ":material-cellphone-link: OBDeleven"
+!!! info "OBDeleven"
     ``` yaml title="Login: 20103"
     Steuergerät B7:
     byte9_Vip:
@@ -232,7 +232,7 @@ Schiebedach:
 
 ### Schiebedach komplett öffnen (statt nur Kippen)
 
-!!! abstract ":material-laptop: ODIS"
+!!! abstract "ODIS"
     ``` yaml
     Steuergerät 00CA → Anpassung:
     Komfortfunktionen:
@@ -240,7 +240,7 @@ Schiebedach:
     → Übernehmen
     ```
 
-!!! info ":material-cellphone-link: OBDeleven"
+!!! info "OBDeleven"
     ``` yaml
     Steuergerät 00CA → Anpassung:
     Komfortfunktionen:
@@ -254,7 +254,7 @@ Schiebedach:
 
 Die Fensterheber funktionieren weiterhin nach dem Ausschalten der Zündung, bis eine Tür geöffnet wird.
 
-!!! abstract ":material-laptop: ODIS"
+!!! abstract "ODIS"
     ``` yaml
     Steuergerät 09 → Anpassung:
     Zugangskontrolle (ZV Komfort):
@@ -263,7 +263,7 @@ Die Fensterheber funktionieren weiterhin nach dem Ausschalten der Zündung, bis 
     → Übernehmen
     ```
 
-!!! info ":material-cellphone-link: OBDeleven"
+!!! info "OBDeleven"
     ``` yaml title="Login: 31347"
     Steuergerät 09 → Codierung:
     ZV Komfort:
