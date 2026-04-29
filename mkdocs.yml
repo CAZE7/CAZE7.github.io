@@ -17,10 +17,28 @@ theme:
     - navigation.top # Zurück-nach-oben Button
     - navigation.tracking # URL ändert sich beim Scrollen für bessere Anker-Links
     - toc.integrate # Inhaltsverzeichnis in der linken Seitenleiste integrieren
+    - content.code.copy # Erlaubt das einfache Kopieren von Code-Blöcken
+    - content.tabs.link # Verlinkt Tabs miteinander
   palette:
-    - scheme: default
+    # Light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
       primary: white
-      accent: black
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  font:
+    text: Inter
+    code: JetBrains Mono
 
 # --- Eigene Styles ---
 extra_css:
