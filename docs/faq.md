@@ -1,88 +1,131 @@
 # Häufig gestellte Fragen (FAQ)
 
-Willkommen im FAQ-Bereich! Hier beantworten wir die häufigsten Fragen rund um Fahrzeug-Diagnose, Codierung und Flashen. 
+Willkommen im FAQ-Bereich! Hier beantworten wir die häufigsten Fragen rund um Fahrzeug-Diagnose, Codierung und Flashen für VAG (VW, Audi, Seat, Skoda) und Mercedes-Benz.
 
 *Tipp: Klicke auf eine Frage, um die Antwort aufzuklappen!*
 
 ---
 
-## Software & Lizenzen
+## 1. Grundlagen & Diagnose-Konzepte
+
+??? faq "Was ist der Unterschied zwischen Codierung und Flashen?"
+    Dies ist eine der wichtigsten Unterscheidungen:
+    
+    * **Codierung (Coding):** Du änderst Einstellungen, die bereits in der Software des Steuergeräts vorhanden sind (z.B. Gurtwarner aus, Tagfahrlicht-Optionen). Es wird keine neue Software aufgespielt, sondern nur "Schalter" umgelegt.
+    * **Flashen (Flashing):** Du überschreibst die komplette Betriebssoftware (Firmware) des Steuergeräts mit einer neuen Version (z.B. Update von Version 001 auf 002). Dies ist deutlich riskanter und erfordert eine stabile Stromversorgung.
+    * **Parametrierung (Datasets/ZDC):** Eine Mischform. Hier werden Datenpakete (z.B. Sound-Charakteristiken oder Lichtkurven) in das Steuergerät geladen, die über normale Codierung nicht erreichbar sind.
+
+??? faq "Was ist SFD (Schutz Fahrzeug Diagnose)?"
+    SFD ist ein moderner Schreibschutz von Volkswagen (ab ca. 2020, z.B. Golf 8, ID.3). 
+    
+    * **Symptom:** Du kannst Fehler lesen, aber beim Codieren erhältst du die Meldung "Wertebereich ungültig" oder "Security Access Denied".
+    * **Lösung:** Das Steuergerät muss online via Token entsperrt werden. Tools wie OBDeleven erledigen das automatisch im Hintergrund. Bei VCDS/ODIS muss oft ein manueller Token erzeugt oder die Motorhaube geöffnet werden.
+    * **Wichtig:** Bei fast allen SFD-Fahrzeugen ist eine **geöffnete Motorhaube** eine physikalische Voraussetzung für den Schreibzugriff!
+
+??? faq "Was ist der Komponentenschutz (CP)?"
+    Der Komponentenschutz (Component Protection) ist ein Diebstahlschutz. Wenn du ein gebrauchtes Steuergerät (z.B. ein Infotainment aus einem anderen Auto) einbaust, erkennt das Fahrzeug, dass die Seriennummer nicht zur VIN passt.
+    
+    * **Folge:** Das Gerät funktioniert nur eingeschränkt (z.B. kein Ton, "SAFE"-Meldung).
+    * **Lösung:** Der Schutz kann offiziell nur online über den Hersteller-Server (ODIS bei VAG, Xentry bei MB) aufgehoben werden.
+
+??? faq "Warum brauche ich Login-Codes?"
+    Viele Steuergeräte verlangen einen "Sicherheitszugriff" (Security Access), bevor sie Änderungen an der Codierung oder den Anpassungskanälen zulassen. 
+    * Bekannte Codes für MQB: `20103`, `31347` (BCM), `19249` (Lenkung).
+    * Ohne diesen Login werden deine Änderungen einfach nicht gespeichert.
+
+---
+
+## 2. Software & Diagnose-Tools
 
 ??? faq "Welche XENTRY-Version brauche ich: OpenShell oder PassThru?"
-    Das hängt von deiner Hardware ab! Wir empfehlen dir, unsere Tabs zu prüfen:
+    Das hängt von deiner Hardware ab:
     
-    === "Mit Multiplexer (SD Connect)"
-        Nutze **XENTRY OpenShell (XDOS)**. Dies ist die uneingeschränkte Version, die für alle originalen und nachgebauten Multiplexer (wie den C4, C5 oder C6) gedacht ist. Sie unterstützt alle Protokolle (inklusive alter K-Line).
-        
-    === "Mit J2534 Adapter (Tactrix / VXDIAG)"
-        Nutze **XENTRY PassThru (XPT)**. Diese Version wurde speziell für günstige J2534-Passthrough-Geräte entwickelt. *Achtung:* Einige tiefgreifende Funktionen (z. B. bei alten Fahrzeugen vor 2005) sind hier eingeschränkt.
+    - **Mit Multiplexer (SD Connect C4/C5/C6):** Nutze **XENTRY OpenShell (XDOS)**. Dies ist die Profi-Version für Multiplexer, die alle Protokolle (inkl. K-Line für alte Autos) unterstützt.
+    - **Mit J2534 Adapter (Tactrix / VXDIAG):** Nutze **XENTRY PassThru (XPT)**. Diese Version ist für günstige Universal-Interfaces optimiert, hat aber Einschränkungen bei sehr alten Fahrzeugen (vor 2005).
+
+??? faq "ODIS vs. VCDS vs. VCP: Welches Tool für VAG?"
+    - **VCDS:** Das Schweizer Taschenmesser. Perfekt für Fehlerdiagnose, Service-Reset und Standard-Codierungen. Sehr intuitiv.
+    - **VCP (Vag Can Pro):** Spezialist für Datensätze (ZDC) und Flashen. Unverzichtbar für Nachrüstungen (z.B. Rückfahrkamera), die eine Parametrierung benötigen.
+    - **ODIS:** Die offizielle Werkstatt-Software. Extrem mächtig, aber kompliziert in der Bedienung. ODIS-E (Engineering) wird zum Flashen von Original-Files (`.frf`, `.odx`) genutzt.
+
+??? faq "DTS Monaco: Version 8.16 oder 9.02?"
+    - **8.16:** Der Klassiker. Sehr stabil, unterstützt fast alle Fahrzeuge bis ca. 2021. Läuft oft performanter auf älteren Laptops.
+    - **9.02:** Die moderne Version. Unterstützt neue DoIP-Fahrzeuge besser, hat eine modernere UI und ist für die Arbeit mit Remote-Diagnose optimiert.
+    *Hinweis: Projekte aus 8.16 sind nicht immer einfach in 9.02 zu öffnen.*
 
 ??? faq "Was ist der Unterschied zwischen SMR-D und CBF?"
-    Beides sind Dateien, die dem Diagnoseprogramm (wie DTS Monaco) erklären, wie es mit dem Steuergerät kommunizieren soll.
+    Beides sind Beschreibungsdateien für Mercedes-Steuergeräte:
     
-    * **CBF-Dateien** wurden für ältere Fahrzeuge (bis ca. 2015) genutzt und beschreiben *einzelne* Steuergeräte.
-    * **SMR-D-Dateien** (ODX-basiert) werden für neuere Fahrzeuge (ab W205/W213) genutzt. Es sind Container, die das *komplette Fahrzeugprojekt* inklusive Bus-Topologie enthalten.
+    * **CBF:** Für ältere Baureihen (bis ca. 2015). Beschreibt einzelne Steuergeräte.
+    * **SMR-D:** Für neuere Baureihen (ab W205/W213). ODX-basiert, oft als komplette Fahrzeug-Projekte organisiert.
 
 ??? faq "Woher bekomme ich Zenzefi-Zertifikate?"
-    Zenzefi-Zertifikate sind für die Kommunikation mit aktuellen **DoIP**-Fahrzeugen (ab ca. 2021, z.B. W206, W223) zwingend notwendig. 
-    
-    * Für offizielle Werkstätten werden sie automatisch vom Daimler-Server bezogen.
-    * Für freie Nutzer (z. B. mit einem VXDIAG VCX SE) müssen diese Lizenzen oft beim Verkäufer der Hardware erneuert oder in entsprechenden Foren bezogen werden. Ohne gültiges Zertifikat wird die ECU die Diagnose-Session blockieren.
+    Zenzefi ist für moderne Mercedes-Modelle (ab ca. 2021, W206, W223) nötig, um überhaupt mit den Steuergeräten via DoIP kommunizieren zu dürfen. Ohne gültiges Zertifikat bleibt die Diagnose gesperrt. Diese Zertifikate sind meist an offizielle Accounts oder Hardware-Abos (z.B. VXDIAG Full) gebunden.
 
 ---
 
-## Hardware & Interfaces
-
-??? faq "Kann ich meinen billigen ELM327 Bluetooth-Adapter nutzen?"
-    **Nein! Auf gar keinen Fall!**
-    
-    ELM327-Clones sind für Smartphone-Apps (wie Torque oder Carly) gedacht, um simple Fehlercodes auszulesen. Für echte Variantencodierung oder Flashen fehlt ihnen die Stabilität und die Flow-Control-Logik. 
-    ==Wenn du versuchst, damit eine ECU zu flashen, wirst du sie zu 99% unbrauchbar machen (bricken).==
+## 3. Hardware & Interfaces
 
 ??? faq "Brauche ich wirklich ein Batterieladegerät (Stabilizer)?"
-    Wenn du nur Fehler ausliest: *Nein.*
-    
     **Wenn du codierst oder flashst: JA! Absolut!**
-    Ein Flashvorgang kann bis zu 45 Minuten dauern. Bricht in dieser Zeit die Spannung unter ~12,5 V ein, schaltet das Steuergerät ab und der Bootloader wird zerstört. Du brauchst ein starkes Ladegerät, das dauerhaft ++30+a++ bis ++50+a++ liefern kann (ein normales 5A-Ladegerät aus dem Baumarkt reicht **nicht**).
-
-??? faq "Welche Hardware ist für VAG (VW, Audi, Seat, Skoda) am besten?"
-    Für den VAG-Bereich gelten leicht andere Regeln als bei Mercedes:
     
-    - **Einsteiger & Codierung:** VCDS (Ross-Tech) oder OBDeleven sind ungeschlagen, wenn es um schnelle Anpassungen geht.
-    - **Flashen & Tiefendiagnose:** ODIS Engineering in Kombination mit einem VAS6154A (oder hochwertigem Clone / J2534 Interface).
+    Ein Flashvorgang kann bis zu 45 Minuten dauern. Die Zündung muss an sein, was die Batterie massiv belastet. Bricht die Spannung unter ~12,5 V ein, bricht der Flashvorgang ab und das Steuergerät ist "gebrickt". 
+    ==Ein normales 5A-Baumarkt-Ladegerät reicht NICHT.== Du benötigst einen Stabilisator, der konstant ++30A bis 50A++ liefern kann.
+
+??? faq "Kann ich meinen billigen ELM327 Bluetooth-Adapter nutzen?"
+    **Nein! Auf gar keinen Fall für Codierungen!**
+    
+    Diese Adapter sind für das Auslesen von Motordaten via Smartphone-App gedacht. Für echtes Coding fehlt ihnen die Stabilität und die korrekte Protokoll-Umsetzung. Ein Verbindungsabbruch während des Schreibens kann zum Defekt der ECU führen.
+
+??? faq "Welches Interface ist für Mercedes am besten?"
+    - **SD Connect C4 (DTS/Vediamo):** Der Standard. Unterstützt alles, inkl. DoIP und alter K-Line.
+    - **VXDIAG VCX SE:** Günstige und sehr gute Alternative für moderne Fahrzeuge. Unterstützt DoIP nativ und arbeitet hervorragend mit Xentry PassThru und XDOS.
 
 ---
 
-## Fehlerbehebung (Troubleshooting)
+## 4. Fehlerbehebung & Best Practices
 
 ??? tip "Hilfe, DTS Monaco meldet 'Cannot work CBF file'!"
-    Dieser Fehler tritt auf, wenn deine CBF-Datei aus einem **neueren** XENTRY-Release stammt als deine DTS Monaco Version verarbeiten kann.
-    
-    **Lösung:** 
-    - Nutze eine ältere CBF-Datenbank, die zum Release-Datum deiner DTS-Version passt.
-    - Oder aktualisiere dein DTS Monaco (z. B. auf Version 9.02).
+    Deine CBF-Datei ist wahrscheinlich "zu neu" für deine DTS-Version. Wenn du z.B. eine CBF aus einem XENTRY 2023 Release in ein DTS 8.14 lädst, kann dieses das Format nicht lesen.
+    **Lösung:** Nutze eine CBF-Datenbank, die zeitlich zu deiner DTS-Version passt, oder update dein DTS.
 
 ??? tip "Nach dem Flashen ist mein Steuergerät 'tot' (Bricked). Was nun?"
-    Keine Panik, aber jetzt wird es aufwendig:
-    
-    - **Soft-Brick:** Wenn du die ECU noch anpingen kannst, lade die korrekte CFF/FRF-Datei und versuche einen Not-Flash (Force Flash) über Vediamo/ODIS-E.
-    - **Hard-Brick:** Wenn sich das Steuergerät am CAN-Bus nicht mehr meldet, musst du es ausbauen. Mit speziellen Tools (z.B. KTAG oder Flex) muss das EEPROM/Flash "On-Bench" (auf dem Tisch) überschrieben oder wiederbelebt werden.
+    - **Soft-Brick:** Die ECU antwortet noch auf Pings. Versuche einen Not-Flash (Force Flash) mit der korrekten Original-Datei (`.cff` / `.frf`).
+    - **Hard-Brick:** Keine Kommunikation mehr möglich. Hier hilft meist nur noch das Ausbauen und direkte Beschreiben des Chips auf dem Tisch (Bench-Modus) mit Tools wie KTAG oder Flex.
+
+??? tip "Warum bricht die DoIP-Verbindung bei Mercedes ständig ab?"
+    Meist liegt es an den Netzwerkeinstellungen deines Laptops:
+    1. **Firewall:** Schalte die Windows-Firewall für die Diagnose-Session komplett aus.
+    2. **IP-Adresse:** Stelle sicher, dass dein Netzwerkadapter auf "IP automatisch beziehen" steht, es sei denn, dein Interface verlangt eine statische IP (oft `169.254.x.x`).
+    3. **WLAN:** Deaktiviere das WLAN, während du per Kabel (DoIP) diagnostizierst, um Routing-Konflikte zu vermeiden.
 
 ---
 
-## Glossar & Abkürzungen
+## 5. Glossar & Abkürzungen
 
-Hier eine schnelle Übersicht der wichtigsten Akronyme. 
-*(Fahre mit der Maus über die Abkürzungen im Text, um ihre Bedeutung zu sehen!)*
-
-- **[ECU]**: Electronic Control Unit (Steuergerät)
-- **[VCI]**: Vehicle Communication Interface (Der Diagnosekopf)
-- **[DoIP]**: Diagnostics over Internet Protocol (Ethernet-Diagnose)
-- **[SCN]**: Software Calibration Number (Online-Codierung bei MB)
-- **[ODIS]**: Offboard Diagnostic Information System (VAG)
+| Abkürzung | Bedeutung |
+| :--- | :--- |
+| **ECU** | Electronic Control Unit (Steuergerät) |
+| **VCI** | Vehicle Communication Interface (Der Diagnosekopf / Multiplexer) |
+| **DoIP** | Diagnostics over Internet Protocol (Ethernet-Diagnose) |
+| **SFD** | Schutz Fahrzeug Diagnose (VAG Schreibschutz ab 2020) |
+| **CP** | Component Protection (Komponentenschutz / Diebstahlschutz) |
+| **SVM** | Software Versions Management (VAG Online-Konfiguration) |
+| **SCN** | Software Calibration Number (MB Online-Codierung) |
+| **ZDC** | Datensatz / Parametrierung (VAG) |
+| **Admap** | Adaptation Map (VCDS Backup aller Kanäle) |
+| **GeKo** | Geheimnis und Komponentenschutz (VAG Server-Zugang) |
+| **XDOS** | Xentry OpenShell (Mercedes Diagnose-Software für Multiplexer) |
+| **XPT** | Xentry PassThru (Mercedes Diagnose-Software für J2534) |
 
 *[ECU]: Electronic Control Unit (Steuergerät)
 *[VCI]: Vehicle Communication Interface (Diagnosekopf, z.B. SD Connect)
 *[DoIP]: Diagnostics over Internet Protocol (Moderne Netzwerkkommunikation)
 *[SCN]: Software Calibration Number (Werkscodierung)
 *[ODIS]: Offboard Diagnostic Information System (Die Diagnosesoftware für VAG)
+*[SFD]: Schutz Fahrzeug Diagnose (Token-basierte Schreibsperre ab 2020)
+*[CP]: Component Protection / Komponentenschutz (Diebstahlsperre für gebrauchte ECUs)
+*[ZDC]: Zukünftige Diagnose-Container (Parametrierungs-Datensätze)
+*[GeKo]: Geheimnis und Komponentenschutz (VAG Server-Zugang für offizielle Werkstätten)
+*[XDOS]: Xentry OpenShell (MB Software für Multiplexer wie C4/C5/C6)
+*[XPT]: Xentry PassThru (MB Software für J2534 Adapter wie Tactrix/VXDIAG)
