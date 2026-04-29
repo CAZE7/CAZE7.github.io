@@ -39,11 +39,13 @@ extra:
 # --- Navigation ---
 nav:
   - 🏠 Startseite: index.md
-  - 🛠️ VAG (VW, Audi, Seat, Skoda):
-    - Grundlagen & Tools: vag-codierung-neu.md
-    - Praxis-Anleitungen: vag-anleitung.md
   - 🚘 Mercedes-Benz:
-    - Grundlagen & Tools: mercedes-codierung-neu.md
-    - Praxis-Anleitungen: mercedes-anleitung.md
+    - 🔌 Hardware & Adapter: mercedes/hardware.md
+    - 💻 Software & Sicherheit: mercedes/software.md
+    - 🛠️ Praxis-Codierungen: mercedes/anleitungen.md
+  - 🛠️ VAG (VW, Audi, Seat, Skoda):
+    - 🔌 Hardware & Adapter: vag/hardware.md
+    - 💻 Software & Sicherheit: vag/software.md
+    - 🛠️ Praxis-Codierungen: vag/anleitungen.md
   - ❓ FAQ & Hilfe: faq.md
   - ⚖️ Haftungsausschluss: haftungsausschluss.md

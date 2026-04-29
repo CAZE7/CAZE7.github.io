@@ -1,13 +1,29 @@
-# :material-tools: Mercedes-Benz: Praxis-Codierungen mit DTS Monaco
+# 🛠️ Praxis-Codierungen
 
 Diese Seite bietet detaillierte Schritt-für-Schritt-Anleitungen für typische Komfort- und Retrofit-Codierungen an Mercedes-Benz Fahrzeugen (W205, W213, W222, Sprinter VS30 etc.). Die Workflows basieren auf der Nutzung von DTS Monaco und richten sich an fortgeschrittene Anwender.
+
+## 1. Praktische Workflows (Grundlagen)
+
+### Diagnose mit J2534-Gerät
+1. **Hardware vorbereiten:** OpenPort 2.0 oder VXDIAG mit dem PC verbinden und Treiber installieren.
+2. **Fahrzeug verbinden:** OBD-Adapter in die OBD-II-Buchse des Fahrzeugs stecken.
+3. **Xentry starten:** Passthru-Modus in der Software konfigurieren.
+4. **Fahrzeug identifizieren:** VIN eingeben oder Auto-Scan ausführen.
+5. **Diagnose durchführen:** Fehler lesen, löschen und Messwerte erfassen.
+
+### Codierung mit Vediamo / DTS Monaco
+1. **Datei laden:** Richtige CBF/SMR-D-Datei aus Xentry-Projekten oder Datenbank laden.
+2. **Security-Access:** Seed anfordern :octicons-arrow-right-24: Key-Generator nutzen :octicons-arrow-right-24: Key eingeben.
+3. **Parameter anpassen:** Im Dateimodell die gewünschten Werte ändern.
+4. **Flashen:** Geänderte Datei in die ECU schreiben.
+5. **Test:** Fahrzeug starten und Funktionen überprüfen.
+
+## 2. Spezifische Codierungen
 
 !!! danger "Wichtiger Sicherheitshinweis"
     Alle Eingriffe erfolgen auf eigenes Risiko. Falsche Variantencodierungen oder fehlerhafter Security-Access können Steuergeräte unbrauchbar machen. Vor jeder Änderung **muss** die aktuelle Varianten-Codierung der ECU in eine Datei exportiert (Backup) werden.
 
----
-
-## 1. Grundvoraussetzungen & Basis-Workflow
+### 2.1 Grundvoraussetzungen & Basis-Workflow
 
 Bevor du mit einer spezifischen Codierung beginnst, müssen diese Voraussetzungen erfüllt sein:
 
@@ -21,9 +37,7 @@ Bevor du mit einer spezifischen Codierung beginnst, müssen diese Voraussetzunge
     3. **Codieren:** Wechsle ins *Variant Coding*, wähle die Domain, ändere die Fragmente und klicke auf **Do Coding**.
     4. **Speichern & Reset:** Bei neuen Fahrzeugen muss die Änderung fixiert werden: Führe **Synchronize to Non-volatile Memory** und anschließend einen **Hard Reset** aus.
 
----
-
-## 2. Kombiinstrument (Tacho) & Assistenzsysteme
+### 2.2 Kombiinstrument (Tacho) & Assistenzsysteme
 
 ??? info ":material-speedometer: AMG Menü freischalten"
     *Aktiviert das begehrte AMG Menü im Standard-Tacho. Bietet digitale Öltemperatur, Wassertemperatur, Ganganzeige und den Laptimer (Rundenzeiten).*
@@ -50,9 +64,7 @@ Bevor du mit einer spezifischen Codierung beginnst, müssen diese Voraussetzunge
     2. Domain `LDP coding` → `LDP UI Variant` auf **Variant 10. [...] Last Mode** setzen.
     3. Domain `VANS coding Write` (bei Sprinter) → `ALDW Reactivation Mode` auf **Last Mode**.
 
----
-
-## 3. Motor, Getriebe & Fahrwerk
+### 2.3 Motor, Getriebe & Fahrwerk
 
 ??? info ":material-engine: Start/Stop „Last Mode“ (z. B. MED40)"
     *Verhindert, dass sich ECO Start/Stop bei jedem Motorstart automatisch reaktiviert.*
@@ -70,9 +82,7 @@ Bevor du mit einer spezifischen Codierung beginnst, müssen diese Voraussetzunge
     3. Setze den Wert auf **250 km/h**, **300 km/h** oder hebe ihn komplett auf (Hex `FF FF`).
     4. *Warnung:* Solche Eingriffe in das Antriebsstrang-Steuergerät erfordern absolute Präzision. Kontrolliere das Ergebnis nach dem *Hard Reset* zwingend in Xentry unter den Ist-Werten des Steuergerätes.
 
----
-
-## 4. MBUX / Headunit (HU5 / HU6)
+### 2.4 MBUX / Headunit (HU5 / HU6)
 
 ??? info ":material-cellphone-link: Apple CarPlay / Android Auto (HU6)"
     *Aktiviert die Smartphone-Integration (Voraussetzung: Keine FEC/Zertifikatssperre der neuesten Updates aktiv).*
@@ -95,9 +105,7 @@ Bevor du mit einer spezifischen Codierung beginnst, müssen diese Voraussetzunge
     2. In der Domain für *Ambient light* den Parameter **Ambient Light Menu** auf **On** setzen.
     3. Anzahl der Zonen (z. B. *Front, Rear, Footwell*) und Helligkeitsstufen (z. B. *5 Steps*) passend zur Hardware konfigurieren.
 
----
-
-## 5. Allgemeine Komfortfunktionen
+### 2.5 Allgemeine Komfortfunktionen
 
 ??? info ":material-car-door: Automatisch anklappbare Außenspiegel"
     *Spiegel klappen beim Verriegeln ein und beim Entriegeln wieder aus.*

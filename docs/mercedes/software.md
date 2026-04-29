@@ -1,8 +1,6 @@
-# :material-car-info: Mercedes-Benz: Diagnose, Codierung und Flashen
+# 💻 Software & Sicherheit
 
-Dieses Dokument beschreibt die technischen Grundlagen sowie die praktisch verfügbaren Werkzeuge und Hardware für Diagnose, Codierung und Firmware-Updates bei Mercedes-Benz Fahrzeugen. Der Fokus liegt auf kostengünstigen Lösungen wie J2534-Passthru-Geräten und Engineering-Tools in Kombination mit Budget-Hardware, nicht auf proprietären Star-Diagnosis-Multiplexern.
-
----
+Dieses Dokument beschreibt die technischen Grundlagen, Software-Werkzeuge und Sicherheitsmechanismen für Diagnose, Codierung und Firmware-Updates bei Mercedes-Benz Fahrzeugen.
 
 ## 1. Diagnose-Architektur bei Mercedes
 
@@ -26,8 +24,6 @@ Mercedes-Benz nutzt ein hierarchisches Diagnose- und Kodiersystem, das sich grun
     *Ohne korrekten Seed/Key-Zugriff sind tiefe Eingriffe unmöglich.* Seed/Key-Generatoren sind oft nur über spezialisierte Tools oder Dienstleister verfügbar.
 
 Zusätzlich existieren **Online-Backend-Schutzmechanismen** (z.B. für Start-Freigaben und Variantencodierung), die eine Verbindung zum Daimler-System erfordern.
-
----
 
 ## 2. Software-Werkzeuge
 
@@ -56,23 +52,7 @@ Das moderne Engineering-Tool für Diagnose, Codierung und Flashen auf Basis von 
 !!! warning "Consumer-Apps (Smartphone)"
     Smartphone-basierte Apps (wie Carly) bieten nur Standard-OBD-Funktionen und sind für tiefe Variantencodierungen oder Firmware-Updates ungeeignet. Gründe dafür sind fehlende codierbare Parameter in Consumer-APIs, fehlende Seed-&-Key-Mechanismen sowie limitierter DoIP-Support.
 
----
-
-## 3. Hardware: Wege für Privatanwender
-
-Für Privatanwender haben sich **J2534-Passthru-Geräte** als kosteneffizientester Standard etabliert. Diese Interfaces kommunizieren reibungslos mit OEM-Software wie Xentry.
-
-| Gerät | Protokolle | Kompatibilität & Features |
-| :--- | :--- | :--- |
-| **Tactrix OpenPort 2.0** | CAN, K-Line, ISO-TP | Mercedes-Modelle ca. 2005–2015. Diagnose & Codierung möglich, Flashen modellabhängig. |
-| **VXDIAG (VCX SE/Nano)** | CAN, K-Line, **DoIP** | Ideal für neuere Mercedes-Modelle. Wird häufig mit Xentry Passthru genutzt. |
-
-!!! tip "Wichtiger Hinweis zu DoIP"
-    Für Fahrzeuge ab ca. 2015 mit Ethernet-Backbone ist DoIP zwingend erforderlich. VXDIAG-Modelle bieten dies oft, der OpenPort 2.0 jedoch nicht.
-
----
-
-## 4. Datenformate: CBF vs. SMR-D/SMR-F
+## 3. Datenformate: CBF vs. SMR-D/SMR-F
 
 Mercedes verwendet proprietäre Container-Formate, die je nach Fahrzeuggeneration variieren:
 
@@ -83,9 +63,7 @@ Mercedes verwendet proprietäre Container-Formate, die je nach Fahrzeuggeneratio
 | **Tools** | Vediamo, alte DTS Monaco Versionen | DTS Monaco (nativ), neuere Vediamo Versionen, Xentry |
 | **Charakteristik** | Erfordert oft manuelle Interpretation von Hex-Daten | Automatische Validierung von Änderungen |
 
----
-
-## 5. Typische Fehler und Ursachen
+## 4. Typische Fehler und Ursachen
 
 | **Fehlerbild** | **Häufige Ursache** | **Prävention & Lösung** |
 | :--- | :--- | :--- |
@@ -94,37 +72,3 @@ Mercedes verwendet proprietäre Container-Formate, die je nach Fahrzeuggeneratio
 | **Seed/Key-Fehler** | Falscher Generator genutzt oder Session abgelaufen | Seed neu anfordern, modellspezifischen Generator nutzen. |
 | **Falscher Fahrzeugtyp** | VIN nicht korrekt übertragen | VIN 3x überprüfen, Fahrzeugdaten ggf. manuell eingeben. |
 | **Spannungsabfall** | Batterie schwach, instabile Stromversorgung | Batterie muss min. 13,5V haben, externes Ladegerät nutzen. |
-
----
-
-## 6. Sicherheitsaspekte bei ECU-Programmierung
-
-!!! danger "Achtung: Bricking-Gefahr durch ELM327-Clones"
-    Billige ELM327-Adapter sind für Codierung und Flashen **absolut ungeeignet**. Sie weisen oft eine unvollständige Protokoll-Implementierung (fehlende ISO-TP-Flow-Control) und elektrische Instabilitäten auf. 
-    Werden Flash-Routinen unterbrochen (z.B. durch verlorene Frames), bleibt der Bootloader oder Applikationsbereich unvollständig. Resultat: Die ECU ist funktional "gebricked" und erfordert teures Bench-Recovery.
-
----
-
-## 7. Praktische Workflows
-
-### Diagnose mit J2534-Gerät
-1. **Hardware vorbereiten:** OpenPort 2.0 oder VXDIAG mit dem PC verbinden und Treiber installieren.
-2. **Fahrzeug verbinden:** OBD-Adapter in die OBD-II-Buchse des Fahrzeugs stecken.
-3. **Xentry starten:** Passthru-Modus in der Software konfigurieren.
-4. **Fahrzeug identifizieren:** VIN eingeben oder Auto-Scan ausführen.
-5. **Diagnose durchführen:** Fehler lesen, löschen und Messwerte erfassen.
-
-### Codierung mit Vediamo / DTS Monaco
-1. **Datei laden:** Richtige CBF/SMR-D-Datei aus Xentry-Projekten oder Datenbank laden.
-2. **Security-Access:** Seed anfordern :octicons-arrow-right-24: Key-Generator nutzen :octicons-arrow-right-24: Key eingeben.
-3. **Parameter anpassen:** Im Dateimodell die gewünschten Werte ändern.
-4. **Flashen:** Geänderte Datei in die ECU schreiben.
-5. **Test:** Fahrzeug starten und Funktionen überprüfen.
-
----
-
-=== "Anleitung: Einstieg VAG"
-    *(Inhalt für den VAG-Einstieg folgt in Kürze...)*
-
-=== "Anleitung: Einstieg Mercedes"
-    *(Inhalt für den Mercedes-Einstieg folgt in Kürze...)*
