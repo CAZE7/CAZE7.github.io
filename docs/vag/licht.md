@@ -74,7 +74,7 @@ Die Funktionen sind in Paaren organisiert: **AB**, **CD**, **EF**, **GH**. Jedes
 
 * **nicht aktiv** – Nicht eingeschaltet
 * **aktiv 100%** – Dauerhaft eingeschaltet
-* **Standlicht allgemein** – Leuchtet im Gabarieten-Modus
+* **Standlicht allgemein** – Leuchtet im Begrenzungslicht-Modus
 * **Abblendlicht links / rechts** – Leuchtet bei Abblendlicht
 * **Fernlicht links / rechts** – Leuchtet bei Fernlicht
 * **Lichthupe generell** – Leuchtet beim Fernlicht-Blinken

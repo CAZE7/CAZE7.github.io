@@ -22,12 +22,12 @@ function calculateXor() {
   let result = '';
 
   if (input.length !== codeLength) {
-    alert("Die Länge des eingegebenen Wertes muss genau " + codeLength + " Zeichen betragen.\n(Input HEX value must be exactly " + codeLength + " characters long.)");
+    alert("Die Länge des eingegebenen Wertes muss genau " + codeLength + " Zeichen betragen.");
     return;
   }
 
   if (!/^[0-9a-fA-F]+$/.test(input)) {
-    alert("Nur HEX-Zeichen (0-9, A-F) sind erlaubt.\n(Only HEX characters (0-9, A-F) are allowed.)");
+    alert("Nur HEX-Zeichen (0-9, A-F) sind erlaubt.");
     return;
   }
 

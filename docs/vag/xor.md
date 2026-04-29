@@ -27,7 +27,7 @@ Dieser Rechner wird verwendet, um das Firmware-Update eines VW-Infotainmentsyste
     
     <label for="origCode" style="display: block; font-weight: bold; margin-bottom: 0.5rem;">Originaler Code aus VCDS/ODIS:</label>
     <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 2rem;">
-      <input type="text" id="origCode" name="origCode" class="md-input" style="flex: 1; padding: 0.75rem; border-radius: 8px; border: 1px solid rgba(128,128,128,0.3); background: var(--md-default-bg-color--lightest); color: var(--md-default-fg-color); font-family: var(--md-code-font);" placeholder="Gieb den HEX Code ein...">
+      <input type="text" id="origCode" name="origCode" class="md-input" style="flex: 1; padding: 0.75rem; border-radius: 8px; border: 1px solid rgba(128,128,128,0.3); background: var(--md-default-bg-color--lightest); color: var(--md-default-fg-color); font-family: var(--md-code-font);" placeholder="Gib den HEX Code ein...">
       <button class="md-button md-button--primary" type="button" onClick="calculateXor()" style="margin: 0;">Generieren</button>
       <button class="md-button" type="button" onClick="clearAll()" style="margin: 0;">Löschen</button>
     </div>
