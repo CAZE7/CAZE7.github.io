@@ -24,10 +24,6 @@ theme:
 plugins:
   - search # Aktiviert die Suchleiste
 
-# --- Zusätzliche Header (SEO Warnungen beheben) ---
-extra_head:
-  # Behebt die SEO-Warnung für das fehlende iPhone-Icon
-  - '<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">'
 
 # --- Navigation ---
 nav:
