@@ -97,6 +97,9 @@ nav:
     - 🔌 Hardware & Adapter: vag/hardware.md
     - 💻 Software & Sicherheit: vag/software.md
     - 🛠️ Praxis-Codierungen: vag/anleitungen.md
+    - 🛠️ Tools:
+      - FEC Generator: vag/fec.md
+      - XOR Calculator: vag/xor.md
   - ❓ FAQ & Hilfe: faq.md
   - ⚖️ Haftungsausschluss: haftungsausschluss.md
 
