@@ -1,29 +1,52 @@
 /* ==========================================================================
-   ULTRA MODERN & PREMIUM DESIGN
+   ULTRA MODERN & PREMIUM DESIGN – Dark + Light Mode Support
    ========================================================================== */
 
-:root {
-  --md-primary-fg-color: #4f46e5; /* Modern Indigo */
+/* --- Base Color Tokens --- */
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: #4f46e5;
   --md-primary-fg-color--light: #818cf8;
   --md-primary-fg-color--dark: #3730a3;
-  --md-accent-fg-color: #f43f5e; /* Rose Accent */
-  --md-border-radius: 12px;
+  --md-accent-fg-color: #f43f5e;
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --card-border: rgba(0, 0, 0, 0.08);
+  --card-hover-shadow: rgba(79, 70, 229, 0.15);
+  --finder-bg: #f8f9fc;
+  --finder-border: rgba(79, 70, 229, 0.15);
+  --code-border: rgba(0, 0, 0, 0.08);
+  --header-border: rgba(0, 0, 0, 0.06);
+  --admonition-border-side: rgba(0, 0, 0, 0.04);
 }
 
-/* 1. Typografie & Layout */
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #818cf8;
+  --md-primary-fg-color--light: #a5b4fc;
+  --md-primary-fg-color--dark: #6366f1;
+  --md-accent-fg-color: #fb7185;
+  --card-bg: rgba(30, 33, 41, 0.75);
+  --card-border: rgba(255, 255, 255, 0.06);
+  --card-hover-shadow: rgba(129, 140, 248, 0.2);
+  --finder-bg: rgba(30, 33, 41, 0.6);
+  --finder-border: rgba(129, 140, 248, 0.2);
+  --code-border: rgba(255, 255, 255, 0.06);
+  --header-border: rgba(255, 255, 255, 0.04);
+  --admonition-border-side: rgba(255, 255, 255, 0.04);
+}
+
+/* --- 1. Typografie & Layout --- */
 .md-typeset {
   font-size: 0.85rem;
   line-height: 1.75;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Gradients für Überschriften */
 .md-typeset h1 {
   font-size: 2.5rem;
   font-weight: 800;
   background: linear-gradient(90deg, var(--md-primary-fg-color), var(--md-accent-fg-color));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin-bottom: 2rem;
   letter-spacing: -0.02em;
 }
@@ -46,38 +69,33 @@
   border-radius: 4px;
 }
 
-/* 2. Glassmorphism & Karten */
+/* --- 2. Glassmorphism Karten --- */
 .md-typeset .grid.cards > ul > li {
-  border: 1px solid rgba(0, 0, 0, 0.05) !important;
-  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--card-border) !important;
+  background: var(--card-bg);
   backdrop-filter: blur(10px);
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
 }
 
-[data-md-color-scheme="slate"] .md-typeset .grid.cards > ul > li {
-  background: rgba(30, 33, 41, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.05) !important;
-}
-
 .md-typeset .grid.cards > ul > li:hover {
   transform: translateY(-8px) scale(1.02) !important;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 20px 40px var(--card-hover-shadow) !important;
   border-color: var(--md-primary-fg-color) !important;
 }
 
-/* 3. Lese-Fortschrittsbalken (Top) */
+/* --- 3. Header --- */
 .md-header {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid var(--header-border);
 }
 
-/* 4. Admonitions (Info-Boxen) Aufwertung */
+/* --- 4. Admonitions (Info-Boxen) --- */
 .md-typeset .admonition {
   border-left-width: 6px;
   border-radius: 12px;
   padding: 1rem 1.2rem;
-  border-right: 1px solid rgba(0,0,0,0.03);
-  border-top: 1px solid rgba(0,0,0,0.03);
-  border-bottom: 1px solid rgba(0,0,0,0.03);
+  border-right: 1px solid var(--admonition-border-side);
+  border-top: 1px solid var(--admonition-border-side);
+  border-bottom: 1px solid var(--admonition-border-side);
 }
 
 .md-typeset .admonition-title {
@@ -86,7 +104,7 @@
   padding-left: 0 !important;
 }
 
-/* 5. Navigation Styling */
+/* --- 5. Navigation --- */
 .md-nav__link--active {
   color: var(--md-primary-fg-color) !important;
   font-weight: 700 !important;
@@ -96,19 +114,28 @@
   transition: all 0.2s ease;
 }
 
-/* 6. Buttons */
+/* --- 6. Buttons (sichtbar in Light & Dark) --- */
 .md-button--primary {
   background-color: var(--md-primary-fg-color) !important;
   border-color: var(--md-primary-fg-color) !important;
-  box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.39);
+  color: #fff !important;
+  box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.3);
+  transition: all 0.3s ease;
 }
 
 .md-button--primary:hover {
   background-color: var(--md-primary-fg-color--dark) !important;
+  border-color: var(--md-primary-fg-color--dark) !important;
   transform: translateY(-1px);
+  box-shadow: 0 6px 20px 0 rgba(79, 70, 229, 0.4);
 }
 
-/* 7. Tags Styling */
+.md-button:not(.md-button--primary) {
+  color: var(--md-primary-fg-color) !important;
+  border-color: var(--md-primary-fg-color) !important;
+}
+
+/* --- 7. Tags --- */
 .md-tag {
   background-color: var(--md-primary-fg-color--light);
   color: white !important;
@@ -120,13 +147,13 @@
   letter-spacing: 0.05em;
 }
 
-/* 8. Code-Blöcke */
+/* --- 8. Code-Blöcke --- */
 .md-typeset pre > code {
   box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
-  border: 1px solid rgba(0,0,0,0.05);
+  border: 1px solid var(--code-border);
 }
 
-/* 9. Footer Aufwertung */
+/* --- 9. Footer --- */
 .md-footer {
   margin-top: 5rem;
   padding-top: 2rem;
@@ -134,8 +161,54 @@
   border-top: 1px solid var(--md-default-fg-color--lightest);
 }
 
-/* 10. Suche Optik */
+/* --- 10. Suche --- */
 .md-search__form {
   border-radius: 20px !important;
   background-color: var(--md-default-bg-color--lightest) !important;
+}
+
+/* ==========================================================================
+   11. OBD TOOL FINDER – Sichtbar in Light & Dark Mode
+   ========================================================================== */
+#obd-finder-app {
+  background: var(--finder-bg);
+  border: 1px solid var(--finder-border);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-top: 1rem;
+}
+
+.finder-step {
+  padding: 10px 0;
+}
+
+.finder-step p strong {
+  color: var(--md-default-fg-color) !important;
+  font-size: 1.05em;
+}
+
+.finder-step button {
+  margin-bottom: 12px;
+  width: 100%;
+  display: block;
+  text-align: left;
+  padding: 12px 1.5rem;
+  border-radius: 10px !important;
+  font-weight: 600;
+}
+
+#result {
+  border-top: 2px solid var(--md-primary-fg-color);
+  padding-top: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+#tool-name {
+  color: var(--md-primary-fg-color) !important;
+  margin-top: 5px;
+}
+
+#tool-desc {
+  color: var(--md-default-fg-color) !important;
+  line-height: 1.6;
 }

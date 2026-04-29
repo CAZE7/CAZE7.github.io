@@ -78,9 +78,9 @@ Du bist dir unsicher, welche Hard- oder Software du für dein Projekt benötigst
     <button class="md-button md-button--primary" onclick="setDevice('Laptop')">Windows Laptop</button>
   </div>
   <div id="result" class="finder-step" style="display:none;">
-    <p style="color: var(--md-default-fg-color--light); font-size: 0.8em; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0;">Deine Experten-Empfehlung</p>
-    <h3 id="tool-name" style="margin-top: 5px; color: var(--md-primary-fg-color);"></h3>
-    <p id="tool-desc" style="line-height: 1.6;"></p>
+    <p style="font-size: 0.8em; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0; opacity: 0.6;">Deine Experten-Empfehlung</p>
+    <h3 id="tool-name"></h3>
+    <p id="tool-desc"></p>
     <button class="md-button" onclick="resetFinder()" style="margin-top: 1rem;">Neu starten</button>
   </div>
 </div>
@@ -129,7 +129,6 @@ function calculateResult() {
       }
     }
   } else {
-    // Mercedes Logic
     if (answers.device === 'Smartphone') { 
       tool = "Warnung"; 
       desc = "Für Mercedes raten wir von Smartphone-Codierungen (wie Carly) dringend ab, da die Gefahr von EZS-Schäden extrem hoch ist. Nutze einen Laptop!"; 
@@ -155,16 +154,3 @@ function resetFinder() {
   document.getElementById('step1').style.display = 'block'; 
 }
 </script>
-
-<style>
-.finder-step button { 
-  margin-bottom: 12px; 
-  width: 100%; 
-  display: block; 
-  text-align: left; 
-  padding: 10px 1.5rem; 
-}
-.finder-step { 
-  padding: 10px 0; 
-}
-</style>
