@@ -1,24 +1,26 @@
 let decodeString = "c9d2";
 let codeLength = 4;
 
+let origCodeInput, calcCodeInput, copyBtn;
+
 document.addEventListener("DOMContentLoaded", function() {
+  origCodeInput = document.getElementById("origCode");
+  calcCodeInput = document.getElementById("calcCode");
+  copyBtn = document.getElementById("copyBtn");
+
   const urlParams = new URLSearchParams(window.location.search);
   const codeParam = urlParams.get('code');
 
-  if (codeParam) {
-    const origCodeInput = document.getElementById("origCode");
-    if(origCodeInput) {
-        origCodeInput.value = codeParam;
-        calculateXor();
-    }
+  if (codeParam && origCodeInput) {
+    origCodeInput.value = codeParam;
+    calculateXor();
   }
 });
 
 function calculateXor() {
-  let inputElement = document.getElementById("origCode");
-  if(!inputElement) return;
+  if(!origCodeInput || !calcCodeInput) return;
   
-  let input = inputElement.value.trim();
+  let input = origCodeInput.value.trim();
   let result = '';
 
   if (input.length !== codeLength) {
@@ -38,17 +40,29 @@ function calculateXor() {
     result += temp;
   }
 
-  document.getElementById("calcCode").value = result;
-  const copyBtn = document.getElementById("copyBtn");
+  calcCodeInput.value = result;
   if(copyBtn) copyBtn.style.display = "block";
 }
 
 function clearAll() {
-  document.getElementById("origCode").value = "";
-  document.getElementById("calcCode").value = "";
-  const copyBtn = document.getElementById("copyBtn");
+  if(origCodeInput) origCodeInput.value = "";
+  if(calcCodeInput) calcCodeInput.value = "";
   if(copyBtn) copyBtn.style.display = "none";
+}
+
+function copyResult() {
+  if (!calcCodeInput || !copyBtn) return;
+
+  const textToCopy = calcCodeInput.value;
+  navigator.clipboard.writeText(textToCopy).then(() => {
+    const originalText = copyBtn.innerText;
+    copyBtn.innerText = "Kopiert!";
+    setTimeout(() => { copyBtn.innerText = originalText; }, 2000);
+  }).catch(err => {
+    console.error('Failed to copy: ', err);
+  });
 }
 
 window.calculateXor = calculateXor;
 window.clearAll = clearAll;
+window.copyResult = copyResult;
