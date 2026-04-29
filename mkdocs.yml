@@ -97,6 +97,13 @@ nav:
     - 🔌 Hardware & Adapter: vag/hardware.md
     - 💻 Software & Sicherheit: vag/software.md
     - 🛠️ Praxis-Codierungen: vag/anleitungen.md
+    - 📊 MQB Codierungen:
+      - Kombiinstrument / AID: vag/kombiinstrument.md
+      - Infotainment & Head-Unit: vag/infotainment.md
+      - Licht-Codierung: vag/licht.md
+      - Klima & Komfort: vag/klima.md
+      - Sicherheit & Zentralverriegelung: vag/sicherheit.md
+      - Fahrwerk & Antrieb: vag/fahrwerk.md
     - 🛠️ Tools:
       - FEC Generator: vag/fec.md
       - XOR Calculator: vag/xor.md
