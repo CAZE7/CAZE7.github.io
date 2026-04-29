@@ -321,7 +321,222 @@ Klonen einer XENTRY-Festplatte ist technisch möglich, führt aber häufig zu Ak
 | **CBF** | Controller Flash File; Flash-Datei für Steuergeräte |
 | **SMRD** | Service Measure Recall Data; Projektdateien für DTS Monaco |
 | **SeedKey** | Sicherheitsmechanismus zur Freischaltung von Steuergeräten |
+## 14. DTS Monaco – Engineering-Level Codierung & Flashing
 
+### Was ist DTS Monaco?
+DTS Monaco ist das Engineering‑Diagnosetool von Mercedes‑Benz, das tieferen Zugriff auf Steuergeräte bietet als XENTRY oder Vediamo. Es arbeitet projektbasiert mit **CBF‑Dateien** (Einzel‑Steuergeräte‑Beschreibungen) und **SMR‑D‑Dateien** (Fahrzeug‑Projektdateien).
+
+| Funktion | DTS Monaco | Vediamo | XENTRY |
+| :--- | :--- | :--- | :--- |
+| Schnelle ECU‑Codierung aller Steuergeräte | ✅ Ja | ❌ Nein | Teilweise |
+| ECU‑Software‑Backup/‑Restore | ✅ Ja | ✅ Ja | ❌ Nein |
+| ECU‑Flashing (Firmware‑Update) | ✅ Ja | Teilweise | Nur SDFlash |
+| Alle Fehlercodes schnell lesen/löschen | ✅ Ja | ❌ Nein | ✅ Ja |
+| ECU‑Daten‑Switch (Ersatzgerät programmieren) | ✅ Ja | ❌ Nein | ❌ Nein |
+| SeedKey‑Sicherheitsfreischaltung | ✅ Ja | ✅ Ja | ❌ Nein |
+| Variantencodierung | ✅ Ja | ✅ Ja | ✅ Ja |
+| Projektbasiertes Arbeiten | ✅ Ja | ❌ Nein | ❌ Nein |
+
+**Kernunterschied:** Vediamo ist dateibasiert (CBF einzeln laden), während DTS Monaco ein komplettes Fahrzeugprojekt mit allen Steuergeräten, CBF‑ und SMR‑D‑Dateien zusammenfasst.
+
+### Systemanforderungen & Installation
+#### 2.1 Hardware‑Voraussetzungen
+| Komponente | Minimum | Empfohlen | Hinweis |
+| :--- | :--- | :--- | :--- |
+| Betriebssystem | Windows 10 Pro 64‑Bit | Windows 10/11 Pro, frische Installation | Home‑Edition kann Netzwerk‑Probleme verursachen |
+| RAM | 8 GB | 16 GB | SMR‑D‑Datenbanken können groß werden |
+| Festplatte | 100 GB SSD | 256 GB SSD | Projekte + SMR‑D + CBF + Flash‑Container |
+| Interface | J2534 (OpenPort 2.0) | SD Connect C4/C6, VXDIAG VCX SE | Version 9.02 arbeitet mit Passthrough‑Devices problematisch |
+| Stromversorgung | 30 A Battery‑Stabilizer | 50‑70 A Diagnose‑Stabilizer | Essenziell für Flashing |
+
+!!! warning "DTS Monaco 9.02 + Passthrough = Probleme"
+In der Community mehrfach bestätigt: DTS Monaco 9.02 funktioniert nicht zuverlässig mit J2534‑Passthrough‑Devices wie OpenPort 2.0. Das Tool erkennt das Interface, bricht bei längeren Kommunikationen aber ab oder friert ein.
+
+**Lösungsweg:**
+* Für OpenPort 2.0: DTS Monaco 8.14 oder 8.16 verwenden – diese Versionen sind mit J2534 stabil.
+* Für DoIP‑Fahrzeuge (W206, W223): VXDIAG VCX SE oder SD Connect C6 verwenden.
+* Monaco 9.02 nur mit originalen oder hochwertigen C6‑Clones und LAN‑Verbindung nutzen.
+
+#### 2.2 Installation über Samik FullFix
+Der Samik FullFix ist ein community‑validiertes All‑in‑One‑Installationspaket, das folgende Komponenten enthält:
+* DTS Monaco Basisinstallation (Versionen 8.14, 8.16, 9.02)
+* Caesar‑Treiber in korrekter Version
+* CBF‑Datenbank
+* SMR‑D‑Datenbank
+* Activation/Patch
+* Hilfstools (SeedKey‑Generator, VCI‑Config‑Tools)
+
+!!! info "Samik FullFix Installationsablauf (Community‑Validiert)"
+1. Frische Windows‑Installation mit allen Updates, .NET Framework 3.5/4.8.
+2. Visual C++ Redistributables (2005–2022) installieren.
+3. Java Runtime (JRE 8, ggf. JDK).
+4. Samik FullFix als Administrator ausführen – Auswahlmenü für gewünschte DTS‑Version.
+5. Base‑Installation abwarten → Neustart.
+6. Samik FullFix erneut starten → Caesar‑Treiber installieren.
+7. Activation/Patch über Samik FullFix anwenden (Admin).
+8. Neustart → SMR‑D und CBF aus dem Paket in die entsprechenden Verzeichnisse entpacken.
+9. Test‑Projekt erstellen und Verbindung prüfen.
+
+!!! warning "Antivirus & Windows Defender deaktivieren"
+Der Samik FullFix und die enthaltenen Patch‑Dateien werden von Antivirenprogrammen häufig als Bedrohung erkannt. Deaktiviere vor der Installation Windows Defender (Tamper‑Protection) und pausiere Dritt‑AV. Setze danach Ausnahmen für `C:\Program Files (x86)\Mercedes-Benz\`.
+
+!!! warning "CBF‑Version vs. DTS‑Version: Fataler Mismatch"
+Eine CBF‑Datei aus einer neueren XENTRY‑Version kann mit einer älteren DTS Monaco‑Version nicht verarbeitet werden (Fehler „Cannot work CBF file“). Verwende stets das CBF‑Set, das zum installierten DTS‑Monaco‑Version‑Paket gehört.
+
+### Projektsystem verstehen
+#### 3.1 Was ist ein DTS Monaco‑Projekt?
+Ein Projekt fasst zusammen:
+* **SMR‑D‑Datei** – Fahrzeug‑Gesamtstruktur (Steuergeräte‑Liste, Bus‑Topologie, Adressen).
+* **CBF‑Dateien** – Einzel‑Steuergeräte‑Beschreibungen.
+* **Variantencodier‑Werte** – Werkscodierung des Fahrzeugs.
+* **Flash‑Container** – Firmware‑Updates.
+
+**SMR‑D vs. CBF:** SMR‑D beschreibt das gesamte Fahrzeug, CBF beschreibt ein einzelnes Steuergerät. Beide sind zwingend nötig.
+
+#### 3.2 Projekt erstellen – Schritt für Schritt
+1. **System Configuration → Add → J2534 Device** (oder SD‑Connect).
+2. **Create Project** wählen.
+3. Fahrzeugidentifikation eingeben (VIN oder Baureihe).
+4. SMR‑D‑Datei laden (Datenbank oder eigenes Projekt).
+5. CBF‑Dateien zuordnen (automatisch oder manuell).
+6. Projekt speichern.
+
+!!! warning "Projekt ohne SMR‑D = unbrauchbar"
+Ohne gültige SMR‑D kann kein Steuergerät korrekt adressiert werden. Immer zuerst ein vollständiges Fahrzeugprojekt anlegen.
+
+### Codierung mit DTS Monaco
+#### 4.1 Variantencodierung
+1. Projekt laden → Ziel‑Steuergerät auswählen.
+2. **Variant Coding** öffnen.
+3. Werte ändern (Dropdown oder Hex).
+4. **Write coding to ECU**.
+5. Ignition OFF/ON (je nach Steuergerät).
+
+!!! warning "Vor dem Schreiben immer zuerst lesen"
+Zuerst **Read coding from ECU** und sichern, dann ändern und schreiben – so hast du ein Backup der Original‑Codierung.
+
+#### 4.2 SeedKey‑Freischaltung
+| Level | Bedeutung |
+| :--- | :--- |
+| 1 | Grundlegende Diagnose |
+| 3 | Erweiterte Diagnose, Fehlerspeicher löschen |
+| 5 | Variantencodierung |
+| 9/10 | ECU‑Flashing, Security‑Functions |
+| 11+ | Engineering‑Funktionen, Immobilizer |
+
+!!! warning "Falsches SeedKey‑Level = Sperre oder Brick"
+Mehrfache falsche Versuche können das Steuergerät sperren. Beginne immer mit dem niedrigstmöglichen Level.
+
+### ECU‑Flashing
+#### 5.1 Voraussetzungen für sicheres Flashing
+| Voraussetzung | Warum wichtig |
+| :--- | :--- |
+| Battery‑Stabilizer 50‑70 A | Verhindert Spannungseinbruch → Brick |
+| Stabile Interface‑Verbindung | Keine Kommunikationsabbrüche |
+| Korrekte Flash‑Datei (CFF/FRF) | Firmware‑Kompatibilität |
+| Steuergeräte‑Hardware‑Nummer prüfen | Verhindert Inkompatibilität |
+| Backup vorhanden | EEPROM‑Backup ermöglicht Wiederherstellung |
+
+#### 5.2 Flashing‑Ablauf
+1. Projekt laden → Ziel‑ECU auswählen.
+2. **ECU Programming** öffnen.
+3. Flash‑Container (CFF/FRF) laden.
+4. HW‑Nummern vergleichen.
+5. SeedKey Level 9/10 freischalten.
+6. **Start Programming** – NICHT unterbrechen.
+7. Warten bis 100 % → Ignition OFF/ON.
+8. Ergebnis verifizieren (Fehlercodes, Funktionstest).
+
+!!! info "Flash‑Container richtig wählen"
+DTS Monaco verwendet CFF‑ oder FRF‑Dateien, die exakt zur Ziel‑ECU‑Hardware passen müssen.
+
+#### 5.3 ECU‑Kloning
+DTS Monaco kann ein vollständiges EEPROM‑Backup eines funktionierenden Steuergeräts erstellen und auf ein Zielgerät schreiben. **Risiko:** HW‑Revisionen müssen exakt übereinstimmen – abweichende HW‑Rev. kann Fehlfunktion verursachen.
+
+### Interface‑Konfiguration
+#### 6.1 J2534‑Adapter einbinden
+System Configuration → Add → J2534 Device → Gerät auswählen (OpenPort 2.0 / VXDIAG) → Verbindungstest → als "Virtual Diagnostic System" im Projekt hinterlegen.
+
+!!! warning "Caesar‑Treiber‑Version für Monaco"
+DTS Monaco benötigt spezifische Caesar‑Treiber. Verwende die vom Samik FullFix bereitgestellte Version. Bei manueller Installation kann ein Switching‑Tool nötig sein, um zwischen XENTRY‑ und Monaco‑Treibern zu wechseln.
+
+#### 6.2 SD Connect C4/C6 einbinden
+System Configuration → Add → SD‑Connect → IP‑Adresse eingeben → "Remote SD‑Connect" wählen (LAN/WLAN) → MUX‑Test durchführen.
+
+!!! info "LAN vs. WLAN vs. USB"
+* **LAN‑Kabel:** Höchste Stabilität – empfohlen für Flashing/umfangreiche Codierungen.
+* **WLAN:** Mittel – für kurze Diagnosen, Quick‑Test.
+* **USB (nur C6):** Hoch – wenn LAN nicht verfügbar.
+
+### Bekannte Fehler & Lösungswege
+| Symptom | Ursache | Lösung |
+| :--- | :--- | :--- |
+| "Cannot work CBF file" | CBF‑Datei neuer als DTS‑Version | Passende (ältere) CBF‑Version verwenden – Samik‑FullFix liefert kompatible Sätze |
+| "No communication with ECU" | Falscher Bus/Adresse, Interface‑Problem, ECU im Schlafmodus | Bus‑Konfiguration in SMR‑D prüfen, Ignition ON, Interface‑Test durchführen |
+| "SeedKey incorrect / Security access denied" | Falscher SeedKey, falsches Level, ECU gesperrt | SeedKey neu berechnen, niedrigstes mögliches Level nutzen |
+| Projekt lädt extrem langsam | Große/fragmentierte Datenbank, langsame Festplatte | Nicht benötigte SMR‑D/CBF‑Dateien entfernen, SSD verwenden |
+
+### Best Practices aus der Community
+#### 7.1 Vor jeder Session
+* Projekt‑Backup erstellen (komplettes Projektverzeichnis).
+* Fahrzeug‑Spannung prüfen (>12.5 V, ideal mit Stabilizer).
+* Interface‑Verbindung testen (Quick‑Test).
+* SMR‑D/CBF‑Kompatibilität verifizieren.
+
+#### 7.2 Während der Session
+* Nur ein Tool gleichzeitig – XENTRY und Monaco nicht parallel auf dasselbe Fahrzeug.
+* Keine Unterbrechungen – Kein Ignition‑OFF, kein Kabelziehen während Flashing.
+* Änderungen dokumentieren – Jede Änderung notieren (vorher/nachher).
+
+#### 7.3 Nach der Session
+* Fehlercodes auslesen – Alle Steuergeräte prüfen.
+* Funktionstest durchführen – Geänderte Funktionen verifizieren.
+* Projekt aufräumen – Temporäre Dateien, Logs kontrollieren.
+
+---
+
+## 15. Beschaffung von SMR‑D‑ und Flash‑Dateien (Mercedes‑only)
+
+**Zielgruppe:** Techniker, Codierer, Enthusiasten mit DTS Monaco / Vediamo / XENTRY
+
+### 15.1 SMR‑D – Projektbasierte Fahrzeugdatei
+SMR‑D (Steuergerät‑Motor‑Reparatur‑Daten) ist das aktuelle, projektbasierte Format, das CBF in neueren Fahrzeugen ablöst. Es enthält die komplette Steuergeräte‑Topologie, Bus‑Adressierung und Variantencodierungen.
+
+| Merkmal | Beschreibung |
+|--------|--------------|
+| **Verwendung** | DTS Monaco, XENTRY |
+| **Inhalt** | Fahrzeugprojekt mit allen ECUs, Adressen, Varianten |
+| **Format** | Container‑Datei (mehrere ECUs) |
+| **Standard‑Pfad (XENTRY)** | `C:\Program Files (x86)\Mercedes-Benz\Xentry\Kontexte\ODXProjekte\PKW_COMMON\dbr` |
+
+> **Hinweis:** Die SMR‑D‑Version muss exakt zur DTS‑/Vediamo‑Version passen. Eine neuere CBF‑Datei kann in älteren DTS‑Versionen zu "Cannot work CBF file" führen.
+
+#### Beschaffungsquellen
+1. **Eigene XENTRY‑Installation** – legal, kostenlos, immer kompatibel zum installierten XENTRY‑Release.
+2. **Community‑Sammlungen (Full‑Sets)** – diverse Baureihen, jedoch vor Nutzung Prüfsummen prüfen.
+3. **Fachhandel & Dienstleister** – kostenpflichtig, rechtlich riskant – bitte nur für privaten Gebrauch.
+4. **Online‑Tools (MBTools ECU Finder, BinUnlock)** – schnelle Identifikation der benötigten SMR‑D‑Datei.
+
+### 15.2 Flash‑Dateien (CFF / FRF)
+CFF (Compact Flash File) und FRF (Flash Resource File) enthalten die eigentliche Firmware und Kalibrierungsdaten.
+
+| Merkmal | CFF | FRF |
+|--------|-----|-----|
+| **Verwendung** | DTS Monaco, Vediamo | Spezial‑Tools (ODIS Engineering) |
+| **Standard‑Pfad (XENTRY SDFlash)** | `C:\Program Files (x86)\Mercedes-Benz\SDFlash\Release\PKW` |
+
+> **Warnung:** Die Flash‑Datei muss exakt zur **Hardware‑Nummer (A‑Nummer)** des Ziel‑ECU passen. Falsche Dateien können das Steuergerät irreversibel beschädigen.
+
+#### Beschaffungsquellen
+* **Offizielle XENTRY SDFlash‑Datenbank** – sicher, getestet, aber nur bis zum XENTRY‑Release‑Datum.
+* **Shops & Community‑Quellen** – günstiger, jedoch mögliche Modifikationen und rechtliche Grauzone.
+* **Donor‑ECU auslesen** – sicherste Methode – identische ECU (gleiche A‑Nummer) aus einem funktionierenden Fahrzeug auslesen.
+
+---
+
+*Quellen: AutoGMT, MHHAuto, Digital Eliteboard, Smartland, MBTools, Motorcarsoft, BinUnlock, CarTechnology, OBDII365‑Blog, Facebook‑Gruppen*
+
+*Diese Dokumentation basiert auf gesammelten Community‑Erfahrungen und dient als Wissensbasis. Für sicherheitsrelevante Codierungen wird die Konsultation eines Fachbetriebs empfohlen*
 *Quellen: Smartland Forum, MHHAuto, Digital Eliteboard, AutoGMT, CarTechnology, MBWorld, Reddit r/CarHacking, OBDII365-Blog, VXDIAG-Shop-Blog, Sterndiagnose.ch*
 
 *Diese Dokumentation basiert auf gesammelten Community-Erfahrungen und dient als Wissensbasis. Für sicherheitsrelevante Codierungen wird die Konsultation eines Fachbetriebs empfohlen*
