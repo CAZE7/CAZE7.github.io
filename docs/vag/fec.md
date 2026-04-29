@@ -1,6 +1,9 @@
 ---
 hide:
   - toc
+title: VAG FEC Generator | Freischaltcodes für MIB1 / MIB2 / MIB3
+description: VAG FEC (Function Enabling Code) Generator für Infotainment-Systeme (MIB). Schalte Funktionen wie CarPlay, Android Auto oder Navigation frei.
+keywords: VAG, FEC, Generator, MIB, Infotainment, CarPlay, Android Auto, Navigation, Freischaltcode, VCDS
 ---
 # MIB FEC/SWaP Code Generator
 

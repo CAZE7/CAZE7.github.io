@@ -1,3 +1,8 @@
+---
+title: VAG Praxis-Codierungen, Retrofits & VCP Workflows
+description: Praxisnahe Anleitungen für beliebte Codierungen und Retrofits im VAG-Konzern, inklusive VCP-Workflow zum Flashen von ZDC-Datensätzen.
+keywords: VAG, Codierung, Retrofit, VCP, ZDC, Flashen, VCDS, Anleitung, Workflow
+---
 # Praxis-Codierungen & Workflows (VAG)
 
 Dieses Dokument bietet praxisnahe Anleitungen für beliebte Codierungen und Retrofits im VAG-Konzern. Wir behandeln typische Anpassungen und den professionellen VCP-Workflow zum Flashen von Datensätzen.

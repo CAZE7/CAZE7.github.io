@@ -1,3 +1,8 @@
+---
+title: Häufig gestellte Fragen (FAQ) – OBD & Fahrzeug-Diagnose
+description: Häufig gestellte Fragen (FAQ) rund um Fahrzeug-Diagnose, Codierung und Flashen für VAG (VW, Audi, Seat, Skoda) und Mercedes-Benz.
+keywords: FAQ, OBD, Diagnose, Codierung, Flashen, VAG, Mercedes, VCDS, Xentry, Fragen
+---
 # Häufig gestellte Fragen (FAQ)
 
 Willkommen im FAQ-Bereich! Hier beantworten wir die häufigsten Fragen rund um Fahrzeug-Diagnose, Codierung und Flashen für VAG (VW, Audi, Seat, Skoda) und Mercedes-Benz.

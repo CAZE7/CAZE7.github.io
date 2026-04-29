@@ -1,3 +1,8 @@
+---
+title: VAG Infotainment & Head-Unit Codierung (MQB) | Discover Media/Pro
+description: Codierungen und Anpassungen für das VAG Infotainment-System (Steuergerät 5F) auf der MQB-Plattform. Discover Media, Discover Pro, Composition Media.
+keywords: VAG, MQB, Infotainment, Steuergerät 5F, Discover Media, Discover Pro, Composition Media, Codierung, VIM, Entwicklermenü
+---
 # Infotainment & Head-Unit (MQB)
 
 Codierungen und Anpassungen für das Infotainment-System (Steuergerät 5F) auf der MQB-Plattform. Betrifft Discover Media, Discover Pro, Composition Media und kompatible Geräte.

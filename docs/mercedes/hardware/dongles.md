@@ -1,3 +1,8 @@
+---
+title: Mercedes Passthrough Dongles | Tactrix OpenPort, VXDIAG VCX SE
+description: Budget-Lösungen für Mercedes-Benz Diagnose: Passthrough-Geräte (J2534) wie Tactrix OpenPort und VXDIAG VCX SE für XENTRY PassThru.
+keywords: Mercedes, Passthrough, J2534, Dongle, Tactrix OpenPort, VXDIAG VCX SE, XENTRY PassThru, Diagnose
+---
 # Passthrough Dongles (Budget & Einstieg)
 
 Für Privatanwender, Enthusiasten und Codierer, die keine teuren Werkstatt-Multiplexer kaufen wollen, haben sich **J2534-Passthru-Geräte** als kosteneffizientester Standard etabliert. 

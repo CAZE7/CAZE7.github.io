@@ -1,3 +1,8 @@
+---
+title: VAG Klima & Komfort Codierung (MQB) | Steuergerät 08 & 09
+description: Codierungen und Anpassungen für Klimaanlage, Heizung und Komfortfunktionen auf der VAG MQB-Plattform. Sitzheizung, Gebläsestufe, Klimaprofile.
+keywords: VAG, MQB, Klima, Komfort, Steuergerät 08, Steuergerät 09, Sitzheizung, Gebläsestufe, Klimaanlage, Codierung
+---
 # Klima & Komfort (MQB)
 
 Codierungen und Anpassungen für die Klimaanlage, Heizung und Komfortfunktionen auf der MQB-Plattform. Die meisten Anpassungen betreffen Steuergerät 08 (Klimaanlage) und Steuergerät 09 (BCM).

@@ -1,3 +1,8 @@
+---
+title: VAG Sicherheit & Zentralverriegelung Codierung (MQB)
+description: Codierungen für Zentralverriegelung, Alarmanlage und KESSY auf der VAG MQB-Plattform. Quittierungston, Auto-Lock, Spiegelanklappen.
+keywords: VAG, MQB, Sicherheit, Zentralverriegelung, KESSY, Steuergerät 09, BCM, Quittierungston, DWA, Auto-Lock
+---
 # Sicherheit & Zentralverriegelung (MQB)
 
 Codierungen und Anpassungen für die Zentralverriegelung, Alarmanlage und Zugangskontrolle auf der MQB-Plattform. Betrifft Steuergerät 09 (BCM) und Steuergerät B7 (Zugangsberechtigung / KESSY).

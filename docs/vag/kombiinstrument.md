@@ -1,3 +1,8 @@
+---
+title: VAG Kombiinstrument & Active Info Display Codierung (MQB)
+description: Codierungen und Anpassungen für die Instrumententafel (Steuergerät 17) auf der MQB-Plattform. Zeigertest, Gurtwarner, Nachtankmenge.
+keywords: VAG, MQB, Kombiinstrument, Active Info Display, Steuergerät 17, Zeigertest, Gurtwarner, Laptimer, Codierung
+---
 # Kombiinstrument / Active Info Display (MQB)
 
 Codierungen und Anpassungen für die Instrumententafel (Steuergerät 17) auf der MQB-Plattform. Die meisten Anpassungen funktionieren sowohl mit analogen als auch mit digitalen Kombiinstrumenten (Active Info Display).

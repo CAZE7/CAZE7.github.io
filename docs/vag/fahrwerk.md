@@ -1,3 +1,8 @@
+---
+title: VAG Fahrwerk & Antrieb Codierung (MQB) | Lenkung, Bremsen, DSG
+description: Anleitungen zur Codierung von Lenkung, Bremsen, DSG-Getriebe und Fahrassistenten auf der VAG MQB-Plattform.
+keywords: VAG, MQB, Fahrwerk, Antrieb, Lenkung, Bremsen, DSG, XDS, Berganfahrassistent, Codierung
+---
 # Fahrwerk & Antrieb (MQB)
 
 Codierungen und Anpassungen für Lenkung, Bremsen, DSG-Getriebe und Fahrassistenten auf der MQB-Plattform.
