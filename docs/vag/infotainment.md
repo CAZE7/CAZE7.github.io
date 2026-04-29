@@ -61,14 +61,14 @@ telephone2_BAP: no → yes
 
 Entfernt den AM/FM-Umschalter in der Radio-Oberfläche. An seiner Stelle erscheint ein Button zur manuellen Frequenzeingabe.
 
-=== ":material-laptop: ODIS"
+!!! abstract ":material-laptop: ODIS"
     ``` yaml title="Login: 20103"
     Steuergerät 5F → Codierung:
     byte_14_AM_disable: Aktivieren
     → Übernehmen (mit Neustart des Steuergeräts)
     ```
 
-=== ":material-cable-data: VCDS"
+!!! example ":material-cable-data: VCDS"
     ``` yaml title="Login: 20103"
     5F – MMI / RNS
     Codierung - 07 → Lange Codierung:
@@ -109,14 +109,14 @@ Startup_screen_sticker_hmi (Standard: 0000) → ändern auf:
 
 ## Menü-Layout: Kachelansicht statt Karussell
 
-=== ":material-laptop: ODIS"
+!!! abstract ":material-laptop: ODIS"
     ``` yaml
     Steuergerät 5F → Codierung:
     byte_17_Skinning: Skin_1 → Skin_5
     → Übernehmen (mit Neustart des Steuergeräts)
     ```
 
-=== ":material-cable-data: VCDS"
+!!! example ":material-cable-data: VCDS"
     ``` yaml
     5F – MMI / RNS
     Codierung - 07 → Lange Codierung:
@@ -191,14 +191,14 @@ Car_Function_List_BAP_Gen2:
 !!! warning ""
     Für Composition Media 8" ist zusätzlich die 5F-Codierung notwendig. Danach bleibt ein nicht löschbarer Fehler im Steuergerät, der jedoch die Funktion nicht beeinträchtigt.
 
-=== ":material-laptop: ODIS"
+!!! abstract ":material-laptop: ODIS"
     ``` yaml title="Login: 20103"
     Steuergerät 5F → Codierung:
     Byte 24 – Bit 02: Aktivieren
     → Übernehmen (mit Neustart des Steuergeräts)
     ```
 
-=== ":material-cable-data: VCDS"
+!!! example ":material-cable-data: VCDS"
     ``` yaml title="Login: 20103"
     5F – MMI / RNS
     Codierung - 07 → Lange Codierung:
