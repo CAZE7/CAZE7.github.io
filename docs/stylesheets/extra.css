@@ -177,6 +177,9 @@
   background: transparent;
   box-shadow: none;
   border: none;
+  font-family: var(--md-text-font), sans-serif;
+  font-weight: 500;
+  line-height: 1.6;
 }
 
 /* --- 9. Footer --- */
