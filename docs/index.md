@@ -20,7 +20,7 @@ Wähle deinen Bereich, um in die detaillierten Anleitungen und Best-Practices ei
 
 <div class="grid cards" markdown>
 
--   :material-car-traction-control: **Mercedes-Benz Guide**
+-   **Mercedes-Benz Guide**
 
     ---
 
@@ -28,7 +28,7 @@ Wähle deinen Bereich, um in die detaillierten Anleitungen und Best-Practices ei
 
     [:octicons-arrow-right-24: Zur Mercedes-Übersicht](mercedes/software/architektur.md)
 
--   :material-car-sports: **VAG Konzern Guide**
+-   **VAG Konzern Guide**
 
     ---
 
@@ -36,7 +36,7 @@ Wähle deinen Bereich, um in die detaillierten Anleitungen und Best-Practices ei
 
     [:octicons-arrow-right-24: Zur VAG-Übersicht](vag/software.md)
 
--   :material-frequently-asked-questions: **FAQ & Hilfe**
+-   **FAQ & Hilfe**
 
     ---
 
@@ -44,7 +44,7 @@ Wähle deinen Bereich, um in die detaillierten Anleitungen und Best-Practices ei
 
     [:octicons-arrow-right-24: Zu den FAQs](faq.md)
 
--   :material-shield-car: **Sicherheit & Haftung**
+-   **Sicherheit & Haftung**
 
     ---
 
