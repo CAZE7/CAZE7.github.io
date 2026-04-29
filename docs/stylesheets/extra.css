@@ -7,7 +7,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400&display=swap');
 
 :root {
-  --md-text-font: "Newsreader", serif;
+  --md-text-font: "Geist", "Inter", sans-serif;
   --md-code-font: "JetBrains Mono", monospace;
   
   /* Eigene Farben für Editorial Look */
@@ -67,24 +67,25 @@ body {
   box-shadow: none !important;
 }
 
-/* 4. Typografie Fließtext (Die 65-Zeichen-Regel) */
+/* 4. Typografie Fließtext */
 .md-typeset {
-  font-size: 1.05rem;
-  line-height: 1.7;
+  font-size: 0.85rem; /* Entspricht ca. 17px */
+  line-height: 1.6;
 }
 
 .md-typeset h1, .md-typeset h2, .md-typeset h3, .md-typeset h4 {
   font-family: "Geist", "Inter", sans-serif;
   color: #1A1A1D;
-  font-weight: 500;
-  letter-spacing: -0.02em;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
-.md-typeset h1 { font-size: 2.5rem; border-bottom: none; }
-.md-typeset h2 { font-size: 1.5rem; margin-top: 3rem; }
+.md-typeset h1 { font-size: 1.8rem; border-bottom: none; line-height: 1.3; margin-bottom: 1rem; }
+.md-typeset h2 { font-size: 1.4rem; margin-top: 2.5rem; line-height: 1.4; }
+.md-typeset h3 { font-size: 1.15rem; margin-top: 1.5rem; }
 
 .md-content__inner {
-  max-width: 700px !important; /* Maximale Lesebreite */
+  max-width: 850px !important; /* Etwas breiter, damit Tabellen gut lesbar bleiben */
   margin: 0 auto;
 }
 
