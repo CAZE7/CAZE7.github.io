@@ -60,11 +60,15 @@ extra:
 nav:
   - 🏠 Startseite: index.md
   - 🚘 Mercedes-Benz:
-    - 🔌 Hardware & Interfaces: mercedes/hardware.md
-    - 💻 Software & Architektur: mercedes/software.md
-    - 🏎️ DTS Monaco Guide: mercedes/dts_monaco.md
-    - 📁 SMR-D & Flash Dateien: mercedes/smr-d_quellen.md
-    - 🛠️ Praxis-Codierungen: mercedes/anleitungen.md
+    - 🔌 Hardware:
+      - Multiplexer (SD Connect & VCI): mercedes/hardware/multiplexer.md
+      - Passthrough Dongles: mercedes/hardware/dongles.md
+    - 💻 Software:
+      - Diagnose & Architektur: mercedes/software/architektur.md
+      - DTS Monaco Guide: mercedes/software/dts_monaco.md
+      - SMR-D & Flash Dateien: mercedes/software/smr_d.md
+    - 🛠️ Codierung:
+      - Praxis-Workflows & Retrofits: mercedes/codierung/anleitungen.md
   - 🛠️ VAG (VW, Audi, Seat, Skoda):
     - 🔌 Hardware & Adapter: vag/hardware.md
     - 💻 Software & Sicherheit: vag/software.md

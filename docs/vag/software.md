@@ -1,29 +1,84 @@
-# 💻 Software & Sicherheit
+# 💻 Software, Sicherheit & Architektur (VAG)
 
-Dieses Dokument beschreibt die verfügbaren Werkzeuge und das korrekte methodische Vorgehen bei Modifikationen der Steuergeräte-Software im VAG-Konzern.
+Dieses Dokument beschreibt die verfügbaren Werkzeuge, die Sicherheitsarchitekturen (SFD, CP) und das korrekte methodische Vorgehen bei Modifikationen der Steuergeräte-Software im VAG-Konzern.
 
-## 1. Software-Werkzeuge im Vergleich
+---
 
-Die Auswahl der Software richtet sich nach der Komplexität der geplanten Änderung und der vorhandenen Hardware-Schnittstelle.
+## 1. Die Diagnose-Software im Detail
 
-| Software | Profil | Einsatzbereich |
+Im VAG-Konzern gibt es nicht "die eine" Software für alles. Die Wahl des Tools richtet sich nach der Aufgabe.
+
+### 1.1 VCDS vs. VCP
+Beide Tools sind für Privatanwender und freie Werkstätten konzipiert, decken aber unterschiedliche Spezialgebiete ab.
+
+| Merkmal | VCDS (Ross-Tech) | VCP (Vag Can Pro) |
 | :--- | :--- | :--- |
-| **VCDS (Ross-Tech)** | PC-basiert (Windows) | Standard für Diagnose und Varianten-Codierung bis ca. MJ 2020. Hohe Stabilität und umfangreiche Klartext-Datenbank (Labels). Unterstützt kein Flashen. |
-| **OBDeleven** | App-basiert (Android/iOS) | Mobile Lösung für Diagnose und Codierung. Bietet automatisierte SFD-Freischaltung und geführte Anpassungen ("One-Click-Apps"). Erfordert aktive Internetverbindung. |
-| **VCP (VAG CAN PRO)** | PC-basiert (Windows) | Experten-Tool für das Schreiben von **ZDC-Containern** (Datensätzen) und das Flashen von Firmware. Notwendig für die Parametrierung nachgerüsteter Hardware. |
-| **ODIS (Service)** | Offizielle OEM-Software | Geführte Fehlersuche und Online-Anbindung an das Hersteller-Backend (SVM) für offizielle Software-Aktualisierungen. |
+| **Fokus** | Fehlerdiagnose & Langcodierung | Flashen & Datensätze (Parametrierung) |
+| **Bedienung** | Sehr intuitiv, exzellente Klartext-Labels | Komplex, UI wirkt veraltet |
+| **ZDC Datensätze** | ❌ Nicht möglich | ✅ **Ja!** (Unersetzlich für Retrofits) |
+| **Firmware Flashen**| ❌ Nicht möglich | ✅ Ja (.odx, .frf, .sgo Dateien) |
+| **SFD Unlock** | Teilweise (manuelle Token) | Teilweise |
 
-## 2. Sicherheitskonzept: SFD (Software-Sicherungs-Funktion)
+> **Fazit:** Wer nur "Codieren" will (Start/Stop, Gurtwarner), kauft VCDS. Wer Hardware nachrüstet (Kameras, Scheinwerfer), die einen Datensatz (ZDC) benötigen, kommt an VCP nicht vorbei.
 
-Seit dem Modelljahr 2020 (MQB-evo Plattform) ist für Schreibzugriffe auf kritische Steuergeräte die **SFD-Authentifizierung** erforderlich.
+### 1.2 ODIS Service (ODIS-S) vs. ODIS Engineering (ODIS-E)
+ODIS ist die offizielle OEM-Software von Volkswagen.
 
-1. **Funktionsweise:** Schreibzugriffe sind werksseitig gesperrt und müssen über ein kryptografisches Token freigeschaltet werden.
-2. **Token-Verfahren:** Die Freischaltung erfolgt online über den Hersteller oder durch Diagnose-Tools mit integrierter SFD-Schnittstelle.
-3. **Physische Bedingung:** Bei vielen SFD-geschützten Fahrzeugen ist eine **geöffnete Motorhaube** Voraussetzung für die Annahme von Codierbefehlen durch das Gateway.
+* **ODIS-S (Service):** Wird in der Vertragswerkstatt genutzt. Ist stark gefochten durch geführte Fehlersuche. Es verbindet sich mit dem VAG-Zentralserver (SVM), um Steuergeräte exakt so zu codieren, wie das Auto das Werk verlassen hat. *Manuelles Herumcodieren ist hier extrem umständlich.*
+* **ODIS-E (Engineering):** Das Tool der VAG-Entwickler. Es ist offline-fähig, hat keine geführte Fehlersuche, erlaubt aber das schonungslose Flashen von Container-Dateien (`.frf`, `.odx`) und massenhafte Ändern von Hex-Werten.
+
+---
+
+## 2. Sicherheitskonzepte: SFD und CP
+
+Moderne Fahrzeuge lassen sich nicht mehr einfach so codieren. VW hat massive Schutzmechanismen eingebaut.
+
+### 2.1 SFD (Schutz Fahrzeug Diagnose)
+Seit dem Modelljahr 2020 (Golf 8, MQB-evo Plattform) ist für Schreibzugriffe auf kritische Steuergeräte die **SFD-Authentifizierung** erforderlich.
+
+* **Das Problem:** Man kann Steuergeräte auslesen, aber sobald man einen Wert ändern will (Adaptation/Coding), verweigert die ECU den Zugriff ("Security Access denied").
+* **Die Lösung:** Die Software generiert eine Anfrage, die zum VW-Server geschickt wird. Dieser schickt ein Krypto-Token zurück, das die ECU für 90 Minuten entsperrt.
+* **Wie umgehen?** Offizielle ODIS-Nutzer machen das via GeKo-Account. Für Privatanwender hat **OBDeleven** (und teilweise VCDS/VCP) eine automatische SFD-Integration, die über den Server des Tool-Herstellers läuft.
+* **Physische Bedingung:** Bei fast allen VAG SFD-Fahrzeugen muss zwingend die **Motorhaube geöffnet** sein, damit das Gateway die Codierung zulässt!
+
+### 2.2 CP (Komponentenschutz / Component Protection)
+Der Komponentenschutz ist ein Diebstahlschutz, der seit Audi A6 (4F) eingeführt wurde.
+
+* **Das Problem:** Baust du ein gebrauchtes Steuergerät (z.B. Infotainment, Tacho) aus einem anderen Auto ein, funktioniert es nur eingeschränkt (z.B. Radio spielt nur auf einer Box, Tacho blinkt "Safe").
+* **Die Lösung:** Das Gateway merkt, dass die Seriennummer der ECU nicht zur VIN des Autos passt. Der Schutz kann **nur online via ODIS-S (und GeKo-Account)** bei VW/Audi aufgehoben werden. Offline-Lösungen erfordern tiefes EEPROM/Immo-Hacking auf dem Tisch (Bench).
+
+---
 
 ## 3. Best Practices & Backup-Regeln
 
-| Regel | Technische Relevanz |
+| Regel | Erklärung |
 | :--- | :--- |
-| **Vollständiges Backup** | Vor jeder Änderung muss ein Abbild (Admap/Autoscan) aller Steuergeräte erstellt werden, um den Ursprungszustand wiederherstellen zu können. |
-| **Dokumentation** | Änderungen sollten einzeln durchgeführt und unmittelbar danach auf ihre Funktion geprüft werden. |
+| **Die Admap-Pflicht** | Vor *jeder* Änderung muss ein vollständiges Abbild (Admap / Adaptation Map) des Steuergeräts exportiert werden. Ohne Admap weißt du im Fehlerfall nicht, wie die alten Anpassungskanäle hießen! |
+| **Dokumentation** | VCDS speichert alle Änderungen automatisch im Ordner `C:\Ross-Tech\VCDS\Debug\CodingLog.txt`. Überprüfe diesen bei Problemen. |
+
+---
+
+## 4. Glossar
+
+*[Admap]: Adaptation Map (Backup aller Anpassungskanäle eines Steuergeräts)
+*[ZDC]: Zukünftige Diagnose-Container (Binäre Datensätze für Parametrierung, exklusiv für VCP/ODIS)
+*[SVM]: Software Versions Management (Der zentrale VW-Server, der die Original-Konfiguration deines Autos kennt)
+*[GeKo]: Geheimnis und Komponentenschutz (Account für VAG-Mitarbeiter mit hohen Berechtigungen)
+*[MQB]: Modularer Querbaukasten (Fahrzeugplattform z.B. Golf 7/8, Octavia)
+*[MLB]: Modularer Längsbaukasten (Fahrzeugplattform z.B. Audi A4, Q5)
+*[SFD]: Schutz Fahrzeug Diagnose (Token-basierte Schreibsperre ab 2020)
+*[CP]: Component Protection / Komponentenschutz (Diebstahlsperre für gebrauchte ECUs)
+
+| Begriff | Erklärung |
+| :--- | :--- |
+| **[Admap]** | Adaptation Map. Ein CSV/TXT-Backup aller Anpassungskanäle eines Steuergeräts. |
+| **[ZDC]** | Zukünftige Diagnose-Container. Binäre Parameter-Datensätze (für Licht, Sound, Kamera-Kalibrierung), die mit VCP geflasht werden. |
+| **[SVM]** | Software Versions Management. Das Hersteller-Backend, das die Werks-Ausstattung verwaltet. |
+| **[GeKo]** | Zertifizierter Zugang zum VAG-Server (Geheimnis & Komponentenschutz). |
+| **[MQB] / [MLB]** | Modulare Fahrzeugplattformen bei VAG (Quer- vs. Längsmotoren). |
+
+---
+
+## Siehe auch
+* [Praxis-Codierungen](anleitungen.md) – Praktische Anleitung für VCDS und VCP.
+* [Hardware & Interfaces](hardware.md) – Details zu VAS6154, VCDS-Clones und DoIP.

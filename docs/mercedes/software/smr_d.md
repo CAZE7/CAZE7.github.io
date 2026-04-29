@@ -107,5 +107,4 @@ Ordnung ist das halbe Leben. Lege dir eine saubere Ordnerstruktur an:
 
 ## Siehe auch
 * [DTS Monaco](dts_monaco.md) – Wie man die hier beschafften Dateien in Projekte einbindet und flasht.
-* [Software & Architektur](software.md) – Grundlegende Zusammenhänge im Diagnose-Netzwerk.
-* [Glossar](software.md#5-glossar) – Begriffserklärungen.
+* [Software & Architektur](architektur.md) – Grundlegende Zusammenhänge im Diagnose-Netzwerk.

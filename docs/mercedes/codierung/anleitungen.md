@@ -1,6 +1,8 @@
-# 🛠️ Praxis-Codierungen
+# 🛠️ Praxis-Codierungen & Workflows
 
 Diese Seite bietet detaillierte Schritt-für-Schritt-Anleitungen für typische Komfort- und Retrofit-Codierungen an Mercedes-Benz Fahrzeugen (W205, W213, W222, Sprinter VS30 etc.). Die Workflows basieren auf der Nutzung von DTS Monaco und richten sich an fortgeschrittene Anwender.
+
+---
 
 ## 1. Praktische Workflows (Grundlagen)
 
@@ -17,6 +19,8 @@ Diese Seite bietet detaillierte Schritt-für-Schritt-Anleitungen für typische K
 3. **Parameter anpassen:** Im Dateimodell die gewünschten Werte ändern.
 4. **Flashen:** Geänderte Datei in die ECU schreiben.
 5. **Test:** Fahrzeug starten und Funktionen überprüfen.
+
+---
 
 ## 2. Spezifische Codierungen
 
@@ -36,6 +40,8 @@ Bevor du mit einer spezifischen Codierung beginnst, müssen diese Voraussetzunge
     2. **Extended Start:** Öffne die Ziel-ECU in einem neuen Tab und führe *Extended Start* aus.
     3. **Codieren:** Wechsle ins *Variant Coding*, wähle die Domain, ändere die Fragmente und klicke auf **Do Coding**.
     4. **Speichern & Reset:** Bei neuen Fahrzeugen muss die Änderung fixiert werden: Führe **Synchronize to Non-volatile Memory** und anschließend einen **Hard Reset** aus.
+
+---
 
 ### 2.2 Kombiinstrument (Tacho) & Assistenzsysteme
 
@@ -64,6 +70,8 @@ Bevor du mit einer spezifischen Codierung beginnst, müssen diese Voraussetzunge
     2. Domain `LDP coding` → `LDP UI Variant` auf **Variant 10. [...] Last Mode** setzen.
     3. Domain `VANS coding Write` (bei Sprinter) → `ALDW Reactivation Mode` auf **Last Mode**.
 
+---
+
 ### 2.3 Motor, Getriebe & Fahrwerk
 
 ??? info ":material-engine: Start/Stop „Last Mode“ (z. B. MED40)"
@@ -81,6 +89,8 @@ Bevor du mit einer spezifischen Codierung beginnst, müssen diese Voraussetzunge
     2. Nutze externe Hex-Services (z. B. `22 C1 60` zum Lesen der aktuellen Limitierung) oder suche im Variant Coding Tab nach der Domain für **VMAX** / **Maximum Speed Limitation 1 & 2**.
     3. Setze den Wert auf **250 km/h**, **300 km/h** oder hebe ihn komplett auf (Hex `FF FF`).
     4. *Warnung:* Solche Eingriffe in das Antriebsstrang-Steuergerät erfordern absolute Präzision. Kontrolliere das Ergebnis nach dem *Hard Reset* zwingend in Xentry unter den Ist-Werten des Steuergerätes.
+
+---
 
 ### 2.4 MBUX / Headunit (HU5 / HU6)
 
@@ -105,6 +115,8 @@ Bevor du mit einer spezifischen Codierung beginnst, müssen diese Voraussetzunge
     2. In der Domain für *Ambient light* den Parameter **Ambient Light Menu** auf **On** setzen.
     3. Anzahl der Zonen (z. B. *Front, Rear, Footwell*) und Helligkeitsstufen (z. B. *5 Steps*) passend zur Hardware konfigurieren.
 
+---
+
 ### 2.5 Allgemeine Komfortfunktionen
 
 ??? info ":material-car-door: Automatisch anklappbare Außenspiegel"
@@ -119,6 +131,6 @@ Bevor du mit einer spezifischen Codierung beginnst, müssen diese Voraussetzunge
 ---
 
 ## Siehe auch
-* [DTS Monaco Guide](dts_monaco.md) – Detaillierte Anleitung zur Einrichtung von DTS Monaco.
-* [SMR-D Quellen](smr-d_quellen.md) – Wo du die benötigten Projektdateien für die Codierung findest.
-* [Hardware & Interfaces](hardware.md) – Übersicht der passenden Hardware für diese Codierungen.
+* [DTS Monaco Guide](../software/dts_monaco.md) – Detaillierte Anleitung zur Einrichtung von DTS Monaco.
+* [SMR-D Quellen](../software/smr_d.md) – Wo du die benötigten Projektdateien für die Codierung findest.
+* [Multiplexer](../hardware/multiplexer.md) – Übersicht der passenden Hardware für diese Codierungen.

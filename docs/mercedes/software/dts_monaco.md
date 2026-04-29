@@ -130,7 +130,6 @@ Ein DTS Monaco-Projekt fasst zusammen:
 ---
 
 ## Siehe auch
-* [Praxis-Codierungen & Workflows](anleitungen.md) – Praktische Schritt-für-Schritt Anleitungen.
-* [SMR-D & Flash-Dateien Beschaffung](smr-d_quellen.md) – Wo man die notwendigen Projektdateien (SMR-D/CBF) herbekommt.
-* [Software & Architektur](software.md) – Allgemeine Infos zu XENTRY und Diagnosesystemen.
-* [Glossar](software.md#6-glossar) – Begriffserklärungen.
+* [Praxis-Codierungen & Workflows](../codierung/anleitungen.md) – Praktische Schritt-für-Schritt Anleitungen.
+* [SMR-D & Flash-Dateien Beschaffung](smr_d.md) – Wo man die notwendigen Projektdateien (SMR-D/CBF) herbekommt.
+* [Software & Architektur](architektur.md) – Allgemeine Infos zu XENTRY und Diagnosesystemen.

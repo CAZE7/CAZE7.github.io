@@ -2,9 +2,11 @@
 
 Dieses Dokument beschreibt die Software-Architektur, Installationsroutinen und Sicherheitsmechanismen (Zenzefi, Seed & Key) bei Mercedes-Benz Fahrzeugen.
 
+---
+
 ## 1. Diagnose-Architektur bei Mercedes
 
-Mercedes-Benz nutzt ein hierarchisches Diagnose- und Kodiersystem, das sich grundlegend von offenen Systemen unterscheidet:
+Mercedes-Benz nutzt ein hierarchisches Diagnose- und Kodiersystem, das sich grundlegend von offenen OBD2-Systemen unterscheidet:
 
 ### 1.1 Protokolle und Transport
 * :material-serial-port: **K-Line / KWP2000:** Ältere Modelle (bis ca. 2005) nutzen die serielle K-Line-Diagnose (ISO 9141 / ISO 14230).
@@ -91,41 +93,37 @@ Zenzefi ist Mercedess Zertifikatsmanagement-System für die gesicherte Kommunika
 
 ---
 
-## 6. SCN-Coding & Programming
-
-| Modus | Beschreibung |
-| :--- | :--- |
-| **SCN-Online-Coding** | Live-Verbindung zu Mercedes-Servern. Erfordert Händler-Account (oder Token). |
-| **SCN-Offline-Coding** | Lokal gespeicherte Datensätze (in XENTRY OpenShell, nicht für alle Steuergeräte möglich). |
-| **DAS-Offline / SDFlash** | Firmware-Update ohne Internet. **Achtung:** Battery-Stabilizer (min. 30A) ist absolute Pflicht, sonst "Brick"-Gefahr! |
-
----
-
-## 7. Versionskompatibilität
+## 6. Versionskompatibilität
 
 Für Werkstätten mit breitem Fahrzeugspektrum ist **XENTRY 2023.09** in der Community als besonders ausgewogen und stabil dokumentiert. Für reine Neufahrzeuge ab 2024 ist **XENTRY 2024.03+** mit korrektem Zenzefi-Setup erforderlich.
 
 ---
 
-## 8. Glossar
+## 7. Glossar
+
+*[DAS]: Diagnosis Assistance System; ältere Diagnoseschicht in XENTRY (bis ca. 2014)
+*[XDOS]: XENTRY Diagnosis OpenShell
+*[XPT]: XENTRY PassThru
+*[DoIP]: Diagnostics over Internet Protocol (Ethernet-basiert)
+*[SCN]: Software Calibration Number (Codierung)
+*[SDFlash]: Offline-Firmware-Update
+*[Zenzefi]: Zertifikatsmanagement-System für DoIP
+*[VCI]: Vehicle Communication Interface
+*[MUX]: Multiplexer
 
 | Begriff | Erklärung |
 | :--- | :--- |
-| **DAS** | Diagnosis Assistance System; ältere Diagnoseschicht in XENTRY (bis ca. 2014) |
-| **XDOS / XPT** | XENTRY Diagnosis OpenShell / XENTRY PassThru |
-| **DoIP** | Diagnostics over Internet Protocol (Ethernet-basiert) |
-| **SCN** | Software Calibration Number (Codierung) |
-| **SDFlash** | Offline-Firmware-Update |
-| **Zenzefi** | Zertifikatsmanagement-System für DoIP |
-| **VCI / MUX** | Vehicle Communication Interface / Multiplexer |
-| **CBF / SMR-D** | Projektdateien für Offline-Codierung (siehe [SMR-D Quellen](smr-d_quellen.md)) |
+| **[DAS]** | Diagnosis Assistance System; ältere Diagnoseschicht in XENTRY. |
+| **[XDOS] / [XPT]** | XENTRY Diagnosis OpenShell / XENTRY PassThru |
+| **[DoIP]** | Diagnostics over Internet Protocol (Ethernet-basiert) |
+| **[SCN]** | Software Calibration Number (Codierung) |
+| **[Zenzefi]** | Zertifikatsmanagement-System für DoIP |
+| **CBF / SMR-D** | Projektdateien für Offline-Codierung (siehe [SMR-D Quellen](smr_d.md)) |
 | **CFF / FRF** | Firmware-Flash-Container |
-| **Seed & Key** | Sicherheitsmechanismus zur ECU-Entsperrung |
-| **HW-Nr.** | Hardware-Nummer (A-Nummer) des Steuergeräts |
 
 ---
 
 ## Siehe auch
-* [Hardware & Interfaces](hardware.md) – Welche Hardware für welche XENTRY-Variante benötigt wird.
+* [Multiplexer](../hardware/multiplexer.md) – Welche Profi-Hardware du brauchst.
 * [DTS Monaco](dts_monaco.md) – Der Guide für das Engineering-Tool DTS Monaco.
-* [SMR-D Quellen](smr-d_quellen.md) – Wo SMR-D und CFF Dateien gespeichert sind.
+* [SMR-D Quellen](smr_d.md) – Wo SMR-D und CFF Dateien gespeichert sind.
