@@ -24,16 +24,26 @@ Diese Interfaces kommunizieren reibungslos mit OEM-Software wie Xentry (speziell
 
 ---
 
-## 3. Warnung vor billigen Dongles
+## 3. Kompatibilität mit Software
 
-### 3.1 Das Tactrix Clone-Problem
+!!! warning "DTS Monaco 9.02 + Passthrough = Probleme"
+    In der Community mehrfach bestätigt: DTS Monaco 9.02 funktioniert nicht zuverlässig mit J2534-Passthrough-Devices wie OpenPort 2.0. Das Tool erkennt das Interface, bricht bei längeren Kommunikationen aber ab oder friert ein.
+
+    **Lösungsweg:**
+    * Für OpenPort 2.0: DTS Monaco 8.14 oder 8.16 verwenden – diese Versionen sind mit J2534 stabil.
+    * Für DoIP-Fahrzeuge (W206, W223): VXDIAG VCX SE oder einen SD Connect Multiplexer verwenden.
+
+
+## 4. Warnung vor billigen Dongles
+
+### 4.1 Das Tactrix Clone-Problem
 !!! warning "OpenPort 2.0 Clone – Das Datenrate-Problem"
     In der Community mehrfach bestätigt: Chinesische OpenPort 2.0-Clones (ca. 20-30 €) haben eine reduzierte Datenrate auf dem CAN-Bus, die bei DAS-Offline-Programming (insbesondere Instrumentencluster-Updates an W169, W245 etc.) zu unvollständigen Flashes führen kann. 
     
     Dies resultierte bei vielen Nutzern in gebrickten (zerstörten) Steuergeräten.
     **Lösung:** Für Offline-Programming (Flashen) ausschließlich Original-Tactrix oder einen SD Connect Multiplexer verwenden!
 
-### 3.2 ELM327 – Absolut ungeeignet!
+### 4.2 ELM327 – Absolut ungeeignet!
 !!! danger "Bricking-Gefahr durch ELM327-Clones"
     Billige ELM327-Adapter (oft für 5 € für Smartphone-Apps wie Torque genutzt) sind für Codierung und Flashen in Xentry/Monaco **absolut ungeeignet**. Sie weisen oft eine unvollständige Protokoll-Implementierung (fehlende ISO-TP-Flow-Control) auf. 
     Werden Flash-Routinen unterbrochen, bleibt der Bootloader unvollständig. Resultat: Die ECU ist funktional "gebricked".

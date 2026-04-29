@@ -1,33 +1,18 @@
 # Praxis-Codierungen & Workflows
 
-Diese Seite bietet detaillierte Schritt-für-Schritt-Anleitungen für typische Komfort- und Retrofit-Codierungen an Mercedes-Benz Fahrzeugen (W205, W213, W222, Sprinter VS30 etc.). Die Workflows basieren auf der Nutzung von DTS Monaco und richten sich an fortgeschrittene Anwender.
+Diese Seite bietet detaillierte Schritt-für-Schritt-Anleitungen für typische Komfort- und Retrofit-Codierungen an Mercedes-Benz Fahrzeugen (W205, W213, W222, Sprinter VS30 etc.). 
+
+!!! info "Grundlagen & Setup"
+    Diese Workflows basieren auf der Nutzung von DTS Monaco und richten sich an fortgeschrittene Anwender. Wenn du noch nie mit DTS Monaco gearbeitet hast, lies dir zwingend zuerst den [DTS Monaco Guide](../software/dts_monaco.md) durch, um zu verstehen, wie man ein Projekt anlegt, Security Access erhält und Flasht.
 
 ---
 
-## 1. Praktische Workflows (Grundlagen)
-
-### Diagnose mit J2534-Gerät
-1. **Hardware vorbereiten:** OpenPort 2.0 oder VXDIAG mit dem PC verbinden und Treiber installieren.
-2. **Fahrzeug verbinden:** OBD-Adapter in die OBD-II-Buchse des Fahrzeugs stecken.
-3. **Xentry starten:** Passthru-Modus in der Software konfigurieren.
-4. **Fahrzeug identifizieren:** VIN eingeben oder Auto-Scan ausführen.
-5. **Diagnose durchführen:** Fehler lesen, löschen und Messwerte erfassen.
-
-### Codierung mit Vediamo / DTS Monaco
-1. **Datei laden:** Richtige CBF/SMR-D-Datei aus Xentry-Projekten oder Datenbank laden.
-2. **Security-Access:** Seed anfordern -> Key-Generator nutzen -> Key eingeben.
-3. **Parameter anpassen:** Im Dateimodell die gewünschten Werte ändern.
-4. **Flashen:** Geänderte Datei in die ECU schreiben.
-5. **Test:** Fahrzeug starten und Funktionen überprüfen.
-
----
-
-## 2. Spezifische Codierungen
+## 1. Spezifische Codierungen
 
 !!! danger "Wichtiger Sicherheitshinweis"
     Alle Eingriffe erfolgen auf eigenes Risiko. Falsche Variantencodierungen oder fehlerhafter Security-Access können Steuergeräte unbrauchbar machen. Vor jeder Änderung **muss** die aktuelle Varianten-Codierung der ECU in eine Datei exportiert (Backup) werden.
 
-### 2.1 Grundvoraussetzungen & Basis-Workflow
+### 1.1 Grundvoraussetzungen & Basis-Workflow
 
 Bevor du mit einer spezifischen Codierung beginnst, müssen diese Voraussetzungen erfüllt sein:
 
@@ -43,7 +28,7 @@ Bevor du mit einer spezifischen Codierung beginnst, müssen diese Voraussetzunge
 
 ---
 
-### 2.2 Kombiinstrument (Tacho) & Assistenzsysteme
+### 1.2 Kombiinstrument (Tacho) & Assistenzsysteme
 
 ??? info "AMG Menü freischalten"
     *Aktiviert das begehrte AMG Menü im Standard-Tacho. Bietet digitale Öltemperatur, Wassertemperatur, Ganganzeige und den Laptimer (Rundenzeiten).*
@@ -72,7 +57,7 @@ Bevor du mit einer spezifischen Codierung beginnst, müssen diese Voraussetzunge
 
 ---
 
-### 2.3 Motor, Getriebe & Fahrwerk
+### 1.3 Motor, Getriebe & Fahrwerk
 
 ??? info "Start/Stop „Last Mode“ (z. B. MED40)"
     *Verhindert, dass sich ECO Start/Stop bei jedem Motorstart automatisch reaktiviert.*
@@ -92,7 +77,7 @@ Bevor du mit einer spezifischen Codierung beginnst, müssen diese Voraussetzunge
 
 ---
 
-### 2.4 MBUX / Headunit (HU5 / HU6)
+### 1.4 MBUX / Headunit (HU5 / HU6)
 
 ??? info "Apple CarPlay / Android Auto (HU6)"
     *Aktiviert die Smartphone-Integration (Voraussetzung: Keine FEC/Zertifikatssperre der neuesten Updates aktiv).*
@@ -117,7 +102,7 @@ Bevor du mit einer spezifischen Codierung beginnst, müssen diese Voraussetzunge
 
 ---
 
-### 2.5 Allgemeine Komfortfunktionen
+### 1.5 Allgemeine Komfortfunktionen
 
 ??? info "Automatisch anklappbare Außenspiegel"
     *Spiegel klappen beim Verriegeln ein und beim Entriegeln wieder aus.*

@@ -112,29 +112,6 @@ Zenzefi ist Mercedess Zertifikatsmanagement-System für die gesicherte Kommunika
 
 Für Werkstätten mit breitem Fahrzeugspektrum ist **XENTRY 2023.09** in der Community als besonders ausgewogen und stabil dokumentiert. Für reine Neufahrzeuge ab 2024 ist **XENTRY 2024.03+** mit korrektem Zenzefi-Setup erforderlich.
 
----
-
-## 7. Glossar
-
-* **[DAS]:** Diagnosis Assistance System; ältere Diagnoseschicht in XENTRY.
-* **[XDOS] / [XPT]:** XENTRY Diagnosis OpenShell / XENTRY PassThru
-* **[DoIP]:** Diagnostics over Internet Protocol (Ethernet-basiert)
-* **[SCN]:** Software Calibration Number (Codierung)
-* **[Zenzefi]:** Zertifikatsmanagement-System für DoIP
-* **CBF / SMR-D:** Projektdateien für Offline-Codierung (siehe [SMR-D Quellen](smr_d.md))
-* **CFF / FRF:** Firmware-Flash-Container
-
-*[DAS]: Diagnosis Assistance System; ältere Diagnoseschicht in XENTRY (bis ca. 2014)
-*[XDOS]: XENTRY Diagnosis OpenShell
-*[XPT]: XENTRY PassThru
-*[DoIP]: Diagnostics over Internet Protocol (Ethernet-basiert)
-*[SCN]: Software Calibration Number (Codierung)
-*[SDFlash]: Offline-Firmware-Update
-*[Zenzefi]: Zertifikatsmanagement-System für DoIP
-*[VCI]: Vehicle Communication Interface
-*[MUX]: Multiplexer
-
----
 
 ## Siehe auch
 * [Multiplexer](../hardware/multiplexer.md) – Welche Profi-Hardware du brauchst.

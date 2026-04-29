@@ -122,6 +122,11 @@ Willkommen im FAQ-Bereich! Hier beantworten wir die häufigsten Fragen rund um F
 | **ODIS** | Offboard Diagnostic Information System (VAG Diagnose-Software) |
 | **MQB** | Modularer Querbaukasten (VAG Fahrzeugplattform) |
 | **CBF / SMR-D** | Beschreibungsdateien für Mercedes-Steuergeräte |
+| **DAS** | Diagnosis Assistance System (ältere MB-Diagnose bis ca. 2014) |
+| **Zenzefi** | Zertifikatsmanagement-System für DoIP bei Mercedes |
+| **CFF / FRF** | Firmware-Flash-Container |
+| **SDFlash** | Offline-Firmware-Update |
+| **MUX** | Multiplexer (Diagnose-Hardware) |
 
 *[ECU]: Electronic Control Unit (Steuergerät)
 *[VCI]: Vehicle Communication Interface (Diagnosekopf, z.B. SD Connect)
@@ -139,3 +144,9 @@ Willkommen im FAQ-Bereich! Hier beantworten wir die häufigsten Fragen rund um F
 *[MQB]: Modularer Querbaukasten (VAG Fahrzeugplattform)
 *[CBF]: Control Base File (MB Beschreibungsdatei bis ca. 2015)
 *[SMR-D]: Smart Diagnostic Resource - Description (MB Projektdatei ab ca. 2016)
+*[DAS]: Diagnosis Assistance System (ältere MB-Diagnose bis ca. 2014)
+*[Zenzefi]: Zertifikatsmanagement-System für DoIP
+*[CFF]: Firmware-Flash-Container
+*[FRF]: Firmware-Flash-Container
+*[SDFlash]: Offline-Firmware-Update
+*[MUX]: Multiplexer

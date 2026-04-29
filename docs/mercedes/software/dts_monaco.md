@@ -29,16 +29,8 @@ DTS Monaco ist das Engineering-Diagnosetool von Mercedes-Benz, das tieferen Zugr
 * **Betriebssystem:** Windows 10/11 Pro (frische Installation empfohlen). Home-Edition kann Netzwerk-Probleme verursachen.
 * **RAM:** 16 GB empfohlen (SMR-D-Datenbanken können groß werden), mindestens 8 GB.
 * **Festplatte:** 256 GB SSD empfohlen für Projekte, SMR-D, CBF und Flash-Container.
-* **Interface:** SD Connect C4/C6 oder VXDIAG VCX SE empfohlen. J2534 (OpenPort 2.0) funktioniert, aber Version 9.02 arbeitet damit oft problematisch.
+* **Interface:** SD Connect C4/C6 oder VXDIAG VCX SE empfohlen. *Hinweis für J2534-Nutzer:* Siehe die Warnung zur Kompatibilität in den [Dongle-Hardwareinfos](../hardware/dongles.md).
 * **Stromversorgung:** 50-70 A Diagnose-Stabilizer essenziell für Flashing.
-
-!!! warning "DTS Monaco 9.02 + Passthrough = Probleme"
-    In der Community mehrfach bestätigt: DTS Monaco 9.02 funktioniert nicht zuverlässig mit J2534-Passthrough-Devices wie OpenPort 2.0. Das Tool erkennt das Interface, bricht bei längeren Kommunikationen aber ab oder friert ein.
-
-    **Lösungsweg:**
-    * Für OpenPort 2.0: DTS Monaco 8.14 oder 8.16 verwenden – diese Versionen sind mit J2534 stabil.
-    * Für DoIP-Fahrzeuge (W206, W223): VXDIAG VCX SE oder SD Connect C6 verwenden.
-    * Monaco 9.02 nur mit originalen oder hochwertigen C6-Clones und LAN-Verbindung nutzen.
 
 ### 2.2 Installation (Samik FullFix)
 Der Samik FullFix ist ein community-validiertes All-in-One-Installationspaket, das Base-Software, Treiber, Patches und Datenbanken enthält.
@@ -75,11 +67,7 @@ Der Samik FullFix ist ein community-validiertes All-in-One-Installationspaket, d
 
 ## 4. Projektsystem verstehen
 
-Ein DTS Monaco-Projekt fasst zusammen:
-* **SMR-D-Datei:** Fahrzeug-Gesamtstruktur (Steuergeräte-Liste, Bus-Topologie, Adressen).
-* **CBF-Dateien:** Einzel-Steuergeräte-Beschreibungen (oft für Legacy-ECUs im selben Auto).
-* **Variantencodier-Werte:** Werkscodierung des Fahrzeugs.
-* **Flash-Container:** Firmware-Updates.
+Ein DTS Monaco-Projekt fasst die Fahrzeug-Gesamtstruktur zusammen. Details zu den Unterschieden zwischen den Formaten (CBF vs. SMR-D) und Beschaffungsquellen findest du unter [SMR-D & Flash-Dateien Beschaffung](smr_d.md).
 
 !!! warning "Projekt ohne SMR-D = unbrauchbar"
     Ohne gültige SMR-D kann kein Steuergerät korrekt adressiert werden. Immer zuerst ein vollständiges Fahrzeugprojekt anlegen!
