@@ -1,4 +1,4 @@
-# 💻 Software, Sicherheit & Architektur (VAG)
+# Software, Sicherheit & Architektur (VAG)
 
 Dieses Dokument beschreibt die verfügbaren Werkzeuge, die Sicherheitsarchitekturen (SFD, CP) und das korrekte methodische Vorgehen bei Modifikationen der Steuergeräte-Software im VAG-Konzern.
 
@@ -11,13 +11,11 @@ Im VAG-Konzern gibt es nicht "die eine" Software für alles. Die Wahl des Tools 
 ### 1.1 VCDS vs. VCP
 Beide Tools sind für Privatanwender und freie Werkstätten konzipiert, decken aber unterschiedliche Spezialgebiete ab.
 
-| Merkmal | VCDS (Ross-Tech) | VCP (Vag Can Pro) |
-| :--- | :--- | :--- |
-| **Fokus** | Fehlerdiagnose & Langcodierung | Flashen & Datensätze (Parametrierung) |
-| **Bedienung** | Sehr intuitiv, exzellente Klartext-Labels | Komplex, UI wirkt veraltet |
-| **ZDC Datensätze** | ❌ Nicht möglich | ✅ **Ja!** (Unersetzlich für Retrofits) |
-| **Firmware Flashen**| ❌ Nicht möglich | ✅ Ja (.odx, .frf, .sgo Dateien) |
-| **SFD Unlock** | Teilweise (manuelle Token) | Teilweise |
+* **Fokus:** VCDS ist fokussiert auf Fehlerdiagnose und Langcodierung. VCP (Vag Can Pro) fokussiert sich auf Flashen und Datensätze (Parametrierung).
+* **Bedienung:** VCDS ist sehr intuitiv und bietet exzellente Klartext-Labels. VCP ist komplexer und die UI wirkt veraltet.
+* **ZDC Datensätze:** Mit VCDS nicht möglich. Mit VCP möglich und unersetzlich für Retrofits.
+* **Firmware Flashen:** Mit VCDS nicht möglich. Mit VCP möglich (.odx, .frf, .sgo Dateien).
+* **SFD Unlock:** Mit VCDS teilweise möglich (manuelle Token). Mit VCP ebenfalls teilweise.
 
 > **Fazit:** Wer nur "Codieren" will (Start/Stop, Gurtwarner), kauft VCDS. Wer Hardware nachrüstet (Kameras, Scheinwerfer), die einen Datensatz (ZDC) benötigen, kommt an VCP nicht vorbei.
 
@@ -51,10 +49,8 @@ Der Komponentenschutz ist ein Diebstahlschutz, der seit Audi A6 (4F) eingeführt
 
 ## 3. Best Practices & Backup-Regeln
 
-| Regel | Erklärung |
-| :--- | :--- |
-| **Die Admap-Pflicht** | Vor *jeder* Änderung muss ein vollständiges Abbild (Admap / Adaptation Map) des Steuergeräts exportiert werden. Ohne Admap weißt du im Fehlerfall nicht, wie die alten Anpassungskanäle hießen! |
-| **Dokumentation** | VCDS speichert alle Änderungen automatisch im Ordner `C:\Ross-Tech\VCDS\Debug\CodingLog.txt`. Überprüfe diesen bei Problemen. |
+* **Die Admap-Pflicht:** Vor *jeder* Änderung muss ein vollständiges Abbild (Admap / Adaptation Map) des Steuergeräts exportiert werden. Ohne Admap weißt du im Fehlerfall nicht, wie die alten Anpassungskanäle hießen!
+* **Dokumentation:** VCDS speichert alle Änderungen automatisch im Ordner `C:\Ross-Tech\VCDS\Debug\CodingLog.txt`. Überprüfe diesen bei Problemen.
 
 ---
 
@@ -69,13 +65,11 @@ Der Komponentenschutz ist ein Diebstahlschutz, der seit Audi A6 (4F) eingeführt
 *[SFD]: Schutz Fahrzeug Diagnose (Token-basierte Schreibsperre ab 2020)
 *[CP]: Component Protection / Komponentenschutz (Diebstahlsperre für gebrauchte ECUs)
 
-| Begriff | Erklärung |
-| :--- | :--- |
-| **[Admap]** | Adaptation Map. Ein CSV/TXT-Backup aller Anpassungskanäle eines Steuergeräts. |
-| **[ZDC]** | Zukünftige Diagnose-Container. Binäre Parameter-Datensätze (für Licht, Sound, Kamera-Kalibrierung), die mit VCP geflasht werden. |
-| **[SVM]** | Software Versions Management. Das Hersteller-Backend, das die Werks-Ausstattung verwaltet. |
-| **[GeKo]** | Zertifizierter Zugang zum VAG-Server (Geheimnis & Komponentenschutz). |
-| **[MQB] / [MLB]** | Modulare Fahrzeugplattformen bei VAG (Quer- vs. Längsmotoren). |
+* **[Admap]:** Adaptation Map. Ein CSV/TXT-Backup aller Anpassungskanäle eines Steuergeräts.
+* **[ZDC]:** Zukünftige Diagnose-Container. Binäre Parameter-Datensätze (für Licht, Sound, Kamera-Kalibrierung), die mit VCP geflasht werden.
+* **[SVM]:** Software Versions Management. Das Hersteller-Backend, das die Werks-Ausstattung verwaltet.
+* **[GeKo]:** Zertifizierter Zugang zum VAG-Server (Geheimnis & Komponentenschutz).
+* **[MQB] / [MLB]:** Modulare Fahrzeugplattformen bei VAG (Quer- vs. Längsmotoren).
 
 ---
 

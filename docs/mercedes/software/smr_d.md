@@ -1,4 +1,4 @@
-# 📁 SMR-D und Flash-Dateien – Beschaffung & Formate
+# SMR-D und Flash-Dateien – Beschaffung & Formate
 
 **Fokusthema:** Beschaffung und Verwendung von Mercedes-ECU-Dateien (SMR-D, CBF, CFF/FRF)  
 **Zielgruppe:** Techniker, Codierer, Enthusiasten mit DTS Monaco / Vediamo / XENTRY
@@ -13,13 +13,11 @@ Mercedes verwendet proprietäre Container-Formate, die je nach Fahrzeuggeneratio
 
 Diese Dateien enthalten die Fahrzeug-Gesamtstruktur, Bus-Topologie, Adressierung und Variantencodierung. Sie werden in Engineering-Tools zwingend benötigt.
 
-| Feature | CBF-Dateien | SMR-D Dateien |
-| :--- | :--- | :--- |
-| **Format** | Proprietäre Vector-Container | Strukturierte, XML-ähnliche Beschreibung (ODX-basiert) |
-| **Einsatzbereich** | Ältere Fahrzeuge (bis ca. 2015) | Moderne Fahrzeuge (ab ca. 2016, z.B. W205, W213) |
-| **Tools** | Vediamo, ältere DTS Monaco Versionen | DTS Monaco (nativ), Xentry |
-| **Konzept** | Einzelne Steuergeräte-Datei | Komplette Fahrzeug-Projektdatei (Container) |
-| **Standardpfad** | (variiert je nach Quelle) | `Xentry\Kontexte\ODXProjekte\PKW_COMMON\dbr` |
+* **Format:** CBF-Dateien sind proprietäre Vector-Container. SMR-D-Dateien sind strukturierte, XML-ähnliche Beschreibungen (ODX-basiert).
+* **Einsatzbereich:** CBF-Dateien werden für ältere Fahrzeuge (bis ca. 2015) eingesetzt. SMR-D-Dateien für moderne Fahrzeuge (ab ca. 2016, z.B. W205, W213).
+* **Tools:** CBF wird in Vediamo und älteren DTS Monaco Versionen genutzt. SMR-D wird in DTS Monaco (nativ) und Xentry genutzt.
+* **Konzept:** CBF ist eine einzelne Steuergeräte-Datei. SMR-D ist eine komplette Fahrzeug-Projektdatei (Container).
+* **Standardpfad:** Für CBF variiert der Pfad je nach Quelle. SMR-D befindet sich oft in `Xentry\Kontexte\ODXProjekte\PKW_COMMON\dbr`.
 
 > **Wichtig:** SMR-D ist projektbasiert – im Gegensatz zu CBF. Für das korrekte Fahrzeug-Projekt muss die SMR-D-Datei exakt zur Baureihe und Ausstattung passen.
 
@@ -27,12 +25,10 @@ Diese Dateien enthalten die Fahrzeug-Gesamtstruktur, Bus-Topologie, Adressierung
 
 CFF (Compact Flash File) und SMR-F sind Flash-Dateien, die die eigentliche Firmware für Steuergeräte enthalten.
 
-| Merkmal | CFF | SMR-F |
-| :--- | :--- | :--- |
-| **Verwendung** | DTS Monaco, Vediamo | XENTRY SDFlash |
-| **Inhalt** | Firmware + Kalibrierung | Firmware + Kalibrierung |
-| **Herkunft** | SDFlash-Datenbank, Drittanbieter | SDFlash-Datenbank |
-| **Standardpfad** | `Xentry\SDFlash\Release\PKW` | `Xentry\SDFlash\Release\PKW` |
+* **Verwendung:** CFF wird in DTS Monaco und Vediamo verwendet. SMR-F in XENTRY SDFlash.
+* **Inhalt:** Beide enthalten Firmware und Kalibrierung.
+* **Herkunft:** Beide stammen aus der SDFlash-Datenbank. CFF teilweise auch von Drittanbietern.
+* **Standardpfad:** `Xentry\SDFlash\Release\PKW` für beide.
 
 *(Hinweis: FRF-Dateien stammen ursprünglich aus dem VAG-Kosmos, werden aber von einigen Spezial-Tools auch im Mercedes-Umfeld unterstützt.)*
 
@@ -78,11 +74,9 @@ Der sicherste Weg ist das Auslesen einer identischen Donor-ECU aus einem funktio
 
 ## 4. Typische Fehler & Lösungen
 
-| Fehler | Ursache | Lösung |
-| :--- | :--- | :--- |
-| **SMR-D-Version passt nicht** | Ältere Datei für neues Modell | Aktuellere SMR-D aus neuerem XENTRY-Release beschaffen |
-| **SMR-D-Datei korrupt** | Unterbrochener Download | Datei neu herunterladen / Prüfsumme checken |
-| **Flash-Datei inkompatibel** | CFF-Datei für falsche HW-Nr. | HW-Nr. vor Flashen strikt abgleichen |
+* **SMR-D-Version passt nicht:** Dies passiert, wenn eine ältere Datei für ein neues Modell verwendet wird. Lösung: Aktuellere SMR-D aus neuerem XENTRY-Release beschaffen.
+* **SMR-D-Datei korrupt:** Kann durch unterbrochene Downloads entstehen. Lösung: Datei neu herunterladen oder Prüfsumme checken.
+* **Flash-Datei inkompatibel:** Die CFF-Datei passt nicht zur HW-Nr. Lösung: HW-Nr. vor dem Flashen strikt abgleichen.
 
 ---
 

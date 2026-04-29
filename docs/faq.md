@@ -1,4 +1,4 @@
-# ❓ Häufig gestellte Fragen (FAQ)
+# Häufig gestellte Fragen (FAQ)
 
 Willkommen im FAQ-Bereich! Hier beantworten wir die häufigsten Fragen rund um Fahrzeug-Diagnose, Codierung und Flashen. 
 
@@ -6,7 +6,7 @@ Willkommen im FAQ-Bereich! Hier beantworten wir die häufigsten Fragen rund um F
 
 ---
 
-## 💻 Software & Lizenzen
+## Software & Lizenzen
 
 ??? faq "Welche XENTRY-Version brauche ich: OpenShell oder PassThru?"
     Das hängt von deiner Hardware ab! Wir empfehlen dir, unsere Tabs zu prüfen:
@@ -31,10 +31,10 @@ Willkommen im FAQ-Bereich! Hier beantworten wir die häufigsten Fragen rund um F
 
 ---
 
-## 🔌 Hardware & Interfaces
+## Hardware & Interfaces
 
 ??? faq "Kann ich meinen billigen ELM327 Bluetooth-Adapter nutzen?"
-    **Nein! Auf gar keinen Fall!** :no_entry_sign:
+    **Nein! Auf gar keinen Fall!**
     
     ELM327-Clones sind für Smartphone-Apps (wie Torque oder Carly) gedacht, um simple Fehlercodes auszulesen. Für echte Variantencodierung oder Flashen fehlt ihnen die Stabilität und die Flow-Control-Logik. 
     ==Wenn du versuchst, damit eine ECU zu flashen, wirst du sie zu 99% unbrauchbar machen (bricken).==
@@ -53,7 +53,7 @@ Willkommen im FAQ-Bereich! Hier beantworten wir die häufigsten Fragen rund um F
 
 ---
 
-## 🛠️ Fehlerbehebung (Troubleshooting)
+## Fehlerbehebung (Troubleshooting)
 
 ??? tip "Hilfe, DTS Monaco meldet 'Cannot work CBF file'!"
     Dieser Fehler tritt auf, wenn deine CBF-Datei aus einem **neueren** XENTRY-Release stammt als deine DTS Monaco Version verarbeiten kann.
@@ -70,7 +70,7 @@ Willkommen im FAQ-Bereich! Hier beantworten wir die häufigsten Fragen rund um F
 
 ---
 
-## 📚 Glossar & Abkürzungen
+## Glossar & Abkürzungen
 
 Hier eine schnelle Übersicht der wichtigsten Akronyme. 
 *(Fahre mit der Maus über die Abkürzungen im Text, um ihre Bedeutung zu sehen!)*

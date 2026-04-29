@@ -1,4 +1,4 @@
-# 🛠️ Praxis-Codierungen & Workflows
+# Praxis-Codierungen & Workflows
 
 Diese Seite bietet detaillierte Schritt-für-Schritt-Anleitungen für typische Komfort- und Retrofit-Codierungen an Mercedes-Benz Fahrzeugen (W205, W213, W222, Sprinter VS30 etc.). Die Workflows basieren auf der Nutzung von DTS Monaco und richten sich an fortgeschrittene Anwender.
 
@@ -15,7 +15,7 @@ Diese Seite bietet detaillierte Schritt-für-Schritt-Anleitungen für typische K
 
 ### Codierung mit Vediamo / DTS Monaco
 1. **Datei laden:** Richtige CBF/SMR-D-Datei aus Xentry-Projekten oder Datenbank laden.
-2. **Security-Access:** Seed anfordern :octicons-arrow-right-24: Key-Generator nutzen :octicons-arrow-right-24: Key eingeben.
+2. **Security-Access:** Seed anfordern -> Key-Generator nutzen -> Key eingeben.
 3. **Parameter anpassen:** Im Dateimodell die gewünschten Werte ändern.
 4. **Flashen:** Geänderte Datei in die ECU schreiben.
 5. **Test:** Fahrzeug starten und Funktionen überprüfen.
@@ -45,7 +45,7 @@ Bevor du mit einer spezifischen Codierung beginnst, müssen diese Voraussetzunge
 
 ### 2.2 Kombiinstrument (Tacho) & Assistenzsysteme
 
-??? info ":material-speedometer: AMG Menü freischalten"
+??? info "AMG Menü freischalten"
     *Aktiviert das begehrte AMG Menü im Standard-Tacho. Bietet digitale Öltemperatur, Wassertemperatur, Ganganzeige und den Laptimer (Rundenzeiten).*
 
     1. Verbinde die ECU des Instrumenten-Clusters (z. B. **IC204, IC213, IC222**).
@@ -55,7 +55,7 @@ Bevor du mit einer spezifischen Codierung beginnst, müssen diese Voraussetzunge
     5. Wähle bei Modellen mit Farbtacho zusätzlich `AMG Startlogo` auf **Active**, damit das Logo beim Einstieg erscheint.
     6. Führe *Do Coding* aus und mache einen *Hard Reset* des Tachos.
 
-??? info ":material-camera-iris: Verkehrszeichen-Erkennung (VZE / TSA)"
+??? info "Verkehrszeichen-Erkennung (VZE / TSA)"
     *Zeigt Tempolimits im Tacho und Headunit an. Voraussetzung: Es ist bereits eine Frontkamera (z. B. vom Spurhalteassistent) verbaut.*
 
     1. **EZS:** *Security Access Level 3B* ausführen. Domain `EVC CfgBit_65_96 Write` → Fragment `513 ROAD SIGN DETECTION (SLA)` auf **ja** setzen.
@@ -63,7 +63,7 @@ Bevor du mit einer spezifischen Codierung beginnst, müssen diese Voraussetzunge
     3. **Headunit (HU):** Domain `Vehicle Functions Write` → Fragment `TSA` (oder `SLR`) auf **aktiviert** setzen.
     4. ECU Resets für alle drei Steuergeräte durchführen.
 
-??? info ":material-car-shift-pattern: Lane Keep Assist „Last Mode“"
+??? info "Lane Keep Assist „Last Mode“"
     *Der Spurhalteassistent schaltet sich nicht mehr automatisch bei jedem Start ein, sondern speichert deinen letzten Zustand ab.*
 
     1. **MMPC** (Kamera/Assistenz-Steuergerät) mit *Extended Start* verbinden.
@@ -74,7 +74,7 @@ Bevor du mit einer spezifischen Codierung beginnst, müssen diese Voraussetzunge
 
 ### 2.3 Motor, Getriebe & Fahrwerk
 
-??? info ":material-engine: Start/Stop „Last Mode“ (z. B. MED40)"
+??? info "Start/Stop „Last Mode“ (z. B. MED40)"
     *Verhindert, dass sich ECO Start/Stop bei jedem Motorstart automatisch reaktiviert.*
 
     1. ECU **MED40** verbinden und *Security Access* via Seed/Key Calculator anfordern.
@@ -82,7 +82,7 @@ Bevor du mit einer spezifischen Codierung beginnst, müssen diese Voraussetzunge
     3. Wert von *„Default ON“* auf **„Stopp Start Standard Logik, Last Mode“** ändern.
     4. Codieren und *Hard Reset* durchführen.
 
-??? info ":material-speedometer-slow: Vmax Aufhebung (Geschwindigkeitsbegrenzung)"
+??? info "Vmax Aufhebung (Geschwindigkeitsbegrenzung)"
     *Anheben der werkseitigen Abregelung (oft auf 210 km/h oder 250 km/h eingestellt) auf den maximalen Wert.*
 
     1. Verbinde das Steuergerät **CPC_NG** (oder CR61 / MED40 je nach Baureihe).
@@ -94,7 +94,7 @@ Bevor du mit einer spezifischen Codierung beginnst, müssen diese Voraussetzunge
 
 ### 2.4 MBUX / Headunit (HU5 / HU6)
 
-??? info ":material-cellphone-link: Apple CarPlay / Android Auto (HU6)"
+??? info "Apple CarPlay / Android Auto (HU6)"
     *Aktiviert die Smartphone-Integration (Voraussetzung: Keine FEC/Zertifikatssperre der neuesten Updates aktiv).*
 
     1. HU6 verbinden und **Security Access Level 3B** ausführen.
@@ -103,14 +103,14 @@ Bevor du mit einer spezifischen Codierung beginnst, müssen diese Voraussetzunge
     3. Limitierungen wie `CarPlay_Trial` auf **Off** setzen.
     4. **Write Coding** und danach HU6 über Hard Reset (oder Power-Button ~10s drücken) neu starten.
 
-??? info ":material-monitor-dashboard: Video in Motion / VIM (NTG 5.5 High)"
+??? info "Video in Motion / VIM (NTG 5.5 High)"
     *Schaltet Videos (USB/DVD) während der Fahrt frei (Nur NTG 5.5 High).*
 
     1. Headunit (**HU5.5**) im Variant Coding Tab verbinden.
     2. Parameter *Geschwindigkeitsbegrenzung Video* (TV/DVD während Fahrt) suchen.
     3. Wert von *limited* auf **always on** (oder *no limit*) ändern und ECU resetten.
 
-??? info ":material-led-strip-variant: Ambient Light (64-Farben Menü)"
+??? info "Ambient Light (64-Farben Menü)"
     1. **HU5/6** Variantencodierung öffnen.
     2. In der Domain für *Ambient light* den Parameter **Ambient Light Menu** auf **On** setzen.
     3. Anzahl der Zonen (z. B. *Front, Rear, Footwell*) und Helligkeitsstufen (z. B. *5 Steps*) passend zur Hardware konfigurieren.
@@ -119,7 +119,7 @@ Bevor du mit einer spezifischen Codierung beginnst, müssen diese Voraussetzunge
 
 ### 2.5 Allgemeine Komfortfunktionen
 
-??? info ":material-car-door: Automatisch anklappbare Außenspiegel"
+??? info "Automatisch anklappbare Außenspiegel"
     *Spiegel klappen beim Verriegeln ein und beim Entriegeln wieder aus.*
 
     1. EZS167 entsperren und Extended Start ausführen.

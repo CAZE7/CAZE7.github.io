@@ -6,35 +6,31 @@ tags:
   - Flashing
 ---
 
-# 🏎️ DTS Monaco – Engineering-Level Codierung & Flashing
+# DTS Monaco – Engineering-Level Codierung & Flashing
 
 DTS Monaco ist das Engineering-Diagnosetool von Mercedes-Benz, das tieferen Zugriff auf Steuergeräte bietet als XENTRY oder Vediamo. Es arbeitet projektbasiert mit **CBF-Dateien** (Einzel-Steuergeräte-Beschreibungen für ältere Modelle) und **SMR-D-Dateien** (Fahrzeug-Projektdateien für neuere Modelle).
 
 ## 1. Was ist DTS Monaco?
 
-| Funktion | DTS Monaco | Vediamo | XENTRY |
-| :--- | :--- | :--- | :--- |
-| Schnelle ECU-Codierung aller Steuergeräte | ✅ Ja | ❌ Nein | Teilweise |
-| ECU-Software-Backup/-Restore | ✅ Ja | ✅ Ja | ❌ Nein |
-| ECU-Flashing (Firmware-Update) | ✅ Ja | Teilweise | Nur SDFlash |
-| Alle Fehlercodes schnell lesen/löschen | ✅ Ja | ❌ Nein | ✅ Ja |
-| ECU-Daten-Switch (Ersatzgerät programmieren) | ✅ Ja | ❌ Nein | ❌ Nein |
-| SeedKey-Sicherheitsfreischaltung | ✅ Ja | ✅ Ja | ❌ Nein |
-| Variantencodierung | ✅ Ja | ✅ Ja | ✅ Ja |
-| Projektbasiertes Arbeiten | ✅ Ja | ❌ Nein | ❌ Nein |
+* **Schnelle ECU-Codierung:** In DTS Monaco und Vediamo verfügbar. In XENTRY nur teilweise.
+* **ECU-Software-Backup/-Restore:** In DTS Monaco und Vediamo möglich. In XENTRY nicht.
+* **ECU-Flashing (Firmware-Update):** In DTS Monaco vollständig, in Vediamo teilweise. In XENTRY nur via SDFlash.
+* **Fehlercodes schnell lesen/löschen:** In DTS Monaco und XENTRY verfügbar. In Vediamo nicht.
+* **ECU-Daten-Switch:** Nur in DTS Monaco möglich.
+* **SeedKey-Sicherheitsfreischaltung:** In DTS Monaco und Vediamo möglich. In XENTRY nicht.
+* **Variantencodierung:** In allen drei Tools möglich.
+* **Projektbasiertes Arbeiten:** Nur in DTS Monaco.
 
 **Kernunterschied:** Vediamo ist dateibasiert (CBF einzeln laden), während DTS Monaco ein komplettes Fahrzeugprojekt mit allen Steuergeräten, CBF- und SMR-D-Dateien zusammenfasst.
 
 ## 2. Systemanforderungen & Installation
 
 ### 2.1 Hardware-Voraussetzungen
-| Komponente | Minimum | Empfohlen | Hinweis |
-| :--- | :--- | :--- | :--- |
-| Betriebssystem | Windows 10 Pro 64-Bit | Windows 10/11 Pro, frische Installation | Home-Edition kann Netzwerk-Probleme verursachen |
-| RAM | 8 GB | 16 GB | SMR-D-Datenbanken können groß werden |
-| Festplatte | 100 GB SSD | 256 GB SSD | Projekte + SMR-D + CBF + Flash-Container |
-| Interface | J2534 (OpenPort 2.0) | SD Connect C4/C6, VXDIAG VCX SE | Version 9.02 arbeitet mit Passthrough-Devices problematisch |
-| Stromversorgung | 30 A Battery-Stabilizer | 50-70 A Diagnose-Stabilizer | Essenziell für Flashing |
+* **Betriebssystem:** Windows 10/11 Pro (frische Installation empfohlen). Home-Edition kann Netzwerk-Probleme verursachen.
+* **RAM:** 16 GB empfohlen (SMR-D-Datenbanken können groß werden), mindestens 8 GB.
+* **Festplatte:** 256 GB SSD empfohlen für Projekte, SMR-D, CBF und Flash-Container.
+* **Interface:** SD Connect C4/C6 oder VXDIAG VCX SE empfohlen. J2534 (OpenPort 2.0) funktioniert, aber Version 9.02 arbeitet damit oft problematisch.
+* **Stromversorgung:** 50-70 A Diagnose-Stabilizer essenziell für Flashing.
 
 !!! warning "DTS Monaco 9.02 + Passthrough = Probleme"
     In der Community mehrfach bestätigt: DTS Monaco 9.02 funktioniert nicht zuverlässig mit J2534-Passthrough-Devices wie OpenPort 2.0. Das Tool erkennt das Interface, bricht bei längeren Kommunikationen aber ab oder friert ein.
@@ -106,13 +102,11 @@ Ein DTS Monaco-Projekt fasst zusammen:
 6. Hard Reset / Ignition OFF/ON (je nach Steuergerät).
 
 ### 5.2 SeedKey-Freischaltung (Security Access)
-| Level | Bedeutung |
-| :--- | :--- |
-| 1 | Grundlegende Diagnose |
-| 3 | Erweiterte Diagnose, Fehlerspeicher löschen |
-| 5 / 37 / 3B | Variantencodierung |
-| 9 / 10 | ECU-Flashing, Security-Functions |
-| 11+ | Engineering-Funktionen, Immobilizer |
+* **Level 1:** Grundlegende Diagnose
+* **Level 3:** Erweiterte Diagnose, Fehlerspeicher löschen
+* **Level 5 / 37 / 3B:** Variantencodierung
+* **Level 9 / 10:** ECU-Flashing, Security-Functions
+* **Level 11+:** Engineering-Funktionen, Immobilizer
 
 *Warnung:* Beginne immer mit dem niedrigstmöglichen Level. Zu viele falsche Versuche sperren die ECU!
 
@@ -128,12 +122,10 @@ Ein DTS Monaco-Projekt fasst zusammen:
 
 ## 6. Bekannte Fehler & Lösungen
 
-| Symptom | Ursache | Lösung |
-| :--- | :--- | :--- |
-| **"Cannot work CBF file"** | CBF-Datei neuer als DTS-Version | Passende (ältere) CBF-Version verwenden |
-| **"No communication with ECU"** | Falscher Bus/Adresse, ECU schläft | Bus-Konfiguration in SMR-D prüfen, Zündung AN |
-| **"Security access denied"** | Falscher SeedKey, falsches Level | SeedKey neu berechnen, Level prüfen |
-| **Projekt lädt extrem langsam** | Fragmentierte DB, langsame HDD | Nicht benötigte Dateien entfernen, SSD nutzen |
+* **"Cannot work CBF file":** Die CBF-Datei ist neuer als die DTS-Version. Lösung: Passende (ältere) CBF-Version verwenden.
+* **"No communication with ECU":** Falscher Bus/Adresse oder ECU schläft. Lösung: Bus-Konfiguration in SMR-D prüfen, Zündung AN.
+* **"Security access denied":** Falscher SeedKey oder falsches Level. Lösung: SeedKey neu berechnen, Level prüfen.
+* **Projekt lädt extrem langsam:** Fragmentierte DB oder langsame HDD. Lösung: Nicht benötigte Dateien entfernen, SSD nutzen.
 
 ---
 

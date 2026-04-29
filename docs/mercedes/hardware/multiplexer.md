@@ -1,4 +1,4 @@
-# 🔌 Multiplexer (SD Connect & VCI)
+# Multiplexer (SD Connect & VCI)
 
 Für professionelle Werkstätten und weitreichende Eingriffe an modernen Mercedes-Benz Fahrzeugen sind Original-Multiplexer oder hochwertige Clones unumgänglich. Sie bilden das Rückgrat der tiefen Fahrzeugdiagnose.
 
@@ -6,12 +6,10 @@ Für professionelle Werkstätten und weitreichende Eingriffe an modernen Mercede
 
 ## 1. Die Geräte im Vergleich
 
-| Interface | Protokolle | Besonderheiten | Community-Einschätzung |
-| :--- | :--- | :--- | :--- |
-| **SD Connect C4** | K-Line, CAN, UDS | Klassiker, extrem erprobt, Wireless möglich | Clone-Qualität sehr unterschiedlich; WLAN-Module oft instabil |
-| **SD Connect C5** | K-Line, CAN, UDS, erweitertes DoIP | Verbesserte DoIP-Unterstützung gegenüber C4 | Gute Mittelklasse; einige C5 sind technisch C4-Clones im anderen Gehäuse |
-| **VCI C6 (Original)** | Voll-DoIP, CAN-FD, USB/LAN/WLAN | Aktuelles Mercedes-Interface | Referenzstandard, aber sehr teuer |
-| **VCI C6 (Clone)** | DoIP, CAN, USB/LAN | ~450 €, chinesische Nachbauten | Funktioniert bei vielen, Zenzefi-Probleme häufig; Qualitätsschwankungen |
+* **SD Connect C4:** K-Line, CAN, UDS. Klassiker, extrem erprobt, Wireless möglich. Clone-Qualität sehr unterschiedlich; WLAN-Module oft instabil.
+* **SD Connect C5:** K-Line, CAN, UDS, erweitertes DoIP. Verbesserte DoIP-Unterstützung gegenüber C4. Gute Mittelklasse; einige C5 sind technisch C4-Clones im anderen Gehäuse.
+* **VCI C6 (Original):** Voll-DoIP, CAN-FD, USB/LAN/WLAN. Aktuelles Mercedes-Interface. Referenzstandard, aber sehr teuer.
+* **VCI C6 (Clone):** DoIP, CAN, USB/LAN. Chinesische Nachbauten. Funktioniert bei vielen, Zenzefi-Probleme häufig; Qualitätsschwankungen.
 
 ---
 

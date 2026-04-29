@@ -1,16 +1,16 @@
 ---
-title: ⚖️ Haftungsausschluss & Disclaimer
+title: Haftungsausschluss & Disclaimer
 description: Rechtliche Rahmenbedingungen und Sicherheitshinweise für die Nutzung des OBD Expert Guide.
 ---
 
-# ⚖️ Haftungsausschluss & Disclaimer
+# Haftungsausschluss & Disclaimer
 
 !!! info "Allgemeiner Hinweis"
     Die auf dieser Website bereitgestellten Informationen, Anleitungen und Empfehlungen zur Fahrzeug-Codierung, Diagnose und Fahrzeugelektronik dienen **ausschließlich Bildungs- und Informationszwecken**. Sie stellen keine professionelle Fachberatung dar und können eine solche nicht ersetzen.
 
 ---
 
-## 🚫 Keine Haftung für Schäden
+## Keine Haftung für Schäden
 
 !!! danger "WICHTIGER RECHTLICHER HINWEIS"
     Die Anwendung der bereitgestellten Informationen erfolgt auf **eigenes Risiko**. Der Betreiber dieser Website übernimmt **keinerlei Haftung** für:
@@ -24,7 +24,7 @@ description: Rechtliche Rahmenbedingungen und Sicherheitshinweise für die Nutzu
 
 ---
 
-## 🧘 Eigenverantwortung
+## Eigenverantwortung
 
 ### Du handelst auf eigene Gefahr
 Die Durchführung aller auf dieser Website beschriebenen Verfahren setzt technisches Verständnis voraus. Mit der Nutzung dieser Inhalte akzeptierst du:
@@ -35,7 +35,7 @@ Die Durchführung aller auf dieser Website beschriebenen Verfahren setzt technis
 
 ---
 
-## 🛠️ Drittanbieter-Tools & Marken
+## Drittanbieter-Tools & Marken
 Diese Website verweist auf verschiedene Tools (z.B. VCDS, ODIS, VCP, Xentry, DTS Monaco). 
 
 *   **Unabhängigkeit:** Wir stehen in keiner geschäftlichen Beziehung zu den Herstellern dieser Tools und erhalten keine Provisionen.
@@ -44,7 +44,7 @@ Diese Website verweist auf verschiedene Tools (z.B. VCDS, ODIS, VCP, Xentry, DTS
 
 ---
 
-## 🚔 Gesetzliche Compliance
+## Gesetzliche Compliance
 
 !!! warning "StVZO & Straßenverkehrsrecht"
     Viele Codierungen (z.B. Deaktivierung von Gurtwarnern, Anpassung der Beleuchtung, Vmax-Aufhebung) können zum **Erlöschen der Betriebserlaubnis** führen. 
@@ -55,7 +55,7 @@ Diese Website verweist auf verschiedene Tools (z.B. VCDS, ODIS, VCP, Xentry, DTS
 
 ---
 
-## 🔍 Qualität & Aktualität
+## Qualität & Aktualität
 Diese Wissensdatenbank wird nach bestem Wissen und Gewissen gepflegt, jedoch:
 
 *   **Keine Gewähr für Richtigkeit:** Trotz sorgfältiger Prüfung können Informationen fehlerhaft oder veraltet sein.
@@ -64,7 +64,7 @@ Diese Wissensdatenbank wird nach bestem Wissen und Gewissen gepflegt, jedoch:
 
 ---
 
-## 🛑 Verbotsklauseln
+## Verbotsklauseln
 Die Nutzung dieser Inhalte für illegale Aktivitäten ist streng untersagt. Dazu gehören insbesondere:
 
 *   Manipulation von Kilometerständen (Tachobetrug).
@@ -74,7 +74,7 @@ Die Nutzung dieser Inhalte für illegale Aktivitäten ist streng untersagt. Dazu
 
 ---
 
-## 📜 Schlussbestimmung
+## Schlussbestimmung
 **DIESE WEBSITE WIRD "WIE VORLIEGEND" BEREITGESTELLT. IN KEINEM FALL HAFTET DER BETREIBER FÜR DIREKTE ODER INDIREKTE SCHÄDEN, DIE SICH AUS DER NUTZUNG DER INFORMATIONEN ERGEBEN.**
 
 Der Betreiber behält sich das Recht vor, diesen Disclaimer jederzeit anzupassen. Deine fortgesetzte Nutzung der Website gilt als Einverständnis mit der jeweils aktuellen Fassung.

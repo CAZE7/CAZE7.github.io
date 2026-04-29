@@ -6,7 +6,7 @@ hide:
   - navigation # Versteckt die linke Navigation auf der Startseite für einen sauberen Look
 ---
 
-# 🏎️ Willkommen im OBD Expert Guide
+# Willkommen im OBD Expert Guide
 
 **Diagnose, Codierung und Engineering auf Herstellerniveau.**
 
@@ -14,7 +14,7 @@ Diese Wissensdatenbank bietet tiefe Einblicke und Praxis-Workflows für Mercedes
 
 ---
 
-## 📚 Wissensbereiche
+## Wissensbereiche
 
 Wähle deinen Bereich, um in die detaillierten Anleitungen und Best-Practices einzutauchen:
 
@@ -56,7 +56,7 @@ Wähle deinen Bereich, um in die detaillierten Anleitungen und Best-Practices ei
 
 ---
 
-## 🛠️ Interaktiver Tool-Finder
+## Interaktiver Tool-Finder
 
 Du bist dir unsicher, welche Hard- oder Software du für dein Projekt benötigst? Beantworte drei kurze Fragen, und unser System gibt dir eine fundierte Empfehlung!
 
@@ -113,7 +113,7 @@ function calculateResult() {
   if (answers.brand === 'VAG') {
     if (answers.device === 'Smartphone') {
       if (answers.goal === 'Profi') { 
-        tool = "⚠️ Keine Empfehlung"; 
+        tool = "Keine Empfehlung"; 
         desc = "Ein Smartphone ist für tiefes Flashen nicht sicher genug (Verbindungsabbrüche). Bitte nutze zwingend einen Windows-Laptop mit ODIS oder VCP."; 
       } else { 
         tool = "OBDeleven"; 
@@ -131,7 +131,7 @@ function calculateResult() {
   } else {
     // Mercedes Logic
     if (answers.device === 'Smartphone') { 
-      tool = "⚠️ Warnung"; 
+      tool = "Warnung"; 
       desc = "Für Mercedes raten wir von Smartphone-Codierungen (wie Carly) dringend ab, da die Gefahr von EZS-Schäden extrem hoch ist. Nutze einen Laptop!"; 
     } else { 
       if (answers.goal === 'Profi') {

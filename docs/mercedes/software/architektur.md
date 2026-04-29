@@ -1,4 +1,4 @@
-# 💻 Software, Architektur & Fehlerbehebung
+# Software, Architektur & Fehlerbehebung
 
 Dieses Dokument beschreibt die Software-Architektur, Installationsroutinen und Sicherheitsmechanismen (Zenzefi, Seed & Key) bei Mercedes-Benz Fahrzeugen.
 
@@ -9,9 +9,9 @@ Dieses Dokument beschreibt die Software-Architektur, Installationsroutinen und S
 Mercedes-Benz nutzt ein hierarchisches Diagnose- und Kodiersystem, das sich grundlegend von offenen OBD2-Systemen unterscheidet:
 
 ### 1.1 Protokolle und Transport
-* :material-serial-port: **K-Line / KWP2000:** Ältere Modelle (bis ca. 2005) nutzen die serielle K-Line-Diagnose (ISO 9141 / ISO 14230).
-* :material-network-outline: **CAN-Bus:** Mittlere Modellgenerationen (2005–2015) basieren auf CAN-Diagnose mit UDS/KWP2000-Services über ISO-TP.
-* :material-ethernet: **Ethernet / DoIP:** Moderne Fahrzeuge (ab ca. 2015) setzen auf einen Ethernet-Backbone mit Diagnostics over Internet Protocol (DoIP, ISO 13400). DoIP kapselt UDS-Nachrichten in TCP/UDP und ermöglicht Gigabit-Datenraten.
+* **K-Line / KWP2000:** Ältere Modelle (bis ca. 2005) nutzen die serielle K-Line-Diagnose (ISO 9141 / ISO 14230).
+* **CAN-Bus:** Mittlere Modellgenerationen (2005–2015) basieren auf CAN-Diagnose mit UDS/KWP2000-Services über ISO-TP.
+* **Ethernet / DoIP:** Moderne Fahrzeuge (ab ca. 2015) setzen auf einen Ethernet-Backbone mit Diagnostics over Internet Protocol (DoIP, ISO 13400). DoIP kapselt UDS-Nachrichten in TCP/UDP und ermöglicht Gigabit-Datenraten.
 
 ### 1.2 Sicherheitsmechanismen: Seed & Key
 Sensible Funktionen sind durch **Seed & Key** (ISO 14229, UDS-Service 0x27) geschützt.
@@ -27,11 +27,20 @@ Sensible Funktionen sind durch **Seed & Key** (ISO 14229, UDS-Service 0x27) gesc
 
 XENTRY ist die offizielle Diagnosesoftware. Sie existiert in drei technisch unterschiedlichen Distributionen:
 
-| Variante | Zweck | Hardware-Voraussetzung | Fahrzeugabdeckung |
-| :--- | :--- | :--- | :--- |
-| **XENTRY OpenShell (XDOS)** | Professionelle Werkstattdiagnose | SD Connect C4/C5/C6, VXDIAG | Vollständig (inkl. älteste Modelle) |
-| **XENTRY PassThru (XPT)** | J2534-konforme Diagnose | OpenPort 2.0, VXDIAG J2534 | ~95%, Einschränkungen bei DoIP |
-| **XENTRY Diagnostics** | Offizielle Werkstattversion | Original Mercedes VCI | Vollständig (mit Online-Zugang) |
+### 2.1 XENTRY OpenShell (XDOS)
+**Zweck:** Professionelle Werkstattdiagnose  
+**Hardware-Voraussetzung:** SD Connect C4/C5/C6, VXDIAG  
+**Fahrzeugabdeckung:** Vollständig (inkl. älteste Modelle)
+
+### 2.2 XENTRY PassThru (XPT)
+**Zweck:** J2534-konforme Diagnose  
+**Hardware-Voraussetzung:** OpenPort 2.0, VXDIAG J2534  
+**Fahrzeugabdeckung:** ~95%, Einschränkungen bei DoIP
+
+### 2.3 XENTRY Diagnostics
+**Zweck:** Offizielle Werkstattversion  
+**Hardware-Voraussetzung:** Original Mercedes VCI  
+**Fahrzeugabdeckung:** Vollständig (mit Online-Zugang)
 
 !!! info "Entscheidungshilfe"
     Für Werkstätten mit älteren Fahrzeugen (pre-2015) ist **XENTRY OpenShell** die vielseitigste Lösung. Für reine DoIP-Neufahrzeuge benötigt man entweder original VCI C6 oder hochwertige Clone-Alternativen mit korrekter **Zenzefi**-Zertifikation.
@@ -67,11 +76,17 @@ XENTRY-Installationen scheitern häufig an falscher Treiber-Installation oder ve
 
 Zenzefi ist Mercedess Zertifikatsmanagement-System für die gesicherte Kommunikation mit modernen DoIP-Fahrzeugen (W206, W223, W167 MOPF2).
 
-| Problem | Symptom | Lösungsweg |
-| :--- | :--- | :--- |
-| **Certificate import failure** | P12/DCS wird abgelehnt | Zenzefi auf Version 12.2023 downgraden; Root-CA manuell importieren |
-| **Missing Root CA** | Zertifikat als "untrusted" markiert | Manuelles Einspielen der Legacy-CAs |
-| **Server not accessible** | "Server for diagnosis certificates is not accessible" | Offline-Properties-Dateien aktualisieren oder korrekten StartKey verwenden |
+### 4.1 Certificate import failure
+**Symptom:** P12/DCS wird abgelehnt  
+**Lösungsweg:** Zenzefi auf Version 12.2023 downgraden; Root-CA manuell importieren
+
+### 4.2 Missing Root CA
+**Symptom:** Zertifikat als "untrusted" markiert  
+**Lösungsweg:** Manuelles Einspielen der Legacy-CAs
+
+### 4.3 Server not accessible
+**Symptom:** "Server for diagnosis certificates is not accessible"  
+**Lösungsweg:** Offline-Properties-Dateien aktualisieren oder korrekten StartKey verwenden
 
 ---
 
@@ -111,15 +126,13 @@ Für Werkstätten mit breitem Fahrzeugspektrum ist **XENTRY 2023.09** in der Com
 *[VCI]: Vehicle Communication Interface
 *[MUX]: Multiplexer
 
-| Begriff | Erklärung |
-| :--- | :--- |
-| **[DAS]** | Diagnosis Assistance System; ältere Diagnoseschicht in XENTRY. |
-| **[XDOS] / [XPT]** | XENTRY Diagnosis OpenShell / XENTRY PassThru |
-| **[DoIP]** | Diagnostics over Internet Protocol (Ethernet-basiert) |
-| **[SCN]** | Software Calibration Number (Codierung) |
-| **[Zenzefi]** | Zertifikatsmanagement-System für DoIP |
-| **CBF / SMR-D** | Projektdateien für Offline-Codierung (siehe [SMR-D Quellen](smr_d.md)) |
-| **CFF / FRF** | Firmware-Flash-Container |
+* **[DAS]:** Diagnosis Assistance System; ältere Diagnoseschicht in XENTRY.
+* **[XDOS] / [XPT]:** XENTRY Diagnosis OpenShell / XENTRY PassThru
+* **[DoIP]:** Diagnostics over Internet Protocol (Ethernet-basiert)
+* **[SCN]:** Software Calibration Number (Codierung)
+* **[Zenzefi]:** Zertifikatsmanagement-System für DoIP
+* **CBF / SMR-D:** Projektdateien für Offline-Codierung (siehe [SMR-D Quellen](smr_d.md))
+* **CFF / FRF:** Firmware-Flash-Container
 
 ---
 

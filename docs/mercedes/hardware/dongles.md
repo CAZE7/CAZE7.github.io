@@ -1,4 +1,4 @@
-# 🔌 Passthrough Dongles (Budget & Einstieg)
+# Passthrough Dongles (Budget & Einstieg)
 
 Für Privatanwender, Enthusiasten und Codierer, die keine teuren Werkstatt-Multiplexer kaufen wollen, haben sich **J2534-Passthru-Geräte** als kosteneffizientester Standard etabliert. 
 
@@ -8,12 +8,10 @@ Diese Interfaces kommunizieren reibungslos mit OEM-Software wie Xentry (speziell
 
 ## 1. Die gängigsten Passthrough-Devices
 
-| Device | Protokolle / DoIP | Eignung | Bekannte Einschränkungen |
-| :--- | :--- | :--- | :--- |
-| **Tactrix OpenPort 2.0 (Original)** | CAN, K-Line / **Nein** | Ältere Fahrzeuge (ca. 2005-2015) | Kein DoIP; für DAS-Offline-Programming teilweise zu langsame Datenrate |
-| **Tactrix OpenPort 2.0 (Clone)** | CAN, K-Line / **Nein** | Hobby/Einstieg | Datenrate nicht voll DAS-kompatibel; **hohes Risiko bei ECU-Flashing** |
-| **VXDIAG VCX SE (Benz-Version)** | CAN, DoIP / **Ja** | Universell (inkl. DoIP) | Zenzefi-Zertifikat erforderlich für DoIP-Fahrzeuge (teilweise schwierig zu beschaffen) |
-| **VXDIAG VCX SE (J2534)** | CAN / **Theoretisch** | Eingeschränkt | Benötigt spezielle Benz-Lizenz für volle Funktionalität |
+* **Tactrix OpenPort 2.0 (Original):** CAN, K-Line. Kein DoIP. Geeignet für ältere Fahrzeuge (ca. 2005-2015). Bekannte Einschränkungen: Für DAS-Offline-Programming teilweise zu langsame Datenrate.
+* **Tactrix OpenPort 2.0 (Clone):** CAN, K-Line. Kein DoIP. Eignung für Hobby/Einstieg. Bekannte Einschränkungen: Datenrate nicht voll DAS-kompatibel; hohes Risiko bei ECU-Flashing.
+* **VXDIAG VCX SE (Benz-Version):** CAN, DoIP. Universell einsetzbar (inkl. DoIP). Bekannte Einschränkungen: Zenzefi-Zertifikat erforderlich für DoIP-Fahrzeuge (teilweise schwierig zu beschaffen).
+* **VXDIAG VCX SE (J2534):** CAN. DoIP theoretisch. Eingeschränkt geeignet. Bekannte Einschränkungen: Benötigt spezielle Benz-Lizenz für volle Funktionalität.
 
 ---
 

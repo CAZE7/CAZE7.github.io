@@ -1,4 +1,4 @@
-# 🛠️ Praxis-Codierungen & Workflows (VAG)
+# Praxis-Codierungen & Workflows (VAG)
 
 Dieses Dokument bietet praxisnahe Anleitungen für beliebte Codierungen und Retrofits im VAG-Konzern. Wir behandeln typische Anpassungen und den professionellen VCP-Workflow zum Flashen von Datensätzen.
 

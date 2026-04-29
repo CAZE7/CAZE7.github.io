@@ -1,4 +1,4 @@
-# 🔌 Hardware & Interfaces (VAG)
+# Hardware & Interfaces (VAG)
 
 Dieses Dokument beschreibt die Hardware-Anforderungen und Kommunikationsprotokolle für Fahrzeuge der Marken VW, Audi, Seat, Škoda, Bentley und Lamborghini. Der Fokus liegt auf der Unterscheidung zwischen professionellen Interfaces, Consumer-Lösungen und typischen "Clone-Fallen".
 
@@ -8,9 +8,9 @@ Dieses Dokument beschreibt die Hardware-Anforderungen und Kommunikationsprotokol
 
 Die Steuergeräte-Kommunikation im VAG-Konzern durchlief drei wesentliche technologische Generationen:
 
-* :material-serial-port: **K-Line (ISO 9141 / KW1281):** Einsatz in älteren Modellen (vor ca. 2005). Die Kommunikation erfolgt seriell und mit sehr geringer Datenrate.
-* :material-network-outline: **CAN-Bus:** Der Industriestandard ab ca. 2005 (Golf 5, Audi A3 8P). Es kommen Protokolle wie TP2.0 und später UDS (Unified Diagnostic Services, ab ca. 2009) zum Einsatz.
-* :material-ethernet: **DoIP (Diagnostics over IP):** Bei aktuellen Modellen (z. B. Golf 8, ID-Serie, Audi e-tron) für hohe Datenvolumina verwendet. Ohne DoIP-fähige Hardware sind Firmware-Updates an modernen Gateways schlicht unmöglich.
+* **K-Line (ISO 9141 / KW1281):** Einsatz in älteren Modellen (vor ca. 2005). Die Kommunikation erfolgt seriell und mit sehr geringer Datenrate.
+* **CAN-Bus:** Der Industriestandard ab ca. 2005 (Golf 5, Audi A3 8P). Es kommen Protokolle wie TP2.0 und später UDS (Unified Diagnostic Services, ab ca. 2009) zum Einsatz.
+* **DoIP (Diagnostics over IP):** Bei aktuellen Modellen (z. B. Golf 8, ID-Serie, Audi e-tron) für hohe Datenvolumina verwendet. Ohne DoIP-fähige Hardware sind Firmware-Updates an modernen Gateways schlicht unmöglich.
 
 ---
 
