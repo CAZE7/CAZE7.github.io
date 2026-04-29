@@ -29,14 +29,14 @@ Umschaltung Fahrprofil: Incremental
 
 Deaktiviert die Anhängerstabilisierungsfunktion des ESP, z.B. wenn kein Anhängerbetrieb vorgesehen ist.
 
-=== "Mit ODIS"
+=== ":material-laptop: ODIS"
     ``` yaml
     Steuergerät 03 → Codierung:
     - Anhängerstabilisierung: Deaktivieren
     → Übernehmen (mit Neustart des Steuergeräts)
     ```
 
-=== "Mit VCDS"
+=== ":material-cable-data: VCDS"
     ``` yaml
     Steuergerät 03 – ABS → Anpassung:
     - Kanal 56: 1 = ein, 0 = aus
@@ -49,7 +49,7 @@ Deaktiviert die Anhängerstabilisierungsfunktion des ESP, z.B. wenn kein Anhäng
 
 Beseitigt den leichten Ruck beim Anfahren mit eingeschaltetem AutoHold. Das Fahrzeug fährt nach der Anpassung deutlich sanfter an.
 
-=== "Mit ODIS"
+=== ":material-laptop: ODIS"
     ``` yaml title="Login: 20103"
     Steuergerät 03 – ABS/ESP → Anpassung:
     Drive_away_assist_control (Dynamischer Anfahrassistent): Früh
@@ -57,7 +57,7 @@ Beseitigt den leichten Ruck beim Anfahren mit eingeschaltetem AutoHold. Das Fahr
     → Übernehmen
     ```
 
-=== "Mit OBDeleven"
+=== ":material-cellphone-link: OBDeleven"
     ``` yaml title="Login: 20103"
     Steuergerät 03 → Anpassung:
     Dynamischer Anfahrassistent: früh

@@ -8,20 +8,20 @@ Codierungen und Anpassungen für die Klimaanlage, Heizung und Komfortfunktionen 
 
 Zeigt die aktuelle Gebläsestufe an, auch wenn der Klimaautomatik-Modus (AUTO) aktiv ist.
 
-=== "Mit ODIS"
+=== ":material-laptop: ODIS"
     ``` yaml
     Steuergerät 08 → Codierung:
     Byte 11 – Bit 6: Aktivieren
     → Übernehmen (mit Neustart des Steuergeräts)
     ```
 
-=== "Mit OBDeleven"
+=== ":material-cellphone-link: OBDeleven"
     ``` yaml
     Steuergerät 08 – Klimaanlage → Lange Codierung:
     Anzeige des Gebläsemodus im Automatikmodus: Aktivieren
     ```
 
-=== "Mit VCDS"
+=== ":material-cable-data: VCDS"
     ``` yaml
     08 – Klimaanlage
     Codierung - 07 → Lange Codierung:
@@ -35,7 +35,7 @@ Zeigt die aktuelle Gebläsestufe an, auch wenn der Klimaautomatik-Modus (AUTO) a
 
 Speichert die zuletzt gewählte Sitzheizungsstufe dauerhaft, sodass sie beim nächsten Start automatisch wieder aktiv ist.
 
-=== "Mit ODIS"
+=== ":material-laptop: ODIS"
     ``` yaml
     Steuergerät 08 → Anpassung:
     Speicherung der Sitzheizungsstufe Fahrer: Aktivieren
@@ -44,7 +44,7 @@ Speichert die zuletzt gewählte Sitzheizungsstufe dauerhaft, sodass sie beim nä
     → Übernehmen
     ```
 
-=== "Mit OBDeleven"
+=== ":material-cellphone-link: OBDeleven"
     ``` yaml
     Steuergerät 08 → Anpassung:
     Sitzheizungsstufe Fahrer speichern: aktiv (vorher: aktiv 10 min)
@@ -66,7 +66,7 @@ Die Lenkradheizung schaltet sich automatisch ein, wenn die Temperatur unter eine
     * **Lenkradtemperatur** – Schaltet ein, wenn das Lenkrad kalt ist (gut für Langstrecke)
     * **Außentemperatur** – Schaltet immer ein, wenn die Außentemperatur niedrig ist
 
-=== "Mit ODIS"
+=== ":material-laptop: ODIS"
     ``` yaml
     Steuergerät 08 → Codierung:
     Heated_steering_wheel_automatic_mode:
@@ -74,13 +74,13 @@ Die Lenkradheizung schaltet sich automatisch ein, wenn die Temperatur unter eine
     → Übernehmen
     ```
 
-=== "Mit OBDeleven"
+=== ":material-cellphone-link: OBDeleven"
     ``` yaml
     Steuergerät 08 → Lange Codierung:
     Lenkradheizung, automatischer Modus: gewünschten Wert einstellen
     ```
 
-=== "Mit VCDS"
+=== ":material-cable-data: VCDS"
     ``` yaml
     08 – Klimaanlage → Codierung - 07 → Lange Codierung:
     Byte 13 – Bit 2: nach Lenkradsensor
@@ -98,14 +98,14 @@ Die Außenspiegel werden automatisch beheizt, wenn die Heckscheibenheizung einge
 !!! info ""
     Diese Codierung funktioniert nicht beim Tiguan. Für Tiguan siehe den nächsten Abschnitt.
 
-=== "Mit ODIS"
+=== ":material-laptop: ODIS"
     ``` yaml title="Login: 31347"
     Steuergerät 09 → Codierung:
     Spiegelheizung aktiv bei Heckscheibenheizung: Aktivieren
     → Übernehmen (mit Neustart des Steuergeräts)
     ```
 
-=== "Mit VCDS"
+=== ":material-cable-data: VCDS"
     ``` yaml title="Login: 31347"
     09 – Bordnetzsteuergerät
     Codierung - 07 → Lange Codierung:
@@ -129,7 +129,7 @@ Byte 9 – Bit 2 (rear_window_heater_trigger): Aktivieren
 
 ### Spiegelheizung als separater Menüpunkt anzeigen
 
-=== "Mit ODIS"
+=== ":material-laptop: ODIS"
     ``` yaml
     Steuergerät 19 → Anpassung:
     Efficiency_display:
@@ -139,7 +139,7 @@ Byte 9 – Bit 2 (rear_window_heater_trigger): Aktivieren
     → Übernehmen
     ```
 
-=== "Mit OBDeleven"
+=== ":material-cellphone-link: OBDeleven"
     ``` yaml
     Steuergerät 19 → Anpassung:
     Effizienzanzeige:
@@ -188,14 +188,14 @@ AirCare leitet den Innenraumluft zusätzlich durch den Pollenfilter im Umluftbet
     * Gateway mit Firmware ab Version 1244/2244
     * MIB Infotainment (STD2/HIGH2) ab Baujahr 2016
 
-=== "Mit ODIS"
+=== ":material-laptop: ODIS"
     ``` yaml
     Steuergerät 08 → Codierung:
     filtering_interior_air: installed
     → Übernehmen (mit Neustart des Steuergeräts)
     ```
 
-=== "Mit VCDS"
+=== ":material-cable-data: VCDS"
     ``` yaml
     08 – Klimaanlage
     Codierung - 07 → Lange Codierung:
