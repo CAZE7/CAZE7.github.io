@@ -1,3 +1,8 @@
+---
+title: Mercedes SMR-D & Flash-Dateien | CBF, CFF Formate
+description: Beschaffung und Formate von Mercedes Flash- und Projektdateien. Unterschied zwischen SMR-D, CBF, CFF und SMR-F.
+keywords: Mercedes, SMR-D, SMR-F, CBF, CFF, Flash-Datei, Projektdatei, DTS Monaco, Vediamo
+---
 # SMR-D und Flash-Dateien – Beschaffung & Formate
 
 ---

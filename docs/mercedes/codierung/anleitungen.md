@@ -1,3 +1,8 @@
+---
+title: Mercedes Praxis-Codierungen & Retrofits | W205, W213, W222
+description: Schritt-für-Schritt-Anleitungen für typische Komfort- und Retrofit-Codierungen an Mercedes-Benz Fahrzeugen mit DTS Monaco oder Vediamo.
+keywords: Mercedes, Codierung, Retrofit, W205, W213, W222, Sprinter, VS30, DTS Monaco, Vediamo, VMAX, AMG-Menü
+---
 # Praxis-Codierungen & Workflows
 
 Diese Seite bietet detaillierte Schritt-für-Schritt-Anleitungen für typische Komfort- und Retrofit-Codierungen an Mercedes-Benz Fahrzeugen (W205, W213, W222, Sprinter VS30 etc.). 

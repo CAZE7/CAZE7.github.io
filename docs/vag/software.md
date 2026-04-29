@@ -1,3 +1,8 @@
+---
+title: VAG Diagnose Software & Sicherheit (SFD, CP) | VCDS, ODIS, VCP
+description: Übersicht über VAG Diagnose-Software (VCDS, ODIS, VCP, OBDeleven) und Sicherheitsarchitekturen wie SFD und Komponentenschutz (CP).
+keywords: VAG, Software, SFD, CP, Komponentenschutz, VCDS, ODIS, VCP, OBDeleven, Diagnose, Flashen
+---
 # Software, Sicherheit & Architektur (VAG)
 
 Dieses Dokument beschreibt die verfügbaren Werkzeuge, die Sicherheitsarchitekturen (SFD, CP) und das korrekte methodische Vorgehen bei Modifikationen der Steuergeräte-Software im VAG-Konzern.

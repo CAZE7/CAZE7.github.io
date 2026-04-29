@@ -1,3 +1,8 @@
+---
+title: VAG Diagnose Hardware & Interfaces | HEX-V2, VNCI, PassThru
+description: Übersicht der Hardware-Anforderungen und Interfaces für VAG Fahrzeuge. HEX-V2, HEX-NET, VAS6154, PassThru und Warnung vor Clones.
+keywords: VAG, Hardware, Interface, HEX-V2, HEX-NET, VAS6154, PassThru, DoIP, CAN, Diagnose
+---
 # Hardware & Interfaces (VAG)
 
 Dieses Dokument beschreibt die Hardware-Anforderungen und Kommunikationsprotokolle für Fahrzeuge der Marken VW, Audi, Seat, Škoda, Bentley und Lamborghini. Der Fokus liegt auf der Unterscheidung zwischen professionellen Interfaces, Consumer-Lösungen und typischen "Clone-Fallen".

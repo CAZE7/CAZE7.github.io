@@ -1,3 +1,8 @@
+---
+title: Mercedes Multiplexer (SD Connect C4/C5/C6 & VCI)
+description: Profi-Hardware für Mercedes-Benz: SD Connect C4, C5, C6 und Original VCIs. Alles über DoIP, CAN und K-Line Kommunikation.
+keywords: Mercedes, Multiplexer, SD Connect, C4, C5, C6, VCI, DoIP, Diagnose, Hardware
+---
 # Multiplexer (SD Connect & VCI)
 
 Für professionelle Werkstätten und weitreichende Eingriffe an modernen Mercedes-Benz Fahrzeugen sind Original-Multiplexer oder hochwertige Clones unumgänglich. Sie bilden das Rückgrat der tiefen Fahrzeugdiagnose.

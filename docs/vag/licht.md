@@ -1,3 +1,8 @@
+---
+title: VAG Licht-Codierung (MQB) | Steuergerät 09 BCM Anpassungen
+description: Umfassende Anleitung zur Codierung der Beleuchtung auf der VAG MQB-Plattform über das Steuergerät 09 (BCM). Tagfahrlicht, Blinker, Coming Home.
+keywords: VAG, MQB, Licht Codierung, Steuergerät 09, BCM, Tagfahrlicht, DRL, Coming Home, Leaving Home, Nebelscheinwerfer
+---
 # Licht-Codierung (MQB)
 
 Umfassende Anleitung zur Codierung der Beleuchtung auf der MQB-Plattform. Die Lichtkanäle werden über das Steuergerät 09 (BCM / Bordnetzsteuergerät) verwaltet.

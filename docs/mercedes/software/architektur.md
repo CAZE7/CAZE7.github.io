@@ -1,3 +1,8 @@
+---
+title: Mercedes Software, Architektur & Zenzefi / Seed & Key
+description: Software-Architektur, XENTRY, DTS Monaco, Vediamo und Sicherheitsmechanismen wie Zenzefi und Seed & Key bei Mercedes-Benz.
+keywords: Mercedes, Software, Architektur, XENTRY, DTS Monaco, Vediamo, Zenzefi, Seed & Key, Diagnose
+---
 # Software, Architektur & Fehlerbehebung
 
 Dieses Dokument beschreibt die Software-Architektur, Installationsroutinen und Sicherheitsmechanismen (Zenzefi, Seed & Key) bei Mercedes-Benz Fahrzeugen.

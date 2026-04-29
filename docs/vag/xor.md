@@ -1,6 +1,9 @@
 ---
 hide:
   - toc
+title: VAG XOR Calculator | VCDS Anpassungen & Login-Codes
+description: XOR Calculator für VAG Codierungen. Berechne Werte für Anpassungskanäle im Steuergerät 5F (Infotainment) und weitere Anwendungen.
+keywords: VAG, XOR Calculator, VCDS, Steuergerät 5F, Infotainment, Anpassung, Login-Code, Berechnung
 ---
 # XOR Calculator
 
