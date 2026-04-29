@@ -41,17 +41,4 @@ Dieser Rechner wird verwendet, um das Firmware-Update eines VW-Infotainmentsyste
   </div>
 </div>
 
-<script>
-function copyResult() {
-  const resultField = document.getElementById("calcCode");
-  resultField.select();
-  document.execCommand("copy");
-  
-  const btn = document.getElementById("copyBtn");
-  const originalText = btn.innerText;
-  btn.innerText = "Kopiert!";
-  setTimeout(() => { btn.innerText = originalText; }, 2000);
-}
-</script>
-
 <script src="../../javascripts/xor.js"></script>
