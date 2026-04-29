@@ -19,6 +19,8 @@ theme:
     - toc.integrate # Inhaltsverzeichnis in der linken Seitenleiste integrieren
     - content.code.copy # Erlaubt das einfache Kopieren von Code-Blöcken
     - content.tabs.link # Verlinkt Tabs miteinander
+    - toc.follow # Hebt den aktuellen Abschnitt im Inhaltsverzeichnis hervor
+    - content.tooltips # Erlaubt das Hinzufügen von Tooltips für Abkürzungen
   palette:
     # Light mode
     - media: "(prefers-color-scheme: light)"
@@ -69,3 +71,30 @@ nav:
     - 🛠️ Praxis-Codierungen: vag/anleitungen.md
   - ❓ FAQ & Hilfe: faq.md
   - ⚖️ Haftungsausschluss: haftungsausschluss.md
+
+# --- Markdown Erweiterungen (Coole Features!) ---
+markdown_extensions:
+  - abbr # Tooltips für Abkürzungen
+  - admonition # Hinweisboxen (Info, Warnung etc.)
+  - def_list # Definitionslisten
+  - attr_list # CSS-Klassen direkt an Markdown-Elemente hängen
+  - md_in_html # Markdown innerhalb von HTML-Tags erlauben
+  - pymdownx.details # Aufklappbare Boxen (??? info "Klick mich")
+  - pymdownx.superfences # Verschachtelte Blöcke (z.B. Code in Boxen)
+    custom_fences:
+      - name: mermaid
+        class: mermaid
+        format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed: # Coole Tabs für Anleitungen (z.B. XENTRY vs. Monaco)
+      alternate_style: true 
+  - pymdownx.tasklist: # Checklisten
+      custom_checkbox: true
+  - pymdownx.highlight: # Code-Highlighting
+      anchor_linenums: true
+  - pymdownx.inlinehilite # Inline-Code Highlighting
+  - pymdownx.snippets # Externe Dateien einbinden
+  - pymdownx.mark # Text markieren mit ==Text==
+  - pymdownx.keys # Tastatur-Tasten darstellen (z.B. ++ctrl+alt+del++)
+  - pymdownx.emoji: # Emoji-Support
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
