@@ -1,3 +1,34 @@
+# --- SEO & Meta-Daten (Wichtig für Google) ---
+site_name: OBD Expert Guide
+site_description: Technische Dokumentation und Praxis-Anleitungen für Fahrzeug-Diagnose, Steuergeräte-Codierung und Flashen bei VAG und Mercedes-Benz.
+site_author: CAZE7
+site_url: https://caze7.github.io/
+
+# --- Theme & Design Setup ---
+theme:
+  name: material
+  language: de # Signalisiert Google, dass die Seite auf Deutsch ist
+  features:
+    - navigation.tabs # Erstellt die schicke obere Menüleiste (Hover-Effekt)
+    - navigation.tabs.sticky # Menüleiste bleibt beim Scrollen oben sichtbar
+    - navigation.sections # Strukturiert das Seitenmenü übersichtlicher
+    - search.suggest # Gibt Nutzern Vorschläge beim Tippen in der Suche
+    - search.highlight # Markiert die gefundenen Wörter im Text
+  palette:
+    # Standardmäßig ein dunkles, technisches Design
+    - scheme: slate
+      primary: indigo
+      accent: blue
+
+# --- Plugins ---
+plugins:
+  - search # Aktiviert die Suchleiste
+
+# --- Zusätzliche Header (SEO Warnungen beheben) ---
+extra_head:
+  # Behebt die SEO-Warnung für das fehlende iPhone-Icon
+  - '<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">'
+
 # --- Navigation ---
 nav:
   - 🏠 Startseite: index.md

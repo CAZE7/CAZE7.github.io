@@ -1,108 +1,59 @@
-# :material-car-cog: VAG-Konzern: Diagnose, Codierung und Parametrierung
+# VAG-Konzern: Diagnose, Codierung und Parametrierung
 
-Dieses Dokument beschreibt die technischen Grundlagen sowie die verfügbaren Werkzeuge für Fahrzeuge der Marken VW, Audi, Seat und Skoda (VAG). Der Fokus liegt auf für Privatanwender zugänglichen Lösungen und dem korrekten technischen Vorgehen.
-
----
-
-## 1. Diagnose-Architektur bei VAG
-
-Die Steuergeräte-Kommunikation im VAG-Konzern hat sich über drei Generationen entwickelt:
-
-### Protokolle und Transport
-
-* :material-serial-port: **K-Line (ISO 9141):** Einsatz in älteren Modellen (ca. vor 2005). Die Kommunikation ist langsam und erfolgt seriell.
-* :material-network-outline: **CAN-Bus:** Der Standard für Fahrzeuge von ca. 2005 bis heute. Er nutzt Protokolle wie KWP2000 (älter) oder UDS (modern, ab ca. 2009/2010).
-* :material-ethernet: **DoIP (Ethernet):** Bei neuesten Modellen (z.B. Golf 8, ID-Serie) für große Datenmengen (Karten-Updates, Flash-Vorgänge) am Infotainment oder Gateway genutzt.
-
-### Sicherheitsmechanismen
-
-!!! abstract "Sicherheitskonzept: SFD (ab 2020)"
-    Ab dem Modelljahr 2020 (MQB-evo Plattform) hat VAG die **Software-Sicherungs-Funktion (SFD)** eingeführt. 
-    
-    1. **Schutz:** Schreibzugriffe auf kritische Steuergeräte sind gesperrt.
-    2. **Freischaltung:** Erfordert ein Online-Token. Tools wie OBDeleven oder VCP bieten hierfür mittlerweile automatisierte Lösungen an.
-    3. **Hardware-Sperre:** Bei fast allen SFD-geschützten Fahrzeugen **muss die Motorhaube offen sein**, um Codierungen zu schreiben.
+Dieses Dokument beschreibt die technischen Grundlagen sowie die verfügbaren Werkzeuge für Fahrzeuge der Marken VW, Audi, Seat und Skoda (VAG). Der Fokus liegt auf der technischen Architektur, den verwendeten Protokollen und dem korrekten methodischen Vorgehen bei Modifikationen der Steuergeräte-Software.
 
 ---
 
-## 2. Software-Werkzeuge
+## 1. Diagnose-Architektur und Kommunikationsprotokolle
 
-Für VAG-Fahrzeuge gibt es ein breites Ökosystem an Software, die sich in Funktionsumfang und Zielgruppe unterscheidet:
+Die Steuergeräte-Kommunikation im VAG-Konzern basiert auf drei wesentlichen technologischen Generationen:
 
-=== "VCDS (Ross-Tech)"
-    **Profil:** Der langjährige Standard für Windows-Laptops.
-    
-    * **Stärken:** Extrem stabil, riesige Label-Datenbank (Klartext-Erklärungen), sehr sicher bei der Diagnose und Standard-Codierung.
-    * **Einsatz:** Ideal für Fahrzeuge von 1995 bis ca. 2020. Unterstützt kein Flashen und nur eingeschränkt SFD.
-    * **Technik:** Nutzt die klassische Long-Coding- und Anpassungs-Struktur.
+* :material-serial-port: **K-Line (ISO 9141):** Einsatz in älteren Modellen (ca. vor 2005). Die Kommunikation erfolgt seriell und mit geringer Datenrate.
+* :material-network-outline: **CAN-Bus:** Der Industriestandard für Fahrzeuge ab ca. 2005. Es kommen Protokolle wie KWP2000 (ältere Modelle) oder UDS (Unified Diagnostic Services, ab ca. 2009) zum Einsatz.
+* :material-ethernet: **DoIP (Diagnostics over IP):** Bei aktuellen Modellen (z. B. Golf 8, ID-Serie) für hohe Datenvolumina (Infotainment-Updates, Flash-Vorgänge am Gateway) verwendet.
 
-=== "OBDeleven"
-    **Profil:** Smartphone-basierte Lösung (iOS/Android) mit Bluetooth-Dongle.
-    
-    * **Stärken:** Sehr komfortabel, "One-Click-Apps" für Anfänger, voller SFD-Support (automatisiert).
-    * **Einsatz:** Ideal für Nutzer, die keinen Laptop mitführen möchten und schnelle Anpassungen (z.B. Gurtwarner, Zeigertest) suchen.
-    * **Besonderheit:** Benötigt für fast alle Funktionen eine aktive Internetverbindung.
+### Sicherheitskonzept: SFD (Software-Sicherungs-Funktion)
 
-=== "VCP (VAG CAN PRO)"
-    **Profil:** Professionelles Tool für Fortgeschrittene und Experten.
-    
-    * **Stärken:** Kann **ZDC-Container** (Datensätze) schreiben. Dies ist notwendig, um nachgerüstete Hardware (z.B. Rückfahrkameras oder Matrix-LED) zu parametrieren. Unterstützt zudem das Flashen von Steuergeräten.
-    * **Einsatz:** Notwendig für Retrofits und tiefe Eingriffe in die Steuergeräte-Logik.
+Seit dem Modelljahr 2020 (MQB-evo Plattform) ist für Schreibzugriffe auf kritische Steuergeräte die **SFD-Authentifizierung** erforderlich.
 
-=== "ODIS (Service-Software)"
-    **Profil:** Die offizielle Software der Vertragswerkstätten.
-    
-    * **Stärken:** Geführte Fehlersuche, direkter Zugriff auf das Hersteller-Backend für Software-Updates (SVM).
-    * **Einsatz:** Primär im gewerblichen Umfeld für offizielle Reparaturleitfäden und Komponenten-Freischaltungen relevant.
+1. **Funktionsweise:** Schreibzugriffe sind werksseitig gesperrt und müssen über ein kryptografisches Token freigeschaltet werden.
+2. **Token-Verfahren:** Die Freischaltung erfolgt online über den Hersteller oder durch Diagnose-Tools mit integrierter SFD-Schnittstelle.
+3. **Physische Bedingung:** Bei vielen SFD-geschützten Fahrzeugen ist eine **geöffnete Motorhaube** Voraussetzung für die Annahme von Codierbefehlen durch das Gateway.
 
 ---
 
-## 3. Datenformate und Coding-Logik
+## 2. Software-Werkzeuge im Vergleich
 
-Im Gegensatz zu anderen Herstellern ist die VAG-Struktur sehr modular aufgebaut:
+Die Auswahl der Software richtet sich nach der Komplexität der geplanten Änderung und der vorhandenen Hardware-Schnittstelle.
 
-* **Lange Codierung (Long Coding):** Hexadezimale Werte, die Funktionen im Steuergerät aktivieren oder deaktivieren (z.B. Byte 18 für die Lichtkonfiguration).
-* **Anpassungskanäle (Adaptations):** Einzelne Parameter, die oft im Klartext geändert werden können (z.B. die Helligkeit der Tagfahrleuchten in %).
-* **Datensätze (ZDC/Datasets):** Enthalten Kennlinien und komplexe Konfigurationen, die nicht über Codierung erreichbar sind (z.B. Sound-Charakteristik des Radios).
+| Software | Profil | Einsatzbereich |
+| :--- | :--- | :--- |
+| **VCDS (Ross-Tech)** | PC-basiert (Windows) | Standard für Diagnose und Varianten-Codierung bis ca. MJ 2020. Hohe Stabilität und umfangreiche Klartext-Datenbank (Labels). Unterstützt kein Flashen. |
+| **OBDeleven** | App-basiert (Android/iOS) | Mobile Lösung für Diagnose und Codierung. Bietet automatisierte SFD-Freischaltung und geführte Anpassungen ("One-Click-Apps"). Erfordert aktive Internetverbindung. |
+| **VCP (VAG CAN PRO)** | PC-basiert (Windows) | Experten-Tool für das Schreiben von **ZDC-Containern** (Datensätzen) und das Flashen von Firmware. Notwendig für die Parametrierung nachgerüsteter Hardware. |
+| **ODIS (Service)** | Offizielle OEM-Software | Geführte Fehlersuche und Online-Anbindung an das Hersteller-Backend (SVM) für offizielle Software-Aktualisierungen. |
 
 ---
 
-## 4. Sicherheitsaspekte & Best Practices
+## 3. Methoden der Steuergeräte-Modifikation
 
-!!! danger "Achtung: Bricking-Gefahr durch instabile Hardware"
-    Billige ELM327-Klone oder schlechte USB-Kabel können während des Schreibvorgangs die Kommunikation unterbrechen. Dies führt oft zum Absturz des Bootloaders im Steuergerät. Nutzen Sie nur validierte Interfaces (VCDS, VCP, OBDeleven).
+Im VAG-Konzern wird zwischen drei Arten der Anpassung unterschieden:
 
-| **Regel** | **Bedeutung** |
+1. **Lange Codierung (Long Coding):** Änderung hexadezimaler Werte in den Bytes eines Steuergeräts (z. B. Aktivierung einer Hardware-Komponente).
+2. **Anpassungskanäle (Adaptations):** Änderung spezifischer Parameter (z. B. Schwellenwerte für Sensoren oder Zeitintervalle) in einer Klartext-Struktur.
+3. **Datensätze (Datasets/ZDC):** Binärdateien, die komplexe Kennlinien enthalten, welche nicht über Codierung oder Anpassung erreichbar sind (z. B. Lichtkurven oder Sound-Charakteristiken).
+
+---
+
+## 4. Best Practices für sicheres Arbeiten
+
+Um Fehlfunktionen oder eine dauerhafte Beschädigung ("Bricking") von Steuergeräten zu vermeiden, sind folgende Regeln einzuhalten:
+
+| Regel | Technische Relevanz |
 | :--- | :--- |
-| **Backup zuerst** | Erstellen Sie vor jedem Eingriff ein "Abbild" (Admap) des Steuergeräts. |
-| **Spannung halten** | Die Bordspannung sollte stabil über 12.5V liegen (Ladegerät nutzen). |
-| **Einzelne Schritte** | Nie mehrere Änderungen gleichzeitig schreiben; nach jedem Schritt Funktion prüfen. |
-| **Label prüfen** | Codieren Sie nur, wenn das Tool die Bedeutung der Bits im Klartext anzeigt. |
+| **Vollständiges Backup** | Vor jeder Änderung muss ein Abbild (Admap/Autoscan) aller Steuergeräte erstellt werden, um den Ursprungszustand wiederherstellen zu können. |
+| **Spannungssicherung** | Die Bordspannung muss stabil sein (empfohlen ≥ 12,5 V). Bei längeren Arbeiten ist ein Ladegerät mit Puffer-Modus obligatorisch. |
+| **Hardware-Validierung** | Nutzen Sie ausschließlich validierte Interfaces. Minderwertige Nachbauten (Klone) führen häufig zu Kommunikationsabbrüchen während kritischer Schreibvorgänge. |
+| **Dokumentation** | Änderungen sollten einzeln durchgeführt und unmittelbar danach auf ihre Funktion geprüft werden. |
 
 ---
-
-## 5. Praxis-Anleitungen (Quick-Access)
-
-Hier findest du typische Anpassungen, sortiert nach Kategorien.
-
-??? info ":material-bell-off: Gurtwarner deaktivieren"
-    1. Steuergerät `17` (Schalttafeleinsatz) wählen.
-    2. Funktion `07` (Codierung) -> Assistent für lange Codierung.
-    3. Bit für "Gurtwarnung aktiv" suchen und deaktivieren.
-    4. Bestätigen und Speichern.
-
-??? info ":material-gauge: Zeigertest / Inszenierung"
-    *Lässt die Tachonadeln beim Einschalten der Zündung einmal voll ausschlagen.*
-    
-    1. Steuergerät `17` (Schalttafeleinsatz) wählen.
-    2. `Anpassung` (Kanal 10) öffnen.
-    3. Kanal `Inszenierung` oder `Staging` wählen.
-    4. Wert auf `aktiv` setzen und speichern.
-
-??? info ":material-lightbulb-outline: Komfortblinken Zyklus ändern"
-    *Ändert die Anzahl der Blinkvorgänge beim Tippen des Hebels (Standard: 3).*
-    
-    1. Steuergerät `09` (Zentralelektrik) wählen.
-    2. `Anpassung` öffnen.
-    3. Kanal `Komfortblinken (Blinkzyklen)` suchen.
-    4. Wert (1-5) anpassen und speichern.
