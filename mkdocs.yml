@@ -7,23 +7,30 @@ site_url: https://caze7.github.io/
 # --- Theme & Design Setup ---
 theme:
   name: material
-  language: de # Signalisiert Google, dass die Seite auf Deutsch ist
+  language: de
   features:
-    - navigation.tabs # Erstellt die schicke obere Menüleiste (Hover-Effekt)
-    - navigation.tabs.sticky # Menüleiste bleibt beim Scrollen oben sichtbar
-    - navigation.sections # Strukturiert das Seitenmenü übersichtlicher
-    - search.suggest # Gibt Nutzern Vorschläge beim Tippen in der Suche
-    - search.highlight # Markiert die gefundenen Wörter im Text
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - search.suggest
+    - search.highlight
+    - navigation.top # Zurück-nach-oben Button
+    - navigation.tracking # URL ändert sich beim Scrollen für bessere Anker-Links
+    - toc.integrate # Inhaltsverzeichnis in der linken Seitenleiste integrieren
   palette:
-    # Standardmäßig ein dunkles, technisches Design
     - scheme: slate
       primary: indigo
       accent: blue
 
 # --- Plugins ---
 plugins:
-  - search # Aktiviert die Suchleiste
+  - search
 
+# --- Zusätzliche Meta-Daten für Social Media ---
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/CAZE7
 
 # --- Navigation ---
 nav:
