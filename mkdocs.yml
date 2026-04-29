@@ -67,9 +67,9 @@ plugins:
 
 # --- Zusätzliche Meta-Daten für Social Media ---
 extra:
-  - analytics: # Falls du später Google Analytics nutzen willst
-      provider: google
-      property: G-XXXXXXXXXX
+  analytics: # Falls du später Google Analytics nutzen willst
+    provider: google
+    property: G-XXXXXXXXXX
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/CAZE7
