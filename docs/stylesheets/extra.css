@@ -241,3 +241,17 @@
   color: var(--md-default-fg-color) !important;
   line-height: 1.6;
 }
+/* ==========================================================================
+   12. Mobile Optimization
+   ========================================================================== */
+@media (max-width: 768px) {
+  #obd-finder-app {
+    padding: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .finder-step button {
+    padding: 10px 1rem;
+    font-size: 0.9em;
+  }
+}
