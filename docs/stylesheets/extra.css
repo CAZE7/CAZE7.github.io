@@ -147,9 +147,36 @@
 }
 
 /* --- 8. Code-Blöcke --- */
-.md-typeset pre > code {
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+.md-typeset .highlight {
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.5rem;
+}
+
+.md-typeset .highlight .filename {
+  background: linear-gradient(90deg, var(--md-primary-fg-color), var(--md-primary-fg-color--light));
+  color: white !important;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  display: block;
+}
+
+.md-typeset .highlight pre {
+  margin-top: 0 !important;
+  border-radius: 0 0 8px 8px !important;
   border: 1px solid var(--code-border);
+  border-top: none;
+}
+
+.md-typeset pre > code {
+  background: transparent;
+  box-shadow: none;
+  border: none;
 }
 
 /* --- 9. Footer --- */
