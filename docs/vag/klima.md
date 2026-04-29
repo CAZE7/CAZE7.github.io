@@ -11,7 +11,7 @@ Zeigt die aktuelle Gebläsestufe an, auch wenn der Klimaautomatik-Modus (AUTO) a
 === "Mit ODIS"
     ``` yaml
     Steuergerät 08 → Codierung:
-    Byte 11 – Bit 6 (Blower display during auto mode): Aktivieren
+    Byte 11 – Bit 6: Aktivieren
     → Übernehmen (mit Neustart des Steuergeräts)
     ```
 
@@ -109,7 +109,7 @@ Die Außenspiegel werden automatisch beheizt, wenn die Heckscheibenheizung einge
     ``` yaml title="Login: 31347"
     09 – Bordnetzsteuergerät
     Codierung - 07 → Lange Codierung:
-    Byte 15 – Bit 3 (Mirror Heating ON while Rear Window Heater ON): Aktivieren
+    Byte 15 – Bit 3: Aktivieren
     Ausgang → Speichern
     ```
 

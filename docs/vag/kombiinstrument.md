@@ -36,7 +36,7 @@ Beim Einschalten der Zündung schwenken die Tachonadeln einmal bis zum Anschlag 
 
 ---
 
-## Tankrestanzeige (Volume to be Replenished)
+## Tankrestanzeige (Nachtankmenge)
 
 Zeigt auf dem Display an, wie viel Liter noch getankt werden können.
 
@@ -56,7 +56,7 @@ Zeigt auf dem Display an, wie viel Liter noch getankt werden können.
 === "Mit VCDS"
     ``` yaml title="Login: 20103"
     17 – Schalttafeleinsatz → Codierung - 07 → Lange Codierung:
-    Byte 10 – Bit 4 (Volume to be Replenished): Aktivieren
+    Byte 10 – Bit 4 (Nachtankmenge): Aktivieren
     Ausgang → Speichern
     ```
 
@@ -65,7 +65,7 @@ Zeigt auf dem Display an, wie viel Liter noch getankt werden können.
 
 ---
 
-## Rundentimer (Lap Timer)
+## Rundentimer
 
 Aktiviert einen Rundentimer im Kombiinstrument, z.B. für die Rennstrecke.
 
@@ -79,7 +79,7 @@ Aktiviert einen Rundentimer im Kombiinstrument, z.B. für die Rennstrecke.
 === "Mit VCDS"
     ``` yaml title="Login: 20103"
     17 – Schalttafeleinsatz → Codierung - 07 → Lange Codierung:
-    Byte 1 – Bit 3 (Lap Timer active): Aktivieren
+    Byte 1 – Bit 3 (Rundentimer aktiv): Aktivieren
     Ausgang → Speichern
     ```
 
@@ -118,12 +118,12 @@ Schaltet den Piepton ab, der ertönt, wenn bei eingeschalteter Zündung eine Tü
 
 ``` yaml title="Login: 20103"
 Steuergerät 17 → Anpassung:
-Ignition active message; trigger: No display (tbd)
+Ignition active message; trigger: Keine Anzeige
 → Übernehmen
 ```
 
 !!! tip ""
-    Drei Optionen stehen zur Verfügung: No display (tbd), Driver door, All doors.
+    Drei Optionen stehen zur Verfügung: Keine Anzeige, Fahrertür, Alle Türen.
 
 ---
 

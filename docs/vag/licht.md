@@ -21,13 +21,13 @@ Jedes Leuchtmittel im Fahrzeug wird über einen numerierten Kanal angesteuert. D
 
 ## Funktionskürzel der Beleuchtung
 
-* **ABL** – Abblendlicht (Ближний свет)
-* **FL** – Fernlicht (Дальний свет)
+* **ABL** – Abblendlicht
+* **FL** – Fernlicht
 * **TFL** – Tagfahrlicht / DRL
-* **SL** – Standlicht / Gabarieten
-* **BLK** – Blinker (Поворотник)
-* **BR** – Bremslicht (Стоп-сигнал)
-* **NL** – Nebelscheinwerfer vorne (ПТФ)
+* **SL** – Standlicht / Begrenzungsleuchte
+* **BLK** – Blinker
+* **BR** – Bremslicht
+* **NL** – Nebelscheinwerfer vorne
 * **NSL** – Nebelschlussleuchte hinten
 * **RFL** – Rückfahrlicht
 * **KZL** – Kennzeichenleuchte
@@ -105,7 +105,7 @@ Jedes Funktionspaar hat einen Dimmwert:
 
 ---
 
-## Dimmrichtung (Dimming Direction)
+## Dimmrichtung
 
 * **maximize** – Helligkeit wird auf den eingestellten Wert **erhöht**
 * **minimize** – Helligkeit wird auf den eingestellten Wert **reduziert**

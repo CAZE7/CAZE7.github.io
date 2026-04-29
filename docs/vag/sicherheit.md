@@ -4,7 +4,7 @@ Codierungen und Anpassungen für die Zentralverriegelung, Alarmanlage und Zugang
 
 ---
 
-## Selektives Türöffnen (Single Door Locking)
+## Einzeltüröffnung (Einzeltür-Entriegelung)
 
 Beim ersten Druck auf die Entriegelungstaste am Schlüssel öffnet sich nur die Fahrertür. Beim zweiten Druck (innerhalb von 5 Sekunden) öffnen sich alle Türen.
 
@@ -12,7 +12,7 @@ Beim ersten Druck auf die Entriegelungstaste am Schlüssel öffnet sich nur die 
     ``` yaml title="Login: 31347"
     Steuergerät 09 → Anpassung:
     Central Locking:
-    - Selective (Single) Door Locking: Aktivieren
+    - Einzeltür-Entriegelung: Aktivieren
     → Übernehmen
     ```
 
@@ -20,7 +20,7 @@ Beim ersten Druck auf die Entriegelungstaste am Schlüssel öffnet sich nur die 
     ``` yaml title="Login: 31347"
     09 – Bordnetzsteuergerät
     Codierung - 07 → Lange Codierung:
-    Byte 0 – Bit 0 (Selective Central Locking active): Aktivieren
+    Byte 0 – Bit 0 (Einzeltür-Entriegelung aktiv): Aktivieren
     Ausgang → Speichern
     ```
 
@@ -45,7 +45,7 @@ Ermöglicht das Bedienen der Zentralverriegelung per Funkschlüssel, auch wenn d
 === "Mit ODIS"
     ``` yaml title="Login: 31347"
     Steuergerät 09 → Anpassung:
-    ZV allgemein (Access control):
+    ZV allgemein (Zugangskontrolle):
     - Funk bei Klemme 15 ein: Aktivieren
     → Übernehmen
     ```
@@ -257,7 +257,7 @@ Die Fensterheber funktionieren weiterhin nach dem Ausschalten der Zündung, bis 
 === "Mit ODIS"
     ``` yaml
     Steuergerät 09 → Anpassung:
-    Access control (ZV Komfort):
+    Zugangskontrolle (ZV Komfort):
     - Freigabenachlauf FH bei Türöffnen abbrechen: Aktiv → Nicht Aktiv
     - FH SAD Kl15Aus Freigabezeit: 600 s (auf gewünschten Wert in Sekunden ändern)
     → Übernehmen

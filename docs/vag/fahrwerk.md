@@ -32,7 +32,7 @@ Deaktiviert die Anhängerstabilisierungsfunktion des ESP, z.B. wenn kein Anhäng
 === "Mit ODIS"
     ``` yaml
     Steuergerät 03 → Codierung:
-    - Trailer Stabilization: Deaktivieren
+    - Anhängerstabilisierung: Deaktivieren
     → Übernehmen (mit Neustart des Steuergeräts)
     ```
 
@@ -72,7 +72,7 @@ Passt die Reaktionszeit des Gaspedals an. Nützlich für eine direktere oder kom
 
 ``` yaml title="Login: 27971 oder 19249"
 Steuergerät 44 → Anpassung:
-Umschaltung Fahrprofil (Switching Driving Profile): Unmittelbar, Schwellwertsteuerung
+Umschaltung Fahrprofil: Unmittelbar, Schwellwertsteuerung
 → Übernehmen
 ```
 

@@ -39,11 +39,15 @@ function calculateXor() {
   }
 
   document.getElementById("calcCode").value = result;
+  const copyBtn = document.getElementById("copyBtn");
+  if(copyBtn) copyBtn.style.display = "block";
 }
 
 function clearAll() {
   document.getElementById("origCode").value = "";
   document.getElementById("calcCode").value = "";
+  const copyBtn = document.getElementById("copyBtn");
+  if(copyBtn) copyBtn.style.display = "none";
 }
 
 window.calculateXor = calculateXor;

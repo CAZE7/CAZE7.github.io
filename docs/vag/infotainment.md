@@ -13,7 +13,7 @@ Ermöglicht den Zugang zu erweiterten Einstellungen und Diagnose-Informationen d
 
 ``` yaml title="Login: 12345"
 Steuergerät 5F → Anpassung:
-Entwicklermodus (Developer mode): Aktivieren
+Entwicklermodus: Aktivieren
 → Übernehmen
 ```
 
@@ -194,7 +194,7 @@ Car_Function_List_BAP_Gen2:
 === "Mit ODIS"
     ``` yaml title="Login: 20103"
     Steuergerät 5F → Codierung:
-    Byte 24 – Bit 02 (Navigation System): Aktivieren
+    Byte 24 – Bit 02: Aktivieren
     → Übernehmen (mit Neustart des Steuergeräts)
     ```
 
@@ -202,7 +202,7 @@ Car_Function_List_BAP_Gen2:
     ``` yaml title="Login: 20103"
     5F – MMI / RNS
     Codierung - 07 → Lange Codierung:
-    Byte 24 – Bit 2 (Navigation System): Aktivieren
+    Byte 24 – Bit 2: Aktivieren
     Ausgang → Speichern
     ```
 
