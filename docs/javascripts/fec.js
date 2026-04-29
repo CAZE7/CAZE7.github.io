@@ -30,10 +30,6 @@ function stringToHex(str) {
     .join("");
 }
 
-function hasCode(list, code) {
-  return list.some(item => item.code === code);
-}
-
 function renderCodes() {
   const codesContainer = document.getElementById("codes-container");
   const vinInput = document.getElementById("vin");
@@ -128,12 +124,11 @@ document.addEventListener("DOMContentLoaded", function() {
       input.addEventListener("change", function () {
         const codeValue = this.value;
         const name = this.getAttribute("data-name");
+        const existingItem = codes.find(item => item.code === codeValue);
     
         if (this.checked) {
-          if (hasCode(codes, codeValue)) {
-            codes.forEach(item => {
-              if (item.code === codeValue) item.visible = true;
-            });
+          if (existingItem) {
+            existingItem.visible = true;
           } else {
             const vinVal = vinEl ? vinEl.value : "";
             const vcrnVal = vcrnEl ? vcrnEl.value : "";
@@ -148,9 +143,9 @@ document.addEventListener("DOMContentLoaded", function() {
           }
           selectedCount++;
         } else {
-          codes.forEach(item => {
-            if (item.code === codeValue) item.visible = false;
-          });
+          if (existingItem) {
+            existingItem.visible = false;
+          }
           selectedCount--;
         }
     
