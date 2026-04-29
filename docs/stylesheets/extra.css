@@ -1,168 +1,168 @@
 /* ==========================================================================
-   ULTRA-PREMIUM BUBBLE & GLASS DESIGN (V5 - Colorful & High-Res)
+   EDITORIAL TECH DESIGN
+   Minimalistisch, Hochwertig, Lesbar
    ========================================================================== */
 
-/* -----------------------------------------------------------
-   1. HINTERGRUND-BLOCKER ENTFERNEN
-   ----------------------------------------------------------- */
-body, .md-container, .md-main, .md-content {
-  background: transparent !important;
+/* 1. Typografie & Grundfarben importieren */
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400&display=swap');
+
+:root {
+  --md-text-font: "Newsreader", serif;
+  --md-code-font: "JetBrains Mono", monospace;
+  
+  /* Eigene Farben für Editorial Look */
+  --md-primary-fg-color: #1A1A1D; /* Tiefes Schwarz/Grau für Header */
+  --md-primary-bg-color: #F9F9FB; /* Canvas Off-White */
+  --md-default-bg-color: #F9F9FB;
+  --md-default-fg-color: #1A1A1D;
+  --md-default-fg-color--light: #6B6B70; /* Sekundärer Text */
+  --md-typeset-color: #1A1A1D;
+  --md-typeset-a-color: #2C3E50; /* Gedecktes Navy für Links */
+  
+  --md-shadow-z1: none !important;
+  --md-shadow-z2: none !important;
+  --md-shadow-z3: none !important;
 }
 
-/* -----------------------------------------------------------
-   2. HOCHAUFLÖSENDER HINTERGRUND (Feines Noise + 3 Farben)
-   ----------------------------------------------------------- */
-/* LIGHT MODE: Sehr feine Textur (baseFrequency='1.5', opacity='0.025') */
-body[data-md-color-scheme="default"] {
-  background-color: #f4f6f9 !important; 
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.025'/%3E%3C/svg%3E") !important;
-  background-attachment: fixed;
+/* UI-Elemente wie Navigation und Header sollen sans-serif sein */
+.md-header, .md-tabs, .md-nav, .md-sidebar, .md-search, .md-footer-meta {
+  font-family: "Geist", "Inter", sans-serif;
 }
 
-/* DARK MODE: Feine Textur */
-body[data-md-color-scheme="slate"] {
+/* 2. Hintergrund & generelles Layout bereinigen */
+body {
   background-color: var(--md-default-bg-color) !important;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.025'/%3E%3C/svg%3E") !important;
-  background-attachment: fixed;
 }
 
-/* Bunterer Glow mit 3 Farben: Indigo, Cyan und weiches Violett */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-image: 
-    radial-gradient(circle at 10% 10%, rgba(63, 81, 181, 0.16) 0%, transparent 45%),   /* Indigo Oben Links */
-    radial-gradient(circle at 90% 30%, rgba(0, 188, 212, 0.14) 0%, transparent 45%),   /* Cyan Oben Rechts */
-    radial-gradient(circle at 40% 80%, rgba(156, 39, 176, 0.12) 0%, transparent 50%),  /* Violett Unten Mitte */
-    radial-gradient(circle at 85% 95%, rgba(63, 81, 181, 0.10) 0%, transparent 45%);   /* Indigo Unten Rechts */
+/* 3. Header & Navigation (unsichtbar mit der Seite verschmelzend) */
+.md-header {
+  background-color: var(--md-default-bg-color) !important;
+  color: var(--md-default-fg-color) !important;
+  box-shadow: none !important;
+  border-bottom: 1px solid #E5E5EA !important;
 }
 
-/* Dark Mode Glow (Gleiche Farben, aber etwas abgedunkelt für die Augen) */
-body[data-md-color-scheme="slate"]::before {
-  background-image: 
-    radial-gradient(circle at 10% 10%, rgba(121, 134, 203, 0.08) 0%, transparent 45%),
-    radial-gradient(circle at 90% 30%, rgba(0, 188, 212, 0.07) 0%, transparent 45%),
-    radial-gradient(circle at 40% 80%, rgba(186, 104, 200, 0.07) 0%, transparent 50%),
-    radial-gradient(circle at 85% 95%, rgba(121, 134, 203, 0.05) 0%, transparent 45%);
+.md-header__button, .md-header__title {
+  color: var(--md-default-fg-color) !important;
 }
 
-
-/* -----------------------------------------------------------
-   3. PERFEKTE NAVIGATIONSLEISTE (Header UND Tabs)
-   ----------------------------------------------------------- */
-[data-md-color-scheme="default"] .md-header,
-[data-md-color-scheme="default"] .md-tabs {
-  background-color: rgba(255, 255, 255, 0.8) !important;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+.md-tabs {
+  background-color: var(--md-default-bg-color) !important;
+  border-bottom: 1px solid #E5E5EA !important;
+}
+.md-tabs__link {
+  color: var(--md-default-fg-color--light) !important;
+}
+.md-tabs__item--active .md-tabs__link {
+  color: var(--md-default-fg-color) !important;
+  font-weight: 500;
 }
 
-[data-md-color-scheme="default"] .md-header .md-header__button,
-[data-md-color-scheme="default"] .md-header .md-header__title,
-[data-md-color-scheme="default"] .md-tabs__link,
-[data-md-color-scheme="default"] .md-tabs__item--active .md-tabs__link {
-  color: #333 !important; 
+/* Suchfeld bereinigen */
+.md-search__input {
+  background-color: transparent !important;
+  border: 1px solid #E5E5EA !important;
+  border-radius: 2px !important;
+  color: var(--md-default-fg-color) !important;
+  box-shadow: none !important;
 }
 
-[data-md-color-scheme="default"] .md-search__input {
-  background-color: rgba(0,0,0,0.05) !important;
-  color: #333 !important;
-  border-radius: 20px !important;
+/* 4. Typografie Fließtext (Die 65-Zeichen-Regel) */
+.md-typeset {
+  font-size: 1.05rem;
+  line-height: 1.7;
 }
 
-[data-md-color-scheme="slate"] .md-header,
-[data-md-color-scheme="slate"] .md-tabs {
-  background-color: rgba(30, 34, 42, 0.8) !important;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+.md-typeset h1, .md-typeset h2, .md-typeset h3, .md-typeset h4 {
+  font-family: "Geist", "Inter", sans-serif;
+  color: #1A1A1D;
+  font-weight: 500;
+  letter-spacing: -0.02em;
 }
 
-[data-md-color-scheme="slate"] .md-search__input {
-  border-radius: 20px !important;
+.md-typeset h1 { font-size: 2.5rem; border-bottom: none; }
+.md-typeset h2 { font-size: 1.5rem; margin-top: 3rem; }
+
+.md-content__inner {
+  max-width: 700px !important; /* Maximale Lesebreite */
+  margin: 0 auto;
 }
 
-
-/* -----------------------------------------------------------
-   4. OBD-FINDER BUBBLE-STYLE
-   ----------------------------------------------------------- */
-#obd-finder-app {
-  background-color: #ffffff !important;
-  border: 1px solid rgba(128, 128, 128, 0.1) !important;
-  border-radius: 24px !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
-  padding: 2rem !important;
-  margin-top: 1.5rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-#obd-finder-app:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 15px 40px rgba(63, 81, 181, 0.15) !important;
-}
-
-[data-md-color-scheme="slate"] #obd-finder-app {
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3) !important;
-  border: 1px solid rgba(255, 255, 255, 0.05) !important;
-  background-color: rgba(30, 34, 42, 0.6) !important;
-  backdrop-filter: blur(10px);
-}
-
-[data-md-color-scheme="slate"] #obd-finder-app:hover {
-  box-shadow: 0 15px 40px rgba(121, 134, 203, 0.2) !important;
-}
-
-
-/* -----------------------------------------------------------
-   5. RUNDE PILLEN-BUTTONS
-   ----------------------------------------------------------- */
+/* 5. Komponenten bereinigen (Cards, Buttons, Linien) */
 .md-button {
-  border-radius: 30px !important;
-  font-weight: 700 !important;
-  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  border-radius: 2px !important;
+  background-color: #1A1A1D !important;
+  color: #fff !important;
+  box-shadow: none !important;
+  border: none !important;
+  font-family: "Geist", "Inter", sans-serif;
+  font-weight: 500 !important;
+  transition: background-color 0.2s ease;
+  letter-spacing: 0;
 }
-
-.md-button--primary {
-  box-shadow: 0 4px 15px rgba(63, 81, 181, 0.3) !important;
-}
-
 .md-button:hover {
-  transform: translateY(-2px);
+  background-color: #333333 !important;
+  transform: none !important;
 }
 
-.md-button--primary:hover {
-  box-shadow: 0 6px 20px rgba(63, 81, 181, 0.5) !important;
-}
-
-
-/* -----------------------------------------------------------
-   6. STARTSEITEN-KARTEN (Cards)
-   ----------------------------------------------------------- */
+/* Startseiten-Karten (Cards) komplett flach machen */
 .md-typeset .grid.cards > ul > li {
-  border-radius: 20px !important;
-  border: 1px solid rgba(128, 128, 128, 0.1) !important;
-  background-color: #ffffff !important;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.03) !important;
-  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+  border-radius: 0 !important;
+  border: none !important;
+  border-top: 1px solid #E5E5EA !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  padding-top: 1.5rem;
+  padding-left: 0;
+  padding-right: 0;
+  margin-bottom: 2rem;
+  transition: none !important;
 }
-
 .md-typeset .grid.cards > ul > li:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 15px 35px rgba(63, 81, 181, 0.15) !important;
-  border-color: var(--md-primary-fg-color) !important;
+  transform: none !important;
+  box-shadow: none !important;
+  border-top-color: #1A1A1D !important;
 }
 
-[data-md-color-scheme="slate"] .md-typeset .grid.cards > ul > li {
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2) !important;
-  border: 1px solid rgba(255, 255, 255, 0.05) !important;
-  background-color: rgba(255, 255, 255, 0.02) !important;
+hr {
+  border-bottom: 1px solid #E5E5EA !important;
+  margin: 3rem 0;
 }
 
-[data-md-color-scheme="slate"] .md-typeset .grid.cards > ul > li:hover {
-  box-shadow: 0 15px 35px rgba(186, 104, 200, 0.15) !important; /* Leichter violetter Hover-Glow im Dark Mode */
+/* Codeblöcke */
+.md-typeset pre > code {
+  background-color: #F0F0F0 !important;
+  color: #1A1A1D !important;
+}
+
+/* Admonitions (Info-Boxen) aufräumen */
+.md-typeset .admonition {
+  border: 1px solid #E5E5EA !important;
+  border-left: 4px solid #1A1A1D !important;
+  background-color: #ffffff !important;
+  box-shadow: none !important;
+  border-radius: 2px !important;
+}
+.md-typeset .admonition-title {
+  background-color: transparent !important;
+  border-bottom: 1px solid #E5E5EA !important;
+  color: #1A1A1D !important;
+  font-family: "Geist", "Inter", sans-serif;
+}
+
+/* Finder-App Beruhigung */
+#obd-finder-app {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  margin-top: 4rem;
+  border-top: 2px solid #1A1A1D !important;
+  padding-top: 2rem !important;
+}
+#obd-finder-app h3 {
+  margin-top: 0;
+}
+#obd-finder-app:hover {
+  transform: none !important;
 }

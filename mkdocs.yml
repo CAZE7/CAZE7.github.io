@@ -18,9 +18,13 @@ theme:
     - navigation.tracking # URL ändert sich beim Scrollen für bessere Anker-Links
     - toc.integrate # Inhaltsverzeichnis in der linken Seitenleiste integrieren
   palette:
-    - scheme: slate
-      primary: indigo
-      accent: blue
+    - scheme: default
+      primary: white
+      accent: black
+
+# --- Eigene Styles ---
+extra_css:
+  - stylesheets/extra.css
 
 # --- Plugins ---
 plugins:
