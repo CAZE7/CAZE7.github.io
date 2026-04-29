@@ -1,542 +1,131 @@
-# 💻 Software & Sicherheit
+# 💻 Software, Architektur & Fehlerbehebung
 
-Dieses Dokument beschreibt die technischen Grundlagen, Software-Werkzeuge und Sicherheitsmechanismen für Diagnose, Codierung und Firmware-Updates bei Mercedes-Benz Fahrzeugen.
+Dieses Dokument beschreibt die Software-Architektur, Installationsroutinen und Sicherheitsmechanismen (Zenzefi, Seed & Key) bei Mercedes-Benz Fahrzeugen.
 
 ## 1. Diagnose-Architektur bei Mercedes
 
 Mercedes-Benz nutzt ein hierarchisches Diagnose- und Kodiersystem, das sich grundlegend von offenen Systemen unterscheidet:
 
-### Protokolle und Transport
-
+### 1.1 Protokolle und Transport
 * :material-serial-port: **K-Line / KWP2000:** Ältere Modelle (bis ca. 2005) nutzen die serielle K-Line-Diagnose (ISO 9141 / ISO 14230).
 * :material-network-outline: **CAN-Bus:** Mittlere Modellgenerationen (2005–2015) basieren auf CAN-Diagnose mit UDS/KWP2000-Services über ISO-TP.
-* :material-ethernet: **Ethernet / DoIP:** Moderne Fahrzeuge (ab ca. 2015) setzen auf einen Ethernet-Backbone mit Diagnostics over Internet Protocol (DoIP, ISO 13400). DoIP kapselt UDS-Nachrichten in TCP/UDP und ermöglicht Gigabit-Datenraten, die für große Firmware-Übertragungen essenziell sind.
+* :material-ethernet: **Ethernet / DoIP:** Moderne Fahrzeuge (ab ca. 2015) setzen auf einen Ethernet-Backbone mit Diagnostics over Internet Protocol (DoIP, ISO 13400). DoIP kapselt UDS-Nachrichten in TCP/UDP und ermöglicht Gigabit-Datenraten.
 
-### Sicherheitsmechanismen
+### 1.2 Sicherheitsmechanismen: Seed & Key
+Sensible Funktionen sind durch **Seed & Key** (ISO 14229, UDS-Service 0x27) geschützt.
+1. Das Diagnosesystem fordert einen **Seed** (Zufallswert) von der ECU an.
+2. Der Seed wird mit einem Algorithmus in einen **Key** umgerechnet.
+3. Der Key wird an die ECU zurückgesendet. Bei korrektem Wert wird die Session entsperrt.
 
-!!! abstract "Sicherheitskonzept: Seed & Key"
-    Mercedes schützt sensible Funktionen durch **Seed & Key** (ISO 14229, UDS-Service 0x27). Der Ablauf ist streng reguliert:
-    
-    1. Das Diagnosesystem fordert einen **Seed** von der ECU an.
-    2. Der Seed wird mit einem proprietären Algorithmus in einen **Key** umgerechnet.
-    3. Der Key wird an die ECU zurückgesendet. Bei korrektem Wert wird die Session für Codierung/Flashen entsperrt.
-    
-    *Ohne korrekten Seed/Key-Zugriff sind tiefe Eingriffe unmöglich.* Seed/Key-Generatoren sind oft nur über spezialisierte Tools oder Dienstleister verfügbar.
-
-Zusätzlich existieren **Online-Backend-Schutzmechanismen** (z.B. für Start-Freigaben und Variantencodierung), die eine Verbindung zum Daimler-System erfordern.
-
-## 2. Software-Werkzeuge
-
-### :material-laptop: Xentry (Offizielle Diagnosesoftware)
-Xentry ist die aktuelle Diagnosesoftware von Mercedes-Benz und der direkte Nachfolger von DAS/Star Diagnosis.
-
-* **Funktionalität:** Vollständige Fahrzeugdiagnose mit geführter Fehlersuche, SCN-Codierung (standardisierte Varianten-Codierung), Firmware-Flashen über FRF-Container sowie Online-Funktionen (Kommunikation mit dem Daimler-Backend).
-* **Standard vs. Passthru:**
-    * *Standard Xentry:* Erfordert SD-Connect-Multiplexer (C4, C5, C6).
-    * *Xentry Passthru:* Kompatibel mit günstigen J2534-Geräten (z.B. Tactrix OpenPort 2.0). Verzichtet auf vollständigen DoIP-Support für alte Fahrzeuge, reicht aber für modernere CAN-basierte Modelle (2005–2015) völlig aus.
-
-*(Hinweis: Xentry speichert CBF- und SMR-D-Dateien lokal ab, typischerweise unter `Xentry\ODXProjekte\PKW_COMMON\dbr`, von wo aus Vediamo und DTS Monaco sie nutzen können.)*
-
-### :material-tools: Vediamo (Engineering-Tool)
-Ein Engineering-Tool von Mercedes/Vector für die tiefe Diagnose und Codierung.
-
-* **Einsatzgebiet:** Primär für Variantencodierungen und Komfortanpassungen, wenn Xentry keine grafische Option bietet.
-* **Merkmale:** Zugriff auf Diagnose-Services und DIDs (Datenobjekte). Es unterstützt hauptsächlich CBF-Dateien (Fahrzeuge bis ca. 2015) und nutzt Seed & Key-basierten Security-Access über externe Generatoren.
-
-### :material-monitor-dashboard: DTS Monaco (Engineering-Plattform)
-Das moderne Engineering-Tool für Diagnose, Codierung und Flashen auf Basis von SMR-D/SMR-F-Daten.
-
-* **Eigenschaften:** Bietet native SMR-D/SMR-F-Projektunterstützung für moderne Fahrzeuge, DoIP-Support und komplexe Workspaces mit vordefinierten Masken.
-* **Anwendung:** Setzt tiefgreifende Kenntnisse voraus und wird für umfangreiche Codier- und Flasharbeiten verwendet.
-
-!!! warning "Consumer-Apps (Smartphone)"
-    Smartphone-basierte Apps (wie Carly) bieten nur Standard-OBD-Funktionen und sind für tiefe Variantencodierungen oder Firmware-Updates ungeeignet. Gründe dafür sind fehlende codierbare Parameter in Consumer-APIs, fehlende Seed-&-Key-Mechanismen sowie limitierter DoIP-Support.
-
-## 3. Datenformate: CBF vs. SMR-D/SMR-F
-
-Mercedes verwendet proprietäre Container-Formate, die je nach Fahrzeuggeneration variieren:
-
-| Feature | CBF-Dateien | SMR-D / SMR-F Dateien |
-| :--- | :--- | :--- |
-| **Format** | Proprietäre Vector-Container | Strukturierte, XML-ähnliche Beschreibung |
-| **Einsatzbereich** | Ältere Fahrzeuge (bis ca. 2015) | Moderne Fahrzeuge (ab ca. 2016, z.B. W205, W213) |
-| **Tools** | Vediamo, alte DTS Monaco Versionen | DTS Monaco (nativ), neuere Vediamo Versionen, Xentry |
-| **Charakteristik** | Erfordert oft manuelle Interpretation von Hex-Daten | Automatische Validierung von Änderungen |
-
-## 4. Typische Fehler und Ursachen
-
-| **Fehlerbild** | **Häufige Ursache** | **Prävention & Lösung** |
-| :--- | :--- | :--- |
-| **Flashen bricht ab** | Instabile J2534-Verbindung, fehlerhafte ISO-TP | USB-Hub/Kabel prüfen, professionelle Hardware nutzen. |
-| **ECU nicht erreichbar** | DoIP-Fahrzeug an nicht-DoIP-Hardware angeschlossen | Fahrzeuggeneration prüfen, DoIP-Hardware (VXDIAG) wählen. |
-| **Seed/Key-Fehler** | Falscher Generator genutzt oder Session abgelaufen | Seed neu anfordern, modellspezifischen Generator nutzen. |
-| **Falscher Fahrzeugtyp** | VIN nicht korrekt übertragen | VIN 3x überprüfen, Fahrzeugdaten ggf. manuell eingeben. |
-| **Spannungsabfall** | Batterie schwach, instabile Stromversorgung | Batterie muss min. 13,5V haben, externes Ladegerät nutzen. |
+*Ohne korrekten Seed/Key-Zugriff sind tiefe Eingriffe (Varianten-Codierung, Flashing) unmöglich.* Seed/Key-Generatoren sind oft nur über spezialisierte Tools verfügbar.
 
 ---
 
-## 5. Systemarchitektur: Die drei XENTRY-Varianten
-XENTRY existiert in drei technisch unterschiedlichen Distributionen. Die Wahl bestimmt Hardware-Kompatibilität, Fahrzeugabdeckung und verfügbare Funktionen.
+## 2. Die drei XENTRY-Varianten
 
-| Variante | Zweck | Hardware | Fahrzeugabdeckung | Schlüsselfunktionen |
-| :--- | :--- | :--- | :--- | :--- |
-| **XENTRY OpenShell (XDOS)** | Professionelle Werkstattdiagnose | SD Connect C4/C5/C6, VXDIAG VCX SE | Vollständig, inkl. älteste Modelle | DAS-Modus, Offline-SDFlash, SCN-Coding, alle Sonderfunktionen |
-| **XENTRY PassThru (XPT)** | J2534-konforme Passthrough-Diagnose | OpenPort 2.0, VXDIAG J2534, OEM-Interfaces | ~95%, Einschränkungen bei DoIP/Neufahrzeugen | Quick Test, Fehlerspeicher, Grundcodierung, eingeschränkte Programmierung |
-| **XENTRY Diagnostics** | Offizielle Mercedes-Werkstattversion | Original Mercedes VCI | Vollständig mit Online-Zugang | SCN-Online-Coding, Live-Updates, volle Herstellergarantie |
+XENTRY ist die offizielle Diagnosesoftware. Sie existiert in drei technisch unterschiedlichen Distributionen:
+
+| Variante | Zweck | Hardware-Voraussetzung | Fahrzeugabdeckung |
+| :--- | :--- | :--- | :--- |
+| **XENTRY OpenShell (XDOS)** | Professionelle Werkstattdiagnose | SD Connect C4/C5/C6, VXDIAG | Vollständig (inkl. älteste Modelle) |
+| **XENTRY PassThru (XPT)** | J2534-konforme Diagnose | OpenPort 2.0, VXDIAG J2534 | ~95%, Einschränkungen bei DoIP |
+| **XENTRY Diagnostics** | Offizielle Werkstattversion | Original Mercedes VCI | Vollständig (mit Online-Zugang) |
 
 !!! info "Entscheidungshilfe"
-    Für professionelle Werkstätten mit älteren Fahrzeugen (pre-2015) ist XENTRY OpenShell mit SD Connect C4/C5 weiterhin die vielseitigste Lösung. Für reine DoIP-Neufahrzeuge (W206, W223, W167 MOPF2) benötigt man entweder original VCI C6 oder hochwertige Clone-Alternativen mit korrekter Zenzefi-Zertifikation.
+    Für Werkstätten mit älteren Fahrzeugen (pre-2015) ist **XENTRY OpenShell** die vielseitigste Lösung. Für reine DoIP-Neufahrzeuge benötigt man entweder original VCI C6 oder hochwertige Clone-Alternativen mit korrekter **Zenzefi**-Zertifikation.
 
-## 6. Hardware-Ökosystem: Interfaces im Vergleich
+---
 
-### 6.1 SD Connect C4 / C5 / C6
+## 3. Software-Installation: Der korrekte Ablauf
 
-| Interface | Protokolle | Besonderheiten | Community-Einschätzung |
-| :--- | :--- | :--- | :--- |
-| **SD Connect C4** | K-Line, CAN, UDS | Klassiker, extrem erprobt, Wireless möglich | Clone-Qualität sehr unterschiedlich; WLAN-Module oft instabil |
-| **SD Connect C5** | K-Line, CAN, UDS, erweitertes DoIP | Verbesserte DoIP-Unterstützung gegenüber C4 | Gute Mittelklasse; einige C5 sind technisch C4-Clones im anderen Gehäuse |
-| **VCI C6 (Original)** | Voll-DoIP, CAN-FD, USB/LAN/WLAN | Aktuelles Mercedes-Interface, ~3.000 € | Referenzstandard, aber teuer |
-| **VCI C6 (Clone)** | DoIP, CAN, USB/LAN | ~450 €, chinesische Nachbauten | Funktioniert bei vielen, Zenzefi-Probleme häufig; Qualitätsschwankungen |
+XENTRY-Installationen scheitern häufig an falscher Treiber-Installation oder veralteten Abhängigkeiten. 
 
-!!! warning "C4/C5/C6 Clone-Fallen"
-    * **Qualitätsschwankungen:** C4-Clones aus verschiedenen Chargen können sich im PCB-Layout, WLAN-Chip und CAN-Transceiver unterscheiden. Ein "guter" C4-Clone verbindet stabil über WLAN, ein schlechter verliert die Verbindung bei längeren Codierungen.
-    * **Erkennung durch XENTRY:** Neuere XENTRY-Versionen prüfen MUX-Hardware-IDs. Clones mit falscher oder duplizierter Hardware-ID werden teilweise blockiert oder erzeugen Lizenzfehler.
-    * **Stromversorgung:** Einige C4-Clones sind empfindlich auf Spannungseinbrüche beim Fahrzeug-Cranking. Stabile 12V-Bordnetzspannung ist essenziell.
+### 3.1 Installationsreihenfolge (Community-Validiert)
+1. Windows-Grundinstallation (Win 10/11 Pro 64-Bit), .NET Framework 3.5/4.8 aktiviert.
+2. Visual C++ Redistributables (alle Versionen 2005-2022) installieren.
+3. Java Runtime Environment installieren (oft JRE 8).
+4. XENTRY-Base-Installation aus ISO (als Administrator).
+5. **Neustart.**
+6. Treiber-Installation für Interface (C4-Treiber VON DER XENTRY-ISO, nicht von Drittanbietern).
+7. **Neustart.**
+8. Patches/Medicines anwenden (Admin).
+9. StartKey/Activation einspielen.
+10. **Neustart.**
+11. Zenzefi installieren (falls DoIP-Fahrzeuge geplant).
 
-**Lösungsweg für instabile C4-Verbindungen:**
-* Verbindung bevorzugt per LAN-Kabel statt WLAN herstellen.
-* Im XENTRY-Control-Panel prüfen, ob MUX als "SDconnect" erkannt wird.
-* Firmware des C4 auf aktuellste stabile Version flashen (viele Clones kommen mit veralteter Firmware).
-* Bei dauerhaften Verbindungsabbrüchen: Anderen USB-Port oder aktiver USB-Hub mit eigener Stromversorgung verwenden.
+!!! warning "Treiber-Chaos beim Caesar-Treiber"
+    Ein klassischer Fehler ist die Installation von Treibern aus alternativen "All-in-One"-Paketen. 
+    * XDOS nutzt oft Caesar 3.3.5.1
+    * PassThru erfordert Caesar 3.3.6.2
+    * In `C:\Windows\System32\drivers\` prüfen, welche `caesar.dll` vorhanden ist!
 
-### 6.2 J2534-Passthrough-Devices (PassThru)
+---
 
-| Device | Preis | DoIP | Eignung | Bekannte Einschränkungen |
-| :--- | :--- | :--- | :--- | :--- |
-| **Tactrix OpenPort 2.0 (Original)** | ~$170 | Nein | Ältere Fahrzeuge (W204, W212, W166) | Kein DoIP; für DAS-Offline-Programming teilweise zu langsame Datenrate |
-| **Tactrix OpenPort 2.0 (Clone)** | ~$30 | Nein | Hobby/Einstieg | Datenrate nicht voll DAS-kompatibel; Risiko bei Control-Unit-Flashing |
-| **VXDIAG VCX SE (Benz-Version)** | ~$300-400 | Ja (mit Lizenz) | Universell | Zenzefi-Zertifikat erforderlich für DoIP-Fahrzeuge |
-| **VXDIAG VCX SE (J2534-Version)** | ~$200 | Theoretisch ja | Eingeschränkt | Benötigt Benz-Lizenz für volle Funktionalität; DoIP oft problematisch ohne korrekte Zenzefi-Konfiguration |
+## 4. Zenzefi-Zertifikate (Die DoIP-Schwelle)
 
-!!! warning "OpenPort 2.0 Clone – Das Datenrate-Problem"
-    In der Community mehrfach bestätigt: Chinesische OpenPort 2.0-Clones haben eine reduzierte Datenrate, die bei DAS-Offline-Programming (insbesondere Instrumentencluster-Updates an W169, W245 etc.) zu unvollständigen Flashes führen kann. Dies resultierte bei mehreren Nutzern in gebrickten Steuergeräten.
+Zenzefi ist Mercedess Zertifikatsmanagement-System für die gesicherte Kommunikation mit modernen DoIP-Fahrzeugen (W206, W223, W167 MOPF2).
 
-**Lösungsweg:**
-* Für DAS-Offline-Programming ausschließlich Original-Tactrix oder SD Connect C4/C5 verwenden.
-* Wenn nur Clone verfügbar: Control-Unit vor dem Flash aus dem Fahrzeug ausbauen und On-Bench mit stabilier Stromversorgung programmieren.
-* Immer Battery-Stabilizer (mindestens 30A) während des Flashvorgangs verwenden.
-
-## 7. Software-Installation: Der korrekte Ablauf
-
-### 7.1 Systemvoraussetzungen
-* **Betriebssystem:** Windows 10/11 Pro (64-Bit), empfohlen: frische Installation
-* **RAM:** Mindestens 8 GB, 16 GB empfohlen für XDOS mit SDFlash
-* **Festplatte:** SSD empfohlen; XENTRY-Installation belegt 40-60 GB
-* **Netzwerk:** Deaktiviert oder blockiert während Installation (Firewall/Hosts-Datei)
-* **UAC:** Deaktiviert während Installation und erstem Start
-* **Antivirus:** Vollständig deaktiviert oder Ausnahmen für Mercedes-Benz-Verzeichnisse
-
-### 7.2 Installationsreihenfolge (kritisch!)
-
-!!! info "Die Reihenfolge ist nicht optional"
-    XENTRY-Installationen scheitern häufig an falscher Treiber-Installation oder veralteten Abhängigkeiten. Die Community hat folgende Reihenfolge als robust validiert:
-    
-    1. Windows-Grundinstallation mit allen Updates, .NET Framework 3.5/4.8 aktiviert
-    2. Visual C++ Redistributables (alle Versionen 2005-2022) installieren
-    3. Java Runtime Environment (oft JRE 8uXXX erforderlich für ältere Komponenten)
-    4. XENTRY-Base-Installation aus ISO (start.exe als Administrator)
-    5. Neustart
-    6. Treiber-Installation für Interface (C4-Treiber VON DER XENTRY-ISO, nicht von Drittanbietern)
-    7. Neustart
-    8. Patches/Medicines anwenden (immer als Administrator ausführen)
-    9. StartKey/Activation einspielen
-    10. Neustart
-    11. Zenzefi installieren (falls DoIP-Fahrzeuge geplant)
-    12. Testverbindung mit einem bekannten Fahrzeug durchführen
-
-!!! warning "Treiber-Chaos vermeiden"
-    Ein klassischer Fehler ist die Installation von C4-Treibern aus alternativen Quellen (z.B. ältere XENTRY-Versionen, chinesische "All-in-One"-Pakete). Dies führt zu Versionskonflikten beim Caesar-Treiber (XDOS nutzt Version 3.3.5.1, PassThru erfordert 3.3.6.2).
-    
-    **Lösungsweg bei Caesar-Treiber-Konflikt:**
-    * In `C:\Windows\System32\drivers\` prüfen, welche caesar.dll vorhanden ist.
-    * Für XDOS: Caesar 3.3.5.1 muss aktiv sein.
-    * Für PassThru: Caesar 3.3.6.2 muss aktiv sein.
-    * Switching-Tools (Registry-Switcher) können zwischen XDOS und PassThru wechseln, setzen aber konsistente Treibervoraussetzungen voraus.
-
-## 8. Zenzefi-Zertifikate: Die DoIP-Schwelle
-
-### 8.1 Was ist Zenzefi?
-Zenzefi ist Mercedess Zertifikatsmanagement-System für die gesicherte Kommunikation mit DoIP-Fahrzeugen. Moderne Mercedes (W206, W223, W167 MOPF2, W447 MOPF2) erfordern gültige Diagnosezertifikate auf dem VCI.
-
-### 8.2 Bekannte Zenzefi-Probleme
-
-| Problem | Symptom | Ursache | Lösungsweg |
-| :--- | :--- | :--- | :--- |
-| **Certificate import failure** | "Cannot import certificate" / P12/DCS wird abgelehnt | Zenzefi-Version inkompatibel mit XENTRY-Version | Zenzefi auf Version 12.2023 downgraden; Root-CA und Backend-CA manuell importieren |
-| **Missing Root/Backend CA** | Zertifikat als "untrusted" markiert | Aktualisierte Zenzefi-Version hat geänderte CA-Struktur | Downgrade auf 12.2023 oder manuelles Einspielen der Legacy-CAs |
-| **Zenzefi license failure** | Lizenzupload schlägt fehl (VXDIAG) | XENTRY 2024.03+ hat geänderte Lizenzvalidierung | Zwei Dateien in XENTRY-Verzeichnis ersetzen (von VXDIAG-Distributor erhalten) |
-| **Server not accessible** | "The server for diagnosis certificates is not accessible" | Lizenz erfordert Online-Transaktion / ungültige Offline-Konfiguration | Offline-Properties-Dateien aktualisieren oder korrekten StartKey verwenden |
-
-!!! warning "Zenzefi-Downgrade-Risiko"
-    Ein Downgrade von Zenzefi auf 12.2023 kann zwar Zertifikatimporte retten, führt aber bei sehr neuen Fahrzeugen (2025+) möglicherweise zu verweigerten ECU-Verbindungen, da diese neuere Zertifikatsanforderungen haben. Immer Testfahrzeug mit geringerem Risiko zuerst verwenden.
-
-## 9. Erweiterte Fehlerbehebung
-
-### 9.1 XENTRY Error 2221-45 & 3.91
-**Symptom:** XENTRY startet nicht oder bricht mit Fehler 2221-45 oder 3.91 ab.
-
-**Ursachen:**
-* Veraltete oder fehlende DLL-Dateien in der XENTRY-Installation
-* Inkompatible "Medicine"-Version für die installierte XENTRY-Version
-* Fehlende oder inkorrekte DAS-Lizenz
-
-**Lösungsweg:**
-* Aktuelles "FullFix"-Paket für die entsprechende XENTRY-Version besorgen (z.B. FullFix-Xentry-2021-12.exe).
-* Als Administrator ausführen und "Configure" wählen.
-* Fehlende Bilddateien, DLLs und der DAS License 0-Day-Fix werden automatisch ersetzt.
-* Bei 3.91-Fehler: Prüfen, ob StartKey korrekt generiert und eingespielt wurde; Keygen-Version muss zur XENTRY-Version passen.
-
-### 9.2 "The data are faulty"
-**Symptom:** XENTRY verbindet sich nicht mit Fahrzeug; Fehlermeldung "The data are faulty".  
-**Ursache:** Addon-Update hat `ModulEinstieg_Template.gmf` im Verzeichnis `C:\Program Files (x86)\Mercedes-Benz\Xentry\MB_PKW\Baureihe\BR_Templates\` mit einer neueren, inkompatiblen Version überschrieben.
-
-**Lösungsweg:**
-* In `C:\ProgramData\Mercedes-Benz\logs\Xentry\` die Logdateien prüfen.
-* Wenn `MissingPluginException: Could not load file ... ModulEinstieg_Template.gmf` erscheint: Datei mit älterer Version aus Backup oder frischer ISO ersetzen.
-* XENTRY neu starten.
-
-### 9.3 Login Failure / "Insufficient user rights"
-**Symptom:** XENTRY zeigt Login-Fehler oder "insufficient user rights for connecting to latest DoIP vehicles" (W223, W206, W213, W167).  
-**Ursache:** Offline-Konfigurationsdateien (offline_properties) sind abgelaufen oder für die aktuelle XENTRY-Version nicht gültig.
-
-**Lösungsweg:**
-* Aktualisierte offline_properties-Dateien für die entsprechende XENTRY-Version besorgen (z.B. 2024.03, 2024.09).
-* Zwei Dateien ersetzen:
-  1. `C:\Program Files (x86)\Mercedes-Benz\Xentry\bin\offline_properties`
-  2. `C:\Program Files (x86)\Mercedes-Benz\Xentry\bin\offline_properties2` (oder entsprechendes Zweitverzeichnis)
-* *Wichtig:* Beide Dateien müssen ersetzt werden – nur eine zu aktualisieren reicht nicht.
-* XENTRY neu starten; Standard-Login (oft: User `xentry`, Passwort `123456`) verwenden.
-
-### 9.4 DoIP-Verbindungsprobleme
-**Symptom:** CAN-Fahrzeuge verbinden einwandfrei, DoIP-Fahrzeuge (W206, W223, GLA X156 Headunit) erzeugen "No resources available" oder Verbindungsabbruch.
-
-**Ursachen:**
-* VCI unterstützt DoIP theoretisch, aber Zenzefi-Zertifikat fehlt oder ist ungültig
-* VCI im falschen Modus (USB vs. LAN vs. WLAN)
-* Bei VXDIAG J2534 ohne Benz-Lizenz: DoIP-Protokoll nicht freigeschaltet
-
-**Lösungsweg:**
-* In der VCI-Admin-Oberfläche (z.B. VXDIAG-Tool) prüfen, ob DoIP auf "ON" steht.
-* Verbindung bevorzugt per LAN herstellen (stabiler als USB/WLAN bei DoIP).
-* Zenzefi-Zertifikat prüfen und ggf. neu importieren.
-* Bei VXDIAG: Benz-spezifische Lizenz erwerben; J2534-Generic-Version unterstützt DoIP bei Mercedes oft nur eingeschränkt.
-
-## 10. Codierung und Programmierung
-
-### 10.1 SCN-Coding
-
-| Modus | Beschreibung | Voraussetzung |
+| Problem | Symptom | Lösungsweg |
 | :--- | :--- | :--- |
-| **SCN-Online-Coding** | Live-Verbindung zu Mercedes-Servern; aktuellste Daten | Händler-Account, Internet, original XENTRY Diagnostics |
-| **SCN-Offline-Coding** | Lokal gespeicherte Codierdatensätze | Spezielle Freischaltung in XENTRY OpenShell; nicht alle Steuergeräte unterstützt |
-| **SCN-Online via Token** | Bezahlte Einzeltransaktion ohne Händlervertrag | Drittanbieter-Tokens (Rechtslage beachten) |
+| **Certificate import failure** | P12/DCS wird abgelehnt | Zenzefi auf Version 12.2023 downgraden; Root-CA manuell importieren |
+| **Missing Root CA** | Zertifikat als "untrusted" markiert | Manuelles Einspielen der Legacy-CAs |
+| **Server not accessible** | "Server for diagnosis certificates is not accessible" | Offline-Properties-Dateien aktualisieren oder korrekten StartKey verwenden |
 
-!!! info "SCN-Offline-Coding Realität"
-    Nicht alle Steuergeräte erlauben Offline-SCN-Coding. Einige Module (insbesondere sicherheitsrelevante wie Airbag, Drive-Authorization) verlangen zwingend Online-Verbindung. Vor dem Kauf einer Offline-SCN-Lösung prüfen, welche Baureihen und Steuergeräte tatsächlich unterstützt werden.
+---
 
-### 10.2 DAS-Offline-Programming / SDFlash
-SDFlash ermöglicht Firmware-Updates ohne Internetverbindung.
+## 5. Erweiterte Fehlerbehebung
 
-* **Risiko:** Bei unterbrochenem Flashvorgang kann das Steuergerät unbrauchbar werden ("gebrickt").
-* **Pflicht:** Battery-Stabilizer (mindestens 30A, besser 50A-70A) während gesamten Flashvorgangs.
-* **Empfohlen:** Fahrzeugbatterie vorher auf >80% SoC laden.
+### 5.1 XENTRY Error 2221-45 & 3.91
+* **Symptom:** XENTRY startet nicht oder bricht mit Fehler ab.
+* **Ursache:** Inkompatible "Medicine"-Version oder fehlende DAS-Lizenz.
+* **Lösung:** Aktuelles "FullFix"-Paket für die spezifische XENTRY-Version besorgen und ausführen. StartKey prüfen.
 
-!!! warning "Battery-Stabilizer ist nicht optional"
-    Mehrere Community-Berichte bestätigen Totalausfälle von Steuergeräten durch Spannungseinbrüche während des Flashvorgangs. Ein einfaches Ladegerät reicht nicht – es muss ein spezieller Diagnose-Stabilizer mit mindestens 30A Dauerleistung sein.
+### 5.2 "The data are faulty"
+* **Symptom:** XENTRY verbindet sich nicht, Addon-Update hat `ModulEinstieg_Template.gmf` zerschossen.
+* **Lösung:** In `C:\ProgramData\Mercedes-Benz\logs\Xentry\` Logs prüfen. Defekte `.gmf` Datei im Ordner `BR_Templates` aus einem Backup wiederherstellen.
 
-### 10.3 Vediamo & DTS Monaco
+### 5.3 Login Failure / "Insufficient user rights"
+* **Symptom:** DoIP-Fahrzeuge verweigern Verbindung.
+* **Ursache:** `offline_properties` Dateien abgelaufen.
+* **Lösung:** In `Xentry\bin\` die Dateien `offline_properties` und `offline_properties2` durch aktuelle Versionen ersetzen.
 
-| Tool | Einsatzzweck | Schwierigkeit |
-| :--- | :--- | :--- |
-| **Vediamo 4.2.2 / 5.1.1** | Direkter ECU-Zugriff, Variantencodierung, SeedKey-Entsperrung, CBF-Flashing | Mittel; CBF-SMRD-Dateien erforderlich |
-| **DTS Monaco 8.14 – 9.02** | Erweitertes Engineering-Tool; unterstützt ältere und neuere Modelle; Projekt-basiert | Hoch; volle SMRD- und Projektdateien nötig |
+---
 
-**Vediamo Best Practices:**
-* Immer Backup der Steuergeräte-Coding vor jeder Änderung erstellen.
-* SeedKey-Level: Standard-Zugriff reicht für Coding; Level 9/10 erfordert Freischaltung und ist für Flashing/Security-Functions nötig.
-* CBF-Dateien: Aktuelle CBF-Versionen müssen zur Fahrzeugsoftware passen; falsche CBF = Fehlfunktion.
+## 6. SCN-Coding & Programming
 
-## 11. Versionskompatibilität und Updates
-
-### 11.1 XENTRY-Versionen und Fahrzeugabdeckung
-
-| XENTRY-Version | Besonderheit | Empfohlene Hardware |
-| :--- | :--- | :--- |
-| **2021.06 – 2021.12** | Letzte Versionen mit breitem DAS-Support | SD Connect C4/C5 |
-| **2022.06 – 2023.03** | Übergangsphase; SDFlash-Offline stabiler | SD Connect C4/C5/C6 |
-| **2023.06 – 2023.09** | Sehr stabile Community-Versionen; breite Clone-Unterstützung | C4/C5/C6, VXDIAG |
-| **2023.12 – 2024.03** | Zenzefi-Zertifikatsprüfung verschärft | Original oder gute C6-Clones |
-| **2024.06+** | Erhöhte Online-Validierung; Härtere Clone-Erkennung | Original VCI C6 empfohlen |
-
-!!! info "Versionswahl"
-    Für Werkstätten mit breitem Fahrzeugspektrum (Alt + Neu) ist XENTRY 2023.09 in der Community als besonders ausgewogen und stabil dokumentiert. Für reine Neufahrzeuge ab 2024 ist XENTRY 2024.03+ mit korrektem Zenzefi-Setup erforderlich.
-
-### 11.2 Clone-HDD/SSD-Probleme
-Klonen einer XENTRY-Festplatte ist technisch möglich, führt aber häufig zu Aktivierungsverlust, da Hardware-IDs (MAC-Adresse, Festplatten-Seriennummer) in die Lizenzierung eingebunden sind.
-
-**Lösungsweg:**
-* Nach dem Klonen: Neue StartKey mit aktuellen Hardware- und App-IDs generieren.
-* Alternativ: Fresh-Installation auf neuer SSD/HDD bevorzugen; anschließend Patches und Activation einspielen.
-
-## 12. Wartung und Langzeitbetrieb
-
-### 12.1 Systempflege
-* **Regelmäßige Backups:** XENTRY-Systemabbild erstellen, nachdem alles stabil läuft.
-* **Keine Windows-Updates während aktiver Diagnose-Phase:** Updates können Treiber oder .NET-Versionen ändern.
-* **Hosts-Datei/ Firewall:** XENTRY darf nicht mit Mercedes-Servern kommunizieren (bei gepatchten Versionen), sonst droht Lizenzsperre.
-* **Logdateien prüfen:** `C:\ProgramData\Mercedes-Benz\logs\` – bei Fehlern erste Anlaufstelle.
-
-### 12.2 Langzeitstrategie
-
-| Szenario | Empfohlene Vorgehensweise |
+| Modus | Beschreibung |
 | :--- | :--- |
-| **Reiner älterer Fuhrpark (W204, W212, W166)** | XENTRY OpenShell 2023.09 + SD Connect C4/C5 |
-| **Gemischter Fuhrpark + erste DoIP-Fahrzeuge** | XENTRY 2023.12/2024.03 + VXDIAG VCX SE Benz |
-| **Moderner Fuhrpark (W206, W223, W167 MOPF2)** | Original VCI C6 oder hochwertiger Clone + aktuelle Zenzefi-Lizenzen |
-| **Budget-Lösung Einsteiger** | XENTRY PassThru + OpenPort 2.0 Original (kein DoIP) |
+| **SCN-Online-Coding** | Live-Verbindung zu Mercedes-Servern. Erfordert Händler-Account (oder Token). |
+| **SCN-Offline-Coding** | Lokal gespeicherte Datensätze (in XENTRY OpenShell, nicht für alle Steuergeräte möglich). |
+| **DAS-Offline / SDFlash** | Firmware-Update ohne Internet. **Achtung:** Battery-Stabilizer (min. 30A) ist absolute Pflicht, sonst "Brick"-Gefahr! |
 
-## 13. Glossar
+---
+
+## 7. Versionskompatibilität
+
+Für Werkstätten mit breitem Fahrzeugspektrum ist **XENTRY 2023.09** in der Community als besonders ausgewogen und stabil dokumentiert. Für reine Neufahrzeuge ab 2024 ist **XENTRY 2024.03+** mit korrektem Zenzefi-Setup erforderlich.
+
+---
+
+## 8. Glossar
 
 | Begriff | Erklärung |
 | :--- | :--- |
-| **DAS** | Diagnosis Assistance System; ältere Diagnoseschicht in XENTRY für Fahrzeuge bis ca. 2014 |
-| **XDOS** | XENTRY Diagnosis OpenShell; moderne Diagnoseschicht |
-| **XPT** | XENTRY PassThru; J2534-kompatible Variante |
-| **DoIP** | Diagnostics over Internet Protocol; Ethernet-basierte Diagnose für aktuelle Fahrzeuge |
-| **SCN** | Software Calibration Number; Codierung/Programmierung von Steuergeräten |
-| **SDFlash** | Offlinesoftwaredistribution-Flash; Firmware-Update ohne Internet |
+| **DAS** | Diagnosis Assistance System; ältere Diagnoseschicht in XENTRY (bis ca. 2014) |
+| **XDOS / XPT** | XENTRY Diagnosis OpenShell / XENTRY PassThru |
+| **DoIP** | Diagnostics over Internet Protocol (Ethernet-basiert) |
+| **SCN** | Software Calibration Number (Codierung) |
+| **SDFlash** | Offline-Firmware-Update |
 | **Zenzefi** | Zertifikatsmanagement-System für DoIP |
-| **VCI** | Vehicle Communication Interface; Hardware-Interface (C4/C5/C6) |
-| **MUX** | Multiplexer; ältere Bezeichnung für das Diagnose-Interface |
-| **CBF** | Controller Flash File; Flash-Datei für Steuergeräte |
-| **SMRD** | Service Measure Recall Data; Projektdateien für DTS Monaco |
-| **SeedKey** | Sicherheitsmechanismus zur Freischaltung von Steuergeräten |
-## 14. DTS Monaco – Engineering-Level Codierung & Flashing
-
-### Was ist DTS Monaco?
-DTS Monaco ist das Engineering‑Diagnosetool von Mercedes‑Benz, das tieferen Zugriff auf Steuergeräte bietet als XENTRY oder Vediamo. Es arbeitet projektbasiert mit **CBF‑Dateien** (Einzel‑Steuergeräte‑Beschreibungen) und **SMR‑D‑Dateien** (Fahrzeug‑Projektdateien).
-
-| Funktion | DTS Monaco | Vediamo | XENTRY |
-| :--- | :--- | :--- | :--- |
-| Schnelle ECU‑Codierung aller Steuergeräte | ✅ Ja | ❌ Nein | Teilweise |
-| ECU‑Software‑Backup/‑Restore | ✅ Ja | ✅ Ja | ❌ Nein |
-| ECU‑Flashing (Firmware‑Update) | ✅ Ja | Teilweise | Nur SDFlash |
-| Alle Fehlercodes schnell lesen/löschen | ✅ Ja | ❌ Nein | ✅ Ja |
-| ECU‑Daten‑Switch (Ersatzgerät programmieren) | ✅ Ja | ❌ Nein | ❌ Nein |
-| SeedKey‑Sicherheitsfreischaltung | ✅ Ja | ✅ Ja | ❌ Nein |
-| Variantencodierung | ✅ Ja | ✅ Ja | ✅ Ja |
-| Projektbasiertes Arbeiten | ✅ Ja | ❌ Nein | ❌ Nein |
-
-**Kernunterschied:** Vediamo ist dateibasiert (CBF einzeln laden), während DTS Monaco ein komplettes Fahrzeugprojekt mit allen Steuergeräten, CBF‑ und SMR‑D‑Dateien zusammenfasst.
-
-### Systemanforderungen & Installation
-#### 2.1 Hardware‑Voraussetzungen
-| Komponente | Minimum | Empfohlen | Hinweis |
-| :--- | :--- | :--- | :--- |
-| Betriebssystem | Windows 10 Pro 64‑Bit | Windows 10/11 Pro, frische Installation | Home‑Edition kann Netzwerk‑Probleme verursachen |
-| RAM | 8 GB | 16 GB | SMR‑D‑Datenbanken können groß werden |
-| Festplatte | 100 GB SSD | 256 GB SSD | Projekte + SMR‑D + CBF + Flash‑Container |
-| Interface | J2534 (OpenPort 2.0) | SD Connect C4/C6, VXDIAG VCX SE | Version 9.02 arbeitet mit Passthrough‑Devices problematisch |
-| Stromversorgung | 30 A Battery‑Stabilizer | 50‑70 A Diagnose‑Stabilizer | Essenziell für Flashing |
-
-!!! warning "DTS Monaco 9.02 + Passthrough = Probleme"
-In der Community mehrfach bestätigt: DTS Monaco 9.02 funktioniert nicht zuverlässig mit J2534‑Passthrough‑Devices wie OpenPort 2.0. Das Tool erkennt das Interface, bricht bei längeren Kommunikationen aber ab oder friert ein.
-
-**Lösungsweg:**
-* Für OpenPort 2.0: DTS Monaco 8.14 oder 8.16 verwenden – diese Versionen sind mit J2534 stabil.
-* Für DoIP‑Fahrzeuge (W206, W223): VXDIAG VCX SE oder SD Connect C6 verwenden.
-* Monaco 9.02 nur mit originalen oder hochwertigen C6‑Clones und LAN‑Verbindung nutzen.
-
-#### 2.2 Installation über Samik FullFix
-Der Samik FullFix ist ein community‑validiertes All‑in‑One‑Installationspaket, das folgende Komponenten enthält:
-* DTS Monaco Basisinstallation (Versionen 8.14, 8.16, 9.02)
-* Caesar‑Treiber in korrekter Version
-* CBF‑Datenbank
-* SMR‑D‑Datenbank
-* Activation/Patch
-* Hilfstools (SeedKey‑Generator, VCI‑Config‑Tools)
-
-!!! info "Samik FullFix Installationsablauf (Community‑Validiert)"
-1. Frische Windows‑Installation mit allen Updates, .NET Framework 3.5/4.8.
-2. Visual C++ Redistributables (2005–2022) installieren.
-3. Java Runtime (JRE 8, ggf. JDK).
-4. Samik FullFix als Administrator ausführen – Auswahlmenü für gewünschte DTS‑Version.
-5. Base‑Installation abwarten → Neustart.
-6. Samik FullFix erneut starten → Caesar‑Treiber installieren.
-7. Activation/Patch über Samik FullFix anwenden (Admin).
-8. Neustart → SMR‑D und CBF aus dem Paket in die entsprechenden Verzeichnisse entpacken.
-9. Test‑Projekt erstellen und Verbindung prüfen.
-
-!!! warning "Antivirus & Windows Defender deaktivieren"
-Der Samik FullFix und die enthaltenen Patch‑Dateien werden von Antivirenprogrammen häufig als Bedrohung erkannt. Deaktiviere vor der Installation Windows Defender (Tamper‑Protection) und pausiere Dritt‑AV. Setze danach Ausnahmen für `C:\Program Files (x86)\Mercedes-Benz\`.
-
-!!! warning "CBF‑Version vs. DTS‑Version: Fataler Mismatch"
-Eine CBF‑Datei aus einer neueren XENTRY‑Version kann mit einer älteren DTS Monaco‑Version nicht verarbeitet werden (Fehler „Cannot work CBF file“). Verwende stets das CBF‑Set, das zum installierten DTS‑Monaco‑Version‑Paket gehört.
-
-### Projektsystem verstehen
-#### 3.1 Was ist ein DTS Monaco‑Projekt?
-Ein Projekt fasst zusammen:
-* **SMR‑D‑Datei** – Fahrzeug‑Gesamtstruktur (Steuergeräte‑Liste, Bus‑Topologie, Adressen).
-* **CBF‑Dateien** – Einzel‑Steuergeräte‑Beschreibungen.
-* **Variantencodier‑Werte** – Werkscodierung des Fahrzeugs.
-* **Flash‑Container** – Firmware‑Updates.
-
-**SMR‑D vs. CBF:** SMR‑D beschreibt das gesamte Fahrzeug, CBF beschreibt ein einzelnes Steuergerät. Beide sind zwingend nötig.
-
-#### 3.2 Projekt erstellen – Schritt für Schritt
-1. **System Configuration → Add → J2534 Device** (oder SD‑Connect).
-2. **Create Project** wählen.
-3. Fahrzeugidentifikation eingeben (VIN oder Baureihe).
-4. SMR‑D‑Datei laden (Datenbank oder eigenes Projekt).
-5. CBF‑Dateien zuordnen (automatisch oder manuell).
-6. Projekt speichern.
-
-!!! warning "Projekt ohne SMR‑D = unbrauchbar"
-Ohne gültige SMR‑D kann kein Steuergerät korrekt adressiert werden. Immer zuerst ein vollständiges Fahrzeugprojekt anlegen.
-
-### Codierung mit DTS Monaco
-#### 4.1 Variantencodierung
-1. Projekt laden → Ziel‑Steuergerät auswählen.
-2. **Variant Coding** öffnen.
-3. Werte ändern (Dropdown oder Hex).
-4. **Write coding to ECU**.
-5. Ignition OFF/ON (je nach Steuergerät).
-
-!!! warning "Vor dem Schreiben immer zuerst lesen"
-Zuerst **Read coding from ECU** und sichern, dann ändern und schreiben – so hast du ein Backup der Original‑Codierung.
-
-#### 4.2 SeedKey‑Freischaltung
-| Level | Bedeutung |
-| :--- | :--- |
-| 1 | Grundlegende Diagnose |
-| 3 | Erweiterte Diagnose, Fehlerspeicher löschen |
-| 5 | Variantencodierung |
-| 9/10 | ECU‑Flashing, Security‑Functions |
-| 11+ | Engineering‑Funktionen, Immobilizer |
-
-!!! warning "Falsches SeedKey‑Level = Sperre oder Brick"
-Mehrfache falsche Versuche können das Steuergerät sperren. Beginne immer mit dem niedrigstmöglichen Level.
-
-### ECU‑Flashing
-#### 5.1 Voraussetzungen für sicheres Flashing
-| Voraussetzung | Warum wichtig |
-| :--- | :--- |
-| Battery‑Stabilizer 50‑70 A | Verhindert Spannungseinbruch → Brick |
-| Stabile Interface‑Verbindung | Keine Kommunikationsabbrüche |
-| Korrekte Flash‑Datei (CFF/FRF) | Firmware‑Kompatibilität |
-| Steuergeräte‑Hardware‑Nummer prüfen | Verhindert Inkompatibilität |
-| Backup vorhanden | EEPROM‑Backup ermöglicht Wiederherstellung |
-
-#### 5.2 Flashing‑Ablauf
-1. Projekt laden → Ziel‑ECU auswählen.
-2. **ECU Programming** öffnen.
-3. Flash‑Container (CFF/FRF) laden.
-4. HW‑Nummern vergleichen.
-5. SeedKey Level 9/10 freischalten.
-6. **Start Programming** – NICHT unterbrechen.
-7. Warten bis 100 % → Ignition OFF/ON.
-8. Ergebnis verifizieren (Fehlercodes, Funktionstest).
-
-!!! info "Flash‑Container richtig wählen"
-DTS Monaco verwendet CFF‑ oder FRF‑Dateien, die exakt zur Ziel‑ECU‑Hardware passen müssen.
-
-#### 5.3 ECU‑Kloning
-DTS Monaco kann ein vollständiges EEPROM‑Backup eines funktionierenden Steuergeräts erstellen und auf ein Zielgerät schreiben. **Risiko:** HW‑Revisionen müssen exakt übereinstimmen – abweichende HW‑Rev. kann Fehlfunktion verursachen.
-
-### Interface‑Konfiguration
-#### 6.1 J2534‑Adapter einbinden
-System Configuration → Add → J2534 Device → Gerät auswählen (OpenPort 2.0 / VXDIAG) → Verbindungstest → als "Virtual Diagnostic System" im Projekt hinterlegen.
-
-!!! warning "Caesar‑Treiber‑Version für Monaco"
-DTS Monaco benötigt spezifische Caesar‑Treiber. Verwende die vom Samik FullFix bereitgestellte Version. Bei manueller Installation kann ein Switching‑Tool nötig sein, um zwischen XENTRY‑ und Monaco‑Treibern zu wechseln.
-
-#### 6.2 SD Connect C4/C6 einbinden
-System Configuration → Add → SD‑Connect → IP‑Adresse eingeben → "Remote SD‑Connect" wählen (LAN/WLAN) → MUX‑Test durchführen.
-
-!!! info "LAN vs. WLAN vs. USB"
-* **LAN‑Kabel:** Höchste Stabilität – empfohlen für Flashing/umfangreiche Codierungen.
-* **WLAN:** Mittel – für kurze Diagnosen, Quick‑Test.
-* **USB (nur C6):** Hoch – wenn LAN nicht verfügbar.
-
-### Bekannte Fehler & Lösungswege
-| Symptom | Ursache | Lösung |
-| :--- | :--- | :--- |
-| "Cannot work CBF file" | CBF‑Datei neuer als DTS‑Version | Passende (ältere) CBF‑Version verwenden – Samik‑FullFix liefert kompatible Sätze |
-| "No communication with ECU" | Falscher Bus/Adresse, Interface‑Problem, ECU im Schlafmodus | Bus‑Konfiguration in SMR‑D prüfen, Ignition ON, Interface‑Test durchführen |
-| "SeedKey incorrect / Security access denied" | Falscher SeedKey, falsches Level, ECU gesperrt | SeedKey neu berechnen, niedrigstes mögliches Level nutzen |
-| Projekt lädt extrem langsam | Große/fragmentierte Datenbank, langsame Festplatte | Nicht benötigte SMR‑D/CBF‑Dateien entfernen, SSD verwenden |
-
-### Best Practices aus der Community
-#### 7.1 Vor jeder Session
-* Projekt‑Backup erstellen (komplettes Projektverzeichnis).
-* Fahrzeug‑Spannung prüfen (>12.5 V, ideal mit Stabilizer).
-* Interface‑Verbindung testen (Quick‑Test).
-* SMR‑D/CBF‑Kompatibilität verifizieren.
-
-#### 7.2 Während der Session
-* Nur ein Tool gleichzeitig – XENTRY und Monaco nicht parallel auf dasselbe Fahrzeug.
-* Keine Unterbrechungen – Kein Ignition‑OFF, kein Kabelziehen während Flashing.
-* Änderungen dokumentieren – Jede Änderung notieren (vorher/nachher).
-
-#### 7.3 Nach der Session
-* Fehlercodes auslesen – Alle Steuergeräte prüfen.
-* Funktionstest durchführen – Geänderte Funktionen verifizieren.
-* Projekt aufräumen – Temporäre Dateien, Logs kontrollieren.
+| **VCI / MUX** | Vehicle Communication Interface / Multiplexer |
+| **CBF / SMR-D** | Projektdateien für Offline-Codierung (siehe [SMR-D Quellen](smr-d_quellen.md)) |
+| **CFF / FRF** | Firmware-Flash-Container |
+| **Seed & Key** | Sicherheitsmechanismus zur ECU-Entsperrung |
+| **HW-Nr.** | Hardware-Nummer (A-Nummer) des Steuergeräts |
 
 ---
 
-## 15. Beschaffung von SMR‑D‑ und Flash‑Dateien (Mercedes‑only)
-
-**Zielgruppe:** Techniker, Codierer, Enthusiasten mit DTS Monaco / Vediamo / XENTRY
-
-### 15.1 SMR‑D – Projektbasierte Fahrzeugdatei
-SMR‑D (Steuergerät‑Motor‑Reparatur‑Daten) ist das aktuelle, projektbasierte Format, das CBF in neueren Fahrzeugen ablöst. Es enthält die komplette Steuergeräte‑Topologie, Bus‑Adressierung und Variantencodierungen.
-
-| Merkmal | Beschreibung |
-|--------|--------------|
-| **Verwendung** | DTS Monaco, XENTRY |
-| **Inhalt** | Fahrzeugprojekt mit allen ECUs, Adressen, Varianten |
-| **Format** | Container‑Datei (mehrere ECUs) |
-| **Standard‑Pfad (XENTRY)** | `C:\Program Files (x86)\Mercedes-Benz\Xentry\Kontexte\ODXProjekte\PKW_COMMON\dbr` |
-
-> **Hinweis:** Die SMR‑D‑Version muss exakt zur DTS‑/Vediamo‑Version passen. Eine neuere CBF‑Datei kann in älteren DTS‑Versionen zu "Cannot work CBF file" führen.
-
-#### Beschaffungsquellen
-1. **Eigene XENTRY‑Installation** – legal, kostenlos, immer kompatibel zum installierten XENTRY‑Release.
-2. **Community‑Sammlungen (Full‑Sets)** – diverse Baureihen, jedoch vor Nutzung Prüfsummen prüfen.
-3. **Fachhandel & Dienstleister** – kostenpflichtig, rechtlich riskant – bitte nur für privaten Gebrauch.
-4. **Online‑Tools (MBTools ECU Finder, BinUnlock)** – schnelle Identifikation der benötigten SMR‑D‑Datei.
-
-### 15.2 Flash‑Dateien (CFF / FRF)
-CFF (Compact Flash File) und FRF (Flash Resource File) enthalten die eigentliche Firmware und Kalibrierungsdaten.
-
-| Merkmal | CFF | FRF |
-|--------|-----|-----|
-| **Verwendung** | DTS Monaco, Vediamo | Spezial‑Tools (ODIS Engineering) |
-| **Standard‑Pfad (XENTRY SDFlash)** | `C:\Program Files (x86)\Mercedes-Benz\SDFlash\Release\PKW` |
-
-> **Warnung:** Die Flash‑Datei muss exakt zur **Hardware‑Nummer (A‑Nummer)** des Ziel‑ECU passen. Falsche Dateien können das Steuergerät irreversibel beschädigen.
-
-#### Beschaffungsquellen
-* **Offizielle XENTRY SDFlash‑Datenbank** – sicher, getestet, aber nur bis zum XENTRY‑Release‑Datum.
-* **Shops & Community‑Quellen** – günstiger, jedoch mögliche Modifikationen und rechtliche Grauzone.
-* **Donor‑ECU auslesen** – sicherste Methode – identische ECU (gleiche A‑Nummer) aus einem funktionierenden Fahrzeug auslesen.
-
----
-
-*Quellen: AutoGMT, MHHAuto, Digital Eliteboard, Smartland, MBTools, Motorcarsoft, BinUnlock, CarTechnology, OBDII365‑Blog, Facebook‑Gruppen*
-
-*Diese Dokumentation basiert auf gesammelten Community‑Erfahrungen und dient als Wissensbasis. Für sicherheitsrelevante Codierungen wird die Konsultation eines Fachbetriebs empfohlen*
-*Quellen: Smartland Forum, MHHAuto, Digital Eliteboard, AutoGMT, CarTechnology, MBWorld, Reddit r/CarHacking, OBDII365-Blog, VXDIAG-Shop-Blog, Sterndiagnose.ch*
-
-*Diese Dokumentation basiert auf gesammelten Community-Erfahrungen und dient als Wissensbasis. Für sicherheitsrelevante Codierungen wird die Konsultation eines Fachbetriebs empfohlen*
+## Siehe auch
+* [Hardware & Interfaces](hardware.md) – Welche Hardware für welche XENTRY-Variante benötigt wird.
+* [DTS Monaco](dts_monaco.md) – Der Guide für das Engineering-Tool DTS Monaco.
+* [SMR-D Quellen](smr-d_quellen.md) – Wo SMR-D und CFF Dateien gespeichert sind.

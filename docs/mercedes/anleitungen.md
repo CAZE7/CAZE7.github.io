@@ -115,3 +115,10 @@ Bevor du mit einer spezifischen Codierung beginnst, müssen diese Voraussetzunge
     3. **Türsteuergeräte (Fahrer & Beifahrer - z. B. DMFL222 / DMFR222):** * `Einklappen beim Verriegeln verfügbar` auf **on** setzen.
         * `Gehäuseklappung beginnt bereits bei Entriegelung` auf **on** setzen.
     4. Non-volatile Memory Sync und ECU Hard Reset ausführen
+
+---
+
+## Siehe auch
+* [DTS Monaco Guide](dts_monaco.md) – Detaillierte Anleitung zur Einrichtung von DTS Monaco.
+* [SMR-D Quellen](smr-d_quellen.md) – Wo du die benötigten Projektdateien für die Codierung findest.
+* [Hardware & Interfaces](hardware.md) – Übersicht der passenden Hardware für diese Codierungen.
