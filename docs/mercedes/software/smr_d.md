@@ -1,8 +1,5 @@
 # SMR-D und Flash-Dateien – Beschaffung & Formate
 
-**Fokusthema:** Beschaffung und Verwendung von Mercedes-ECU-Dateien (SMR-D, CBF, CFF/FRF)  
-**Zielgruppe:** Techniker, Codierer, Enthusiasten mit DTS Monaco / Vediamo / XENTRY
-
 ---
 
 ## 1. Dateitypen im Überblick
