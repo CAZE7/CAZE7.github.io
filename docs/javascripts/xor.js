@@ -15,10 +15,13 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function calculateXor() {
-  let inputElement = document.getElementById("origCode");
-  if(!inputElement) return;
+  let origCodeInput = document.getElementById("origCode");
+  let calcCodeInput = document.getElementById("calcCode");
+  let copyBtn = document.getElementById("copyBtn");
   
-  let input = inputElement.value.trim();
+  if(!origCodeInput || !calcCodeInput) return;
+
+  let input = origCodeInput.value.trim();
   let result = '';
 
   if (input.length !== codeLength) {
@@ -38,17 +41,53 @@ function calculateXor() {
     result += temp;
   }
 
-  document.getElementById("calcCode").value = result;
-  const copyBtn = document.getElementById("copyBtn");
+  calcCodeInput.value = result;
   if(copyBtn) copyBtn.style.display = "block";
 }
 
 function clearAll() {
-  document.getElementById("origCode").value = "";
-  document.getElementById("calcCode").value = "";
-  const copyBtn = document.getElementById("copyBtn");
+  let origCodeInput = document.getElementById("origCode");
+  let calcCodeInput = document.getElementById("calcCode");
+  let copyBtn = document.getElementById("copyBtn");
+
+  if(!origCodeInput || !calcCodeInput) return;
+  origCodeInput.value = "";
+  calcCodeInput.value = "";
   if(copyBtn) copyBtn.style.display = "none";
+}
+
+let copyTimeout;
+
+async function copyResult() {
+  let calcCodeInput = document.getElementById("calcCode");
+  let copyBtn = document.getElementById("copyBtn");
+
+  if (!calcCodeInput) return;
+  calcCodeInput.select();
+
+  try {
+    await navigator.clipboard.writeText(calcCodeInput.value);
+    if (copyBtn) {
+      if (copyTimeout) clearTimeout(copyTimeout);
+
+      const isAlreadyCopied = copyBtn.innerText === "Kopiert!";
+      const originalText = isAlreadyCopied ? copyBtn.getAttribute('data-original-text') : copyBtn.innerText;
+
+      if (!isAlreadyCopied) {
+          copyBtn.setAttribute('data-original-text', originalText);
+      }
+
+      copyBtn.innerText = "Kopiert!";
+
+      copyTimeout = setTimeout(() => {
+          copyBtn.innerText = originalText;
+      }, 2000);
+    }
+  } catch (err) {
+    console.error('Failed to copy: ', err);
+  }
 }
 
 window.calculateXor = calculateXor;
 window.clearAll = clearAll;
+window.copyResult = copyResult;

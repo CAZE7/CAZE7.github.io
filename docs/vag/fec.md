@@ -16,11 +16,11 @@ Bitte gib deine VIN (Fahrgestellnummer) und VCRN ein, bevor du Codes generierst.
   <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(128,128,128,0.2); border-radius: 12px; padding: 2rem;">
     <h3 style="margin-top: 0;">Fahrzeugdaten</h3>
     
-    <label for="vin" style="display: block; font-weight: bold; margin-bottom: 0.5rem;">VIN (Fahrgestellnummer):</label>
-    <input type="text" id="vin" class="md-input" placeholder="WVWZZZ..." maxlength="17" value="WVWZZZAUZGP123456" style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid rgba(128,128,128,0.3); background: var(--md-default-bg-color--lightest); color: var(--md-default-fg-color); margin-bottom: 1rem; font-family: var(--md-code-font);">
+    <label for="vin" style="display: block; font-weight: bold; margin-bottom: 0.5rem;">VIN (Fahrgestellnummer): <span style="color: red;" aria-hidden="true">*</span></label>
+    <input type="text" id="vin" required aria-required="true" class="md-input" placeholder="WVWZZZ..." maxlength="17" value="WVWZZZAUZGP123456" style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid rgba(128,128,128,0.3); background: var(--md-default-bg-color--lightest); color: var(--md-default-fg-color); margin-bottom: 1rem; font-family: var(--md-code-font);">
 
-    <label for="vcrn" style="display: block; font-weight: bold; margin-bottom: 0.5rem;">VCRN:</label>
-    <input type="text" id="vcrn" class="md-input" placeholder="VCRN" maxlength="10" value="abcdef1234" style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid rgba(128,128,128,0.3); background: var(--md-default-bg-color--lightest); color: var(--md-default-fg-color); margin-bottom: 2rem; font-family: var(--md-code-font);">
+    <label for="vcrn" style="display: block; font-weight: bold; margin-bottom: 0.5rem;">VCRN: <span style="color: red;" aria-hidden="true">*</span></label>
+    <input type="text" id="vcrn" required aria-required="true" class="md-input" placeholder="VCRN" maxlength="10" value="abcdef1234" style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid rgba(128,128,128,0.3); background: var(--md-default-bg-color--lightest); color: var(--md-default-fg-color); margin-bottom: 2rem; font-family: var(--md-code-font);">
 
     <h3>Funktionen (FEC) auswählen</h3>
     <div style="max-height: 400px; overflow-y: auto; padding-right: 1rem;">
