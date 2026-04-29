@@ -1,132 +1,141 @@
 /* ==========================================================================
-   MODERN & READABLE DESIGN
-   Optimiert für Lesbarkeit, Übersichtlichkeit und klares Layout
+   ULTRA MODERN & PREMIUM DESIGN
    ========================================================================== */
 
-/* 1. Typografie & Fließtext */
-.md-typeset {
-  /* Bessere Lesbarkeit durch größere Schrift und mehr Zeilenabstand */
-  font-size: 0.9rem; /* Ca. 18px */
-  line-height: 1.7;
-}
-
-.md-typeset p {
-  margin-bottom: 1.2em;
-}
-
-.md-typeset h1, .md-typeset h2, .md-typeset h3, .md-typeset h4 {
-  font-weight: 600;
-  letter-spacing: -0.01em;
-}
-
-.md-typeset h1 { 
-  font-size: 2.2rem; 
-  line-height: 1.3; 
-  margin-bottom: 1.5rem; 
-}
-.md-typeset h2 { 
-  font-size: 1.6rem; 
-  margin-top: 3rem; 
-  margin-bottom: 1rem;
-  border-bottom: 1px solid var(--md-default-fg-color--lightest);
-  padding-bottom: 0.3rem;
-}
-.md-typeset h3 { 
-  font-size: 1.25rem; 
-  margin-top: 2rem; 
-}
-
-/* Content zentrieren und angenehme Lesebreite setzen */
-.md-content__inner {
-  max-width: 850px !important; 
-  margin: 0 auto;
-}
-
-/* 2. UI-Komponenten abrunden & modernisieren */
 :root {
-  /* Globale Rundungen für ein weicheres, moderneres Gefühl */
-  --md-border-radius: 8px;
+  --md-primary-fg-color: #4f46e5; /* Modern Indigo */
+  --md-primary-fg-color--light: #818cf8;
+  --md-primary-fg-color--dark: #3730a3;
+  --md-accent-fg-color: #f43f5e; /* Rose Accent */
+  --md-border-radius: 12px;
 }
 
-.md-button {
-  border-radius: 8px !important;
-  font-weight: 600 !important;
-  transition: all 0.2s ease-in-out;
+/* 1. Typografie & Layout */
+.md-typeset {
+  font-size: 0.85rem;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
 }
 
-.md-button:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--md-shadow-z2);
+/* Gradients für Überschriften */
+.md-typeset h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, var(--md-primary-fg-color), var(--md-accent-fg-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 2rem;
+  letter-spacing: -0.02em;
 }
 
-/* 3. Tabellen lesbarer machen */
-.md-typeset table:not([class]) {
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid var(--md-default-fg-color--lightest);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-}
-
-.md-typeset table:not([class]) th {
-  background-color: var(--md-default-fg-color--lightest);
-  font-weight: 600;
-  padding: 12px 16px;
-}
-
-.md-typeset table:not([class]) td {
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--md-default-fg-color--lightest);
-}
-
-.md-typeset table:not([class]) tr:last-child td {
+.md-typeset h2 {
+  font-weight: 700;
   border-bottom: none;
+  margin-top: 3.5rem;
+  display: flex;
+  align-items: center;
 }
 
-/* 4. Codeblöcke weicher gestalten */
-.md-typeset pre > code {
-  border-radius: 8px;
-  padding: 1rem;
+.md-typeset h2::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 1.2em;
+  background: var(--md-primary-fg-color);
+  margin-right: 0.75rem;
+  border-radius: 4px;
 }
 
-/* 5. Startseiten-Karten (Cards) aufwerten */
+/* 2. Glassmorphism & Karten */
 .md-typeset .grid.cards > ul > li {
-  border-radius: 12px !important;
-  border: 1px solid var(--md-default-fg-color--lightest) !important;
-  background-color: var(--md-default-bg-color);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04) !important;
-  padding: 1.5rem;
-  transition: all 0.3s ease;
-}
-
-.md-typeset .grid.cards > ul > li:hover {
-  transform: translateY(-4px) !important;
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.08) !important;
-  border-color: var(--md-primary-fg-color) !important;
-}
-
-/* 6. Admonitions (Hinweisboxen) optimieren */
-.md-typeset .admonition {
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-  margin: 1.5em 0;
-}
-
-/* 7. Finder-App Bereich (falls vorhanden) */
-#obd-finder-app {
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  background: var(--md-default-bg-color);
-  padding: 2rem !important;
-  margin-top: 3rem;
-  border: 1px solid var(--md-default-fg-color--lightest);
-}
-
-/* 8. Generelles Styling für Dark Mode Anpassung */
-[data-md-color-scheme="slate"] .md-typeset table:not([class]) th {
-  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
 }
 
 [data-md-color-scheme="slate"] .md-typeset .grid.cards > ul > li {
+  background: rgba(30, 33, 41, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.md-typeset .grid.cards > ul > li:hover {
+  transform: translateY(-8px) scale(1.02) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1) !important;
+  border-color: var(--md-primary-fg-color) !important;
+}
+
+/* 3. Lese-Fortschrittsbalken (Top) */
+.md-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* 4. Admonitions (Info-Boxen) Aufwertung */
+.md-typeset .admonition {
+  border-left-width: 6px;
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  border-right: 1px solid rgba(0,0,0,0.03);
+  border-top: 1px solid rgba(0,0,0,0.03);
+  border-bottom: 1px solid rgba(0,0,0,0.03);
+}
+
+.md-typeset .admonition-title {
+  font-weight: 700 !important;
+  background-color: transparent !important;
+  padding-left: 0 !important;
+}
+
+/* 5. Navigation Styling */
+.md-nav__link--active {
+  color: var(--md-primary-fg-color) !important;
+  font-weight: 700 !important;
+}
+
+.md-nav__item {
+  transition: all 0.2s ease;
+}
+
+/* 6. Buttons */
+.md-button--primary {
+  background-color: var(--md-primary-fg-color) !important;
+  border-color: var(--md-primary-fg-color) !important;
+  box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.39);
+}
+
+.md-button--primary:hover {
+  background-color: var(--md-primary-fg-color--dark) !important;
+  transform: translateY(-1px);
+}
+
+/* 7. Tags Styling */
+.md-tag {
+  background-color: var(--md-primary-fg-color--light);
+  color: white !important;
+  border-radius: 20px;
+  padding: 2px 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* 8. Code-Blöcke */
+.md-typeset pre > code {
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+/* 9. Footer Aufwertung */
+.md-footer {
+  margin-top: 5rem;
+  padding-top: 2rem;
   background-color: var(--md-default-bg-color);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2) !important;
+  border-top: 1px solid var(--md-default-fg-color--lightest);
+}
+
+/* 10. Suche Optik */
+.md-search__form {
+  border-radius: 20px !important;
+  background-color: var(--md-default-bg-color--lightest) !important;
 }

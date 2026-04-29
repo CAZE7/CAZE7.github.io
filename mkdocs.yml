@@ -21,6 +21,11 @@ theme:
     - content.tabs.link # Verlinkt Tabs miteinander
     - toc.follow # Hebt den aktuellen Abschnitt im Inhaltsverzeichnis hervor
     - content.tooltips # Erlaubt das Hinzufügen von Tooltips für Abkürzungen
+    - navigation.sections # Erlaubt Sektionen in der Navigation
+    - navigation.indexes # Erlaubt Klicks auf Sektions-Überschriften
+    - navigation.expand # Klappt die Navigation automatisch auf
+    - search.share # Erlaubt das Teilen von Suchergebnissen
+    - search.suggest # Zeigt Suchvorschläge an
   palette:
     # Light mode
     - media: "(prefers-color-scheme: light)"
@@ -49,12 +54,31 @@ extra_css:
 # --- Plugins ---
 plugins:
   - search
+  - tags # Erlaubt die Verwendung von Tags oben in den Dokumenten
+  - git-revision-date-localized: # Zeigt "Zuletzt aktualisiert" am Ende der Seite
+      enable_creation_date: true
+      type: iso_date
+  - glightbox: # Erlaubt das Zoomen von Bildern (extrem wichtig für Screenshots!)
+      touchNavigation: true
+      loop: false
+      zoomable: true
+      draggable: true
+      skip_classes: [nolightbox]
 
 # --- Zusätzliche Meta-Daten für Social Media ---
 extra:
+  - analytics: # Falls du später Google Analytics nutzen willst
+      provider: google
+      property: G-XXXXXXXXXX
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/CAZE7
+    - icon: fontawesome/brands/youtube
+      link: https://youtube.com/
+    - icon: fontawesome/brands/instagram
+      link: https://instagram.com/
+    - icon: fontawesome/solid/paper-plane
+      link: mailto:info@obd-expert.de
 
 # --- Navigation ---
 nav:

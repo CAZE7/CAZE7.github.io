@@ -1,121 +1,86 @@
-# Haftungsausschluss & Disclaimer
+---
+title: ⚖️ Haftungsausschluss & Disclaimer
+description: Rechtliche Rahmenbedingungen und Sicherheitshinweise für die Nutzung des OBD Expert Guide.
+---
 
-## Allgemeines
+# ⚖️ Haftungsausschluss & Disclaimer
 
-Die auf dieser Website bereitgestellten Informationen, Anleitungen und Empfehlungen zur Fahrzeug-Codierung, Diagnose und Fahrzeugelektronik dienen **ausschließlich Bildungs- und Informationszwecken**. Sie sind nicht als professionelle Fachberatung gedacht und können eine solche nicht ersetzen.
+!!! info "Allgemeiner Hinweis"
+    Die auf dieser Website bereitgestellten Informationen, Anleitungen und Empfehlungen zur Fahrzeug-Codierung, Diagnose und Fahrzeugelektronik dienen **ausschließlich Bildungs- und Informationszwecken**. Sie stellen keine professionelle Fachberatung dar und können eine solche nicht ersetzen.
 
 ---
 
-## Keine Haftung für Schäden
+## 🚫 Keine Haftung für Schäden
 
-!!! danger "Rechtlicher Hinweis"
-    Die Betreiber dieser Website übernehmen **keine Haftung** für:
+!!! danger "WICHTIGER RECHTLICHER HINWEIS"
+    Die Anwendung der bereitgestellten Informationen erfolgt auf **eigenes Risiko**. Der Betreiber dieser Website übernimmt **keinerlei Haftung** für:
     
-    - **Beschädigte oder gebrickte Steuergeräte** (ECU, Gateway, EZS, TCU, etc.) durch Anwendung der bereitgestellten Informationen
-    - **Funktionsverluste** von Fahrzeugfunktionen aufgrund von fehlerhaften Codierungen
-    - **Verlust der Herstellergarantie** durch das Durchführen von eigenen Codierungen oder Diagnosen
-    - **Folgeschäden** jeglicher Art (Reparaturkosten, Ausfallzeiten, Vermiettungen, etc.)
-    - **Verstöße gegen die Straßenverkehrszulassungsordnung (StVZO)** oder andere lokale Gesetze und Vorschriften durch Anwendung der Informationen
-    - **Emissionsvorschriften-Verstöße** (z.B. Deaktivierung von AdBlue, DPF, etc.)
-    - **Datenverlust** oder **Sicherheitsrisiken** durch die Verwendung empfohlener Tools oder Hardware
+    *   **Hardware-Schäden:** Defekte oder "gebrickte" Steuergeräte (ECU, Gateway, EZS, TCU etc.).
+    *   **Funktionsverlust:** Beeinträchtigung oder Ausfall von Fahrzeugfunktionen.
+    *   **Garantieverlust:** Erlöschen der Herstellergarantie oder Kulanzansprüche.
+    *   **Folgeschäden:** Reparaturkosten, Abschleppkosten oder Nutzungsausfälle.
+    *   **Rechtliche Folgen:** Verstöße gegen die Straßenverkehrszulassungsordnung (StVZO), Emissionsvorschriften oder lokale Gesetze.
+    *   **Sicherheitsrisiken:** Fehlfunktionen von sicherheitsrelevanten Systemen (ABS, Airbag, Bremsen).
 
 ---
 
-## Eigenverantwortung
+## 🧘 Eigenverantwortung
 
-### Du handels auf eigene Gefahr
+### Du handelst auf eigene Gefahr
+Die Durchführung aller auf dieser Website beschriebenen Verfahren setzt technisches Verständnis voraus. Mit der Nutzung dieser Inhalte akzeptierst du:
 
-Die Anwendung aller auf dieser Website beschriebenen Verfahren, Tools, Hardware und Codierungen geschieht **vollständig auf deine eigene Verantwortung und dein eigenes Risiko**. Du akzeptierst damit:
-
-- Dass du die beschriebenen Verfahren verstanden hast
-- Dass du die Risiken und möglichen Folgen vollständig erfasst hast
-- Dass du allein verantwortlich für alle Konsequenzen bist
-
----
-
-## Bezug zu Drittanbieter-Tools
-
-Diese Website empfiehlt oder verweist auf verschiedene Tools, Software und Hardware-Produkte (z.B. VCDS, OBDeleven, VCP, Xentry, Monaco, etc.). Die Betreiber dieser Website:
-
-- **Erhalten keine Provisionen oder Entschädigungen** von Herstellern oder Anbietern
-- **Übernehmen keine Haftung** für die Funktionalität, Zuverlässigkeit oder Legalität dieser Produkte
-- **Empfehlen diese Tools nur zu Informationszwecken** auf Basis ihres Wissensstands
-
-Die Nutzung dieser Tools unterliegt den jeweiligen Lizenzbedingungen der Hersteller. Du bist selbst verantwortlich für die Einhaltung dieser Bedingungen.
+1.  Dass du die Risiken und möglichen Folgen (z.B. Steuergeräte-Totalausfall) vollständig verstanden hast.
+2.  Dass du allein verantwortlich für alle Konsequenzen deines Handelns am Fahrzeug bist.
+3.  Dass du vor jedem Eingriff ein **vollständiges Backup (Admap/Coding-Log)** erstellt hast.
 
 ---
 
-## Gesetzliche Compliance
+## 🛠️ Drittanbieter-Tools & Marken
+Diese Website verweist auf verschiedene Tools (z.B. VCDS, ODIS, VCP, Xentry, DTS Monaco). 
 
-### StVZO & Straßenverkehrsrecht
-
-Viele Fahrzeug-Codierungen, besonders im Bereich Emissionskontrolle, Licht und Sicherheitssysteme, können gegen die **Straßenverkehrszulassungsordnung (StVZO)** verstießen. Du versicherst, dass:
-
-- Du alle lokalen Gesetze und Vorschriften einhältst
-- Du die Legalität deiner geplanten Codierung vor der Durchführung überprüfst
-- Du dich bewusst bist, dass illegale Codierungen zu **Bußgeldern**, **Führerscheinentzug** oder sogar **strafrechtlichen Verfolgung** führen können
-
-### Emissionsvorschriften
-
-Das Deaktivieren von Emissionskontrollsystemen (AdBlue, DPF, SCR, etc.) ist in den meisten Ländern **verboten und strafbar**. Diese Website dokumentiert solche Techniken nur zu Bildungszwecken. Du darfst diese **nicht** für illegale Zwecke verwenden.
+*   **Unabhängigkeit:** Wir stehen in keiner geschäftlichen Beziehung zu den Herstellern dieser Tools und erhalten keine Provisionen.
+*   **Keine Gewähr:** Wir übernehmen keine Haftung für die Funktionalität oder Legalität dieser Drittanbieter-Produkte.
+*   **Markenrechte:** Alle genannten Marken- und Produktnamen sind Eigentum ihrer jeweiligen Inhaber.
 
 ---
 
-## Garantie & Gewährleistung
+## 🚔 Gesetzliche Compliance
 
-Diese Website wird **ohne jegliche Garantie oder Gewährleistung** bereitgestellt:
-
-- **Keine Garantie für Richtigkeit** – Trotz sorgfältiger Recherche können Fehler enthalten sein
-- **Keine Garantie für Vollständigkeit** – Nicht alle Varianten, Baujahre oder Fahrzeugmodelle sind abgedeckt
-- **Keine Garantie für Aktualität** – Fahrzeug-Technologie ändert sich ständig
-- **Keine Garantie für Verfügbarkeit** – Diese Website kann ohne Ankündigung geändert oder gelöscht werden
-
----
-
-## Ältere Fahrzeuge & Modellvarianten
-
-Die auf dieser Website beschriebenen Verfahren beziehen sich hauptsächlich auf **gängige Fahrzeugmodelle**. Es gibt tausende Varianten, Baujahre und Konfigurationen. Es ist möglich, dass:
-
-- Verfahren auf deinem spezifischen Fahrzeug **nicht funktionieren**
-- Zusätzliche Schritte erforderlich sind
-- **Dein Fahrzeug nicht unterstützt wird**
-
-Du solltest immer prüfen, ob dein Fahrzeugmodell und -baujahr von den beschriebenen Tools unterstützt wird, **bevor** du anfängst.
+!!! warning "StVZO & Straßenverkehrsrecht"
+    Viele Codierungen (z.B. Deaktivierung von Gurtwarnern, Anpassung der Beleuchtung, Vmax-Aufhebung) können zum **Erlöschen der Betriebserlaubnis** führen. 
+    
+    *   Prüfe die Legalität jeder Änderung **vor** der Durchführung.
+    *   Illegale Modifikationen können zu Bußgeldern, Punkten, Fahrzeugstilllegung und strafrechtlicher Verfolgung führen.
+    *   **Emissions-Manipulation:** Das Deaktivieren von AdBlue, DPF oder AGR ist in den meisten Ländern streng verboten und wird als Steuerhinterziehung und Umweltstraftat gewertet.
 
 ---
 
-## Verbotsklauseln
+## 🔍 Qualität & Aktualität
+Diese Wissensdatenbank wird nach bestem Wissen und Gewissen gepflegt, jedoch:
 
-Du verpflichtest dich, diese Website und ihre Inhalte **nicht** zu nutzen um:
-
-- **Fahrzeuge zu stehlen oder zu manipulieren** (z.B. Kilometerstand zu fälschen)
-- **Emissions-Betrug zu begehen** (Dieselgate-ähnliche Aktivitäten)
-- **Sicherheitssysteme zu deaktivieren** (ABS, Airbag, Bremsassistenz, etc.) ohne technisches Verständnis
-- **Herstellerlizenzen oder Patente zu verletzen**
-- Jegliche Art von **Betrug oder illegalen Aktivitäten**
+*   **Keine Gewähr für Richtigkeit:** Trotz sorgfältiger Prüfung können Informationen fehlerhaft oder veraltet sein.
+*   **Keine Vollständigkeit:** Aufgrund der enormen Varianz an Fahrzeugmodellen und Softwareständen kann eine Funktion auf deinem spezifischen Fahrzeug anders reagieren oder gar nicht verfügbar sein.
+*   **Ständige Änderungen:** Fahrzeughersteller patchen Sicherheitslücken (z.B. durch SFD oder neue Software-Stände), wodurch hier beschriebene Wege jederzeit unbrauchbar werden können.
 
 ---
 
-## Haftungsausschlusserklärung
+## 🛑 Verbotsklauseln
+Die Nutzung dieser Inhalte für illegale Aktivitäten ist streng untersagt. Dazu gehören insbesondere:
 
-**DIESE WEBSITE WIRD "WIE VORLIEGEND" BEREITGESTELLT, OHNE GEWÄHRLEISTUNG JEGLICHER ART, WEDER AUSDRÜCKLICH NOCH STILLSCHWEIGEND, EINSCHLIESSLICH ABER NICHT BESCHRÄNKT AUF GEWÄHRLEISTUNGEN DER MARKTGÄNGIGKEIT, EIGNUNG FÜR EINEN BESTIMMTEN ZWECK ODER NICHTVERLETZUNG VON RECHTEN.**
-
-**IN KEINEM FALL HAFTEN DIE BETREIBER DIESER WEBSITE FÜR DIREKTE, INDIREKTE, ZUFÄLLIGE, BESONDERE ODER FOLGESCHÄDEN, DIE SICH AUS DER NUTZUNG DIESER WEBSITE ODER DER DARIN ENTHALTENEN INFORMATIONEN ERGEBEN, AUCH WENN AUF DIE MÖGLICHKEIT SOLCHER SCHÄDEN HINGEWIESEN WURDE.**
-
----
-
-## Änderungen am Disclaimer
-
-Diese Website behält sich das Recht vor, diesen Haftungsausschluss jederzeit ohne vorherige Ankündigung zu ändern oder zu aktualisieren. Deine fortgesetzte Nutzung dieser Website bedeutet deine Akzeptanz dieser Änderungen.
+*   Manipulation von Kilometerständen (Tachobetrug).
+*   Umgehung von Diebstahlsicherungen oder Wegfahrsperren.
+*   Manipulation von Abgasreinigungssystemen für den öffentlichen Straßenverkehr.
+*   Verletzung von Urheberrechten oder Patenten der Fahrzeughersteller.
 
 ---
 
-## Kontakt bei Bedenken
+## 📜 Schlussbestimmung
+**DIESE WEBSITE WIRD "WIE VORLIEGEND" BEREITGESTELLT. IN KEINEM FALL HAFTET DER BETREIBER FÜR DIREKTE ODER INDIREKTE SCHÄDEN, DIE SICH AUS DER NUTZUNG DER INFORMATIONEN ERGEBEN.**
 
-Falls du Bedenken bezüglich dieser Website, ihrer Inhalte oder dieses Disclaimers hast, kontaktiere bitte den Webseitenbetreiber. Allerdings erfolgt dies ohne Garantie auf Antwort oder Änderung.
+Der Betreiber behält sich das Recht vor, diesen Disclaimer jederzeit anzupassen. Deine fortgesetzte Nutzung der Website gilt als Einverständnis mit der jeweils aktuellen Fassung.
 
 ---
 
-**Zuletzt aktualisiert:** 2026-04-24
+**Zuletzt aktualisiert:** April 2026
 
-**Diese Haftungsausschluss ist verbindlich für jeden Nutzer dieser Website und ihrer Inhalte.**
+**Durch die Nutzung dieser Website erklärst du dich mit diesen Bedingungen einverstanden.**

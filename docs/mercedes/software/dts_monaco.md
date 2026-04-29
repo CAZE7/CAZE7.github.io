@@ -1,3 +1,11 @@
+---
+tags:
+  - Mercedes-Benz
+  - Engineering
+  - DTS Monaco
+  - Flashing
+---
+
 # 🏎️ DTS Monaco – Engineering-Level Codierung & Flashing
 
 DTS Monaco ist das Engineering-Diagnosetool von Mercedes-Benz, das tieferen Zugriff auf Steuergeräte bietet als XENTRY oder Vediamo. Es arbeitet projektbasiert mit **CBF-Dateien** (Einzel-Steuergeräte-Beschreibungen für ältere Modelle) und **SMR-D-Dateien** (Fahrzeug-Projektdateien für neuere Modelle).
