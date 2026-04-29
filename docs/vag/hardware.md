@@ -59,7 +59,7 @@ Gute Tools für schnelle Fehlersuche, aber für tiefe Codierungen oder Flashing 
 
 Um Fehlfunktionen oder das "Bricking" (Zerstören) von Steuergeräten zu vermeiden:
 
-1. **Spannungssicherung:** Die Bordspannung muss während des Flashens absolut stabil sein (≥ 12,5 V). Ein Diagnose-Ladegerät mit Puffer-Modus (min. ++30+a++) ist obligatorisch. Ein Abbruch wegen Unterspannung zerstört den Bootloader.
+1. **Spannungssicherung:** Die Bordspannung muss während des Flashens absolut stabil sein (≥ 12,5 V). Ein Abbruch wegen Unterspannung zerstört den Bootloader. Details dazu findest du in den [FAQs](../faq.md#3-hardware-interfaces).
 2. **Kabel vs. Bluetooth:** Zum Flashen **niemals** eine drahtlose Verbindung (Bluetooth/WLAN) nutzen. Ein kurzer Verbindungsabbruch reicht, um die ECU zu bricken. Nutze immer ein USB-Kabel (z.B. VCP oder VAS6154 per USB).
 
 ---

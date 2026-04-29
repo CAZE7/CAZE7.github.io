@@ -18,23 +18,7 @@ Bevor du mit VCDS oder OBDeleven anfängst, Werte zu ändern:
 ## 2. Beliebte Anpassungen (Beispiele)
 
 ### 2.1 Zeigerausschlag (Needle Sweep / Staging)
-*Beim Einschalten der Zündung schlagen die Tachonadeln einmal komplett bis zum Anschlag aus.*
-
-=== "Mit VCDS"
-    1. Steuergerät **`17 - Schalttafeleinsatz`** auswählen.
-    2. Auf **`Codierung - 07`** klicken.
-    3. Den **Assistent für lange Codierung** öffnen.
-    4. In **Byte 1** das **Bit 0** aktivieren (Bezeichnung oft: *Zeigertest / Inszenierung aktiv*).
-    5. Fenster schließen und **Ausführen** klicken.
-
-=== "Mit OBDeleven"
-    1. Steuergerät **`17 - Schalttafeleinsatz`** auswählen.
-    2. Auf **`Anpassung`** gehen.
-    3. Den Kanal **`Inszenierung`** (oder *Staging*) suchen.
-    4. Wert von *Inaktiv* auf **Aktiv** setzen.
-    5. Änderungen übernehmen (Grüner Haken drücken).
-
-*(Hinweis: Bei virtuellen Cockpits / Active Info Display heißt der Kanal oft "Inszenierung" in der Anpassung statt Codierung).*
+Diese beliebte Codierung ist im Detail auf der Seite [Kombiinstrument / Active Info Display](kombiinstrument.md#zeigertest-needle-sweep-staging) beschrieben.
 
 ### 2.2 Start/Stop Automatik dauerhaft deaktivieren
 *Verhindert das automatische Ausgehen des Motors.*
@@ -62,7 +46,7 @@ Eine ZDC-Datei (Zukünftige Diagnose Container) ist eine binäre, verschlüsselt
 ### 3.2 Anleitung: Flashen eines ZDC-Files
 
 !!! danger "Spannung halten!"
-    Flashe niemals ohne angeschlossenen ++30+a++ Battery-Stabilizer. Ein Absturz während des Schreibens zerstört die ECU.
+    Flashe niemals ohne einen stabilen Battery-Stabilizer. Ein Absturz während des Schreibens zerstört die ECU. Siehe [FAQ für Hardware-Anforderungen](../faq.md#3-hardware-interfaces).
 
 1. **VCP starten:** Smartcard-Dongle einstecken und VCP öffnen.
 2. **Auto verbinden:** Zündung AN. Klick auf *Connect*.

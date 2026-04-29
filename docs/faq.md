@@ -18,9 +18,11 @@ Willkommen im FAQ-Bereich! Hier beantworten wir die häufigsten Fragen rund um F
 ??? faq "Was ist SFD (Schutz Fahrzeug Diagnose)?"
     SFD ist ein moderner Schreibschutz von Volkswagen (ab ca. 2020, z.B. Golf 8, ID.3). 
     
-    * **Symptom:** Du kannst Fehler lesen, aber beim Codieren erhältst du die Meldung "Wertebereich ungültig" oder "Security Access Denied".
-    * **Lösung:** Das Steuergerät muss online via Token entsperrt werden. Tools wie OBDeleven erledigen das automatisch im Hintergrund. Bei VCDS/ODIS muss oft ein manueller Token erzeugt oder die Motorhaube geöffnet werden.
-    * **Wichtig:** Bei fast allen SFD-Fahrzeugen ist eine **geöffnete Motorhaube** eine physikalische Voraussetzung für den Schreibzugriff!
+    * **Symptom:** Du kannst Fehler lesen, aber beim Codieren erhältst du die Meldung "Security Access Denied".
+    * **Lösung:** Das Steuergerät muss online via Token entsperrt werden (z.B. mit OBDeleven). 
+    * **Wichtig:** Bei fast allen SFD-Fahrzeugen ist eine **geöffnete Motorhaube** zwingend erforderlich!
+    
+    Detaillierte Informationen findest du auf der Seite [Software & Sicherheit](vag/software.md#21-sfd-schutz-fahrzeug-diagnose).
 
 ??? faq "Was ist der Komponentenschutz (CP)?"
     Der Komponentenschutz (Component Protection) ist ein Diebstahlschutz. Wenn du ein gebrauchtes Steuergerät (z.B. ein Infotainment aus einem anderen Auto) einbaust, erkennt das Fahrzeug, dass die Seriennummer nicht zur VIN passt.
@@ -117,15 +119,23 @@ Willkommen im FAQ-Bereich! Hier beantworten wir die häufigsten Fragen rund um F
 | **GeKo** | Geheimnis und Komponentenschutz (VAG Server-Zugang) |
 | **XDOS** | Xentry OpenShell (Mercedes Diagnose-Software für Multiplexer) |
 | **XPT** | Xentry PassThru (Mercedes Diagnose-Software für J2534) |
+| **ODIS** | Offboard Diagnostic Information System (VAG Diagnose-Software) |
+| **MQB** | Modularer Querbaukasten (VAG Fahrzeugplattform) |
+| **CBF / SMR-D** | Beschreibungsdateien für Mercedes-Steuergeräte |
 
 *[ECU]: Electronic Control Unit (Steuergerät)
 *[VCI]: Vehicle Communication Interface (Diagnosekopf, z.B. SD Connect)
 *[DoIP]: Diagnostics over Internet Protocol (Moderne Netzwerkkommunikation)
 *[SCN]: Software Calibration Number (Werkscodierung)
-*[ODIS]: Offboard Diagnostic Information System (Die Diagnosesoftware für VAG)
-*[SFD]: Schutz Fahrzeug Diagnose (Token-basierte Schreibsperre ab 2020)
-*[CP]: Component Protection / Komponentenschutz (Diebstahlsperre für gebrauchte ECUs)
-*[ZDC]: Zukünftige Diagnose-Container (Parametrierungs-Datensätze)
-*[GeKo]: Geheimnis und Komponentenschutz (VAG Server-Zugang für offizielle Werkstätten)
-*[XDOS]: Xentry OpenShell (MB Software für Multiplexer wie C4/C5/C6)
-*[XPT]: Xentry PassThru (MB Software für J2534 Adapter wie Tactrix/VXDIAG)
+*[ODIS]: Offboard Diagnostic Information System (VAG Diagnose-Software)
+*[SFD]: Schutz Fahrzeug Diagnose (VAG Schreibschutz ab 2020)
+*[CP]: Component Protection (Komponentenschutz / Diebstahlschutz)
+*[ZDC]: Datensatz / Parametrierung (VAG)
+*[GeKo]: Geheimnis und Komponentenschutz (VAG Server-Zugang)
+*[XDOS]: Xentry OpenShell (Mercedes Diagnose-Software für Multiplexer)
+*[XPT]: Xentry PassThru (Mercedes Diagnose-Software für J2534)
+*[Admap]: Adaptation Map (VCDS Backup aller Kanäle)
+*[SVM]: Software Versions Management (VAG Online-Konfiguration)
+*[MQB]: Modularer Querbaukasten (VAG Fahrzeugplattform)
+*[CBF]: Control Base File (MB Beschreibungsdatei bis ca. 2015)
+*[SMR-D]: Smart Diagnostic Resource - Description (MB Projektdatei ab ca. 2016)

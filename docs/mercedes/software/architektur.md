@@ -116,6 +116,14 @@ Für Werkstätten mit breitem Fahrzeugspektrum ist **XENTRY 2023.09** in der Com
 
 ## 7. Glossar
 
+* **[DAS]:** Diagnosis Assistance System; ältere Diagnoseschicht in XENTRY.
+* **[XDOS] / [XPT]:** XENTRY Diagnosis OpenShell / XENTRY PassThru
+* **[DoIP]:** Diagnostics over Internet Protocol (Ethernet-basiert)
+* **[SCN]:** Software Calibration Number (Codierung)
+* **[Zenzefi]:** Zertifikatsmanagement-System für DoIP
+* **CBF / SMR-D:** Projektdateien für Offline-Codierung (siehe [SMR-D Quellen](smr_d.md))
+* **CFF / FRF:** Firmware-Flash-Container
+
 *[DAS]: Diagnosis Assistance System; ältere Diagnoseschicht in XENTRY (bis ca. 2014)
 *[XDOS]: XENTRY Diagnosis OpenShell
 *[XPT]: XENTRY PassThru
@@ -125,14 +133,6 @@ Für Werkstätten mit breitem Fahrzeugspektrum ist **XENTRY 2023.09** in der Com
 *[Zenzefi]: Zertifikatsmanagement-System für DoIP
 *[VCI]: Vehicle Communication Interface
 *[MUX]: Multiplexer
-
-* **[DAS]:** Diagnosis Assistance System; ältere Diagnoseschicht in XENTRY.
-* **[XDOS] / [XPT]:** XENTRY Diagnosis OpenShell / XENTRY PassThru
-* **[DoIP]:** Diagnostics over Internet Protocol (Ethernet-basiert)
-* **[SCN]:** Software Calibration Number (Codierung)
-* **[Zenzefi]:** Zertifikatsmanagement-System für DoIP
-* **CBF / SMR-D:** Projektdateien für Offline-Codierung (siehe [SMR-D Quellen](smr_d.md))
-* **CFF / FRF:** Firmware-Flash-Container
 
 ---
 

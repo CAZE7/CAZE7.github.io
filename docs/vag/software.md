@@ -49,27 +49,20 @@ Der Komponentenschutz ist ein Diebstahlschutz, der seit Audi A6 (4F) eingeführt
 
 ## 3. Best Practices & Backup-Regeln
 
-* **Die Admap-Pflicht:** Vor *jeder* Änderung muss ein vollständiges Abbild (Admap / Adaptation Map) des Steuergeräts exportiert werden. Ohne Admap weißt du im Fehlerfall nicht, wie die alten Anpassungskanäle hießen!
-* **Dokumentation:** VCDS speichert alle Änderungen automatisch im Ordner `C:\Ross-Tech\VCDS\Debug\CodingLog.txt`. Überprüfe diesen bei Problemen.
+* **Die Backup-Pflicht:** Vor *jeder* Änderung muss ein vollständiger Abbild (Admap) und ein Auto-Scan durchgeführt werden. Detaillierte Regeln dazu findest du in den [Praxis-Codierungen](anleitungen.md#1-grundregeln-vor-jeder-codierung).
+* **Dokumentation:** VCDS speichert alle Änderungen automatisch im Ordner `C:\Ross-Tech\VCDS\Debug\CodingLog.txt`.
 
 ---
 
 ## 4. Glossar
-
-*[Admap]: Adaptation Map (Backup aller Anpassungskanäle eines Steuergeräts)
-*[ZDC]: Zukünftige Diagnose-Container (Binäre Datensätze für Parametrierung, exklusiv für VCP/ODIS)
-*[SVM]: Software Versions Management (Der zentrale VW-Server, der die Original-Konfiguration deines Autos kennt)
-*[GeKo]: Geheimnis und Komponentenschutz (Account für VAG-Mitarbeiter mit hohen Berechtigungen)
-*[MQB]: Modularer Querbaukasten (Fahrzeugplattform z.B. Golf 7/8, Octavia)
-*[MLB]: Modularer Längsbaukasten (Fahrzeugplattform z.B. Audi A4, Q5)
-*[SFD]: Schutz Fahrzeug Diagnose (Token-basierte Schreibsperre ab 2020)
-*[CP]: Component Protection / Komponentenschutz (Diebstahlsperre für gebrauchte ECUs)
 
 * **[Admap]:** Adaptation Map. Ein CSV/TXT-Backup aller Anpassungskanäle eines Steuergeräts.
 * **[ZDC]:** Zukünftige Diagnose-Container. Binäre Parameter-Datensätze (für Licht, Sound, Kamera-Kalibrierung), die mit VCP geflasht werden.
 * **[SVM]:** Software Versions Management. Das Hersteller-Backend, das die Werks-Ausstattung verwaltet.
 * **[GeKo]:** Zertifizierter Zugang zum VAG-Server (Geheimnis & Komponentenschutz).
 * **[MQB] / [MLB]:** Modulare Fahrzeugplattformen bei VAG (Quer- vs. Längsmotoren).
+* **[SFD]:** Schutz Fahrzeug Diagnose (Token-basierte Schreibsperre ab 2020).
+* **[CP]:** Component Protection / Komponentenschutz (Diebstahlsperre für gebrauchte ECUs).
 
 ---
 
