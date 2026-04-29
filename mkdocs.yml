@@ -84,11 +84,11 @@ markdown_extensions:
   - attr_list # CSS-Klassen direkt an Markdown-Elemente hängen
   - md_in_html # Markdown innerhalb von HTML-Tags erlauben
   - pymdownx.details # Aufklappbare Boxen (??? info "Klick mich")
-  - pymdownx.superfences # Verschachtelte Blöcke (z.B. Code in Boxen)
-    custom_fences:
-      - name: mermaid
-        class: mermaid
-        format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.superfences: # Verschachtelte Blöcke (z.B. Code in Boxen)
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed: # Coole Tabs für Anleitungen (z.B. XENTRY vs. Monaco)
       alternate_style: true 
   - pymdownx.tasklist: # Checklisten
