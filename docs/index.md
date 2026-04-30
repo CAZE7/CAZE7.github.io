@@ -4,13 +4,14 @@ description: Eine kuratierte Wissensbasis für Mercedes-Benz und den VAG-Konzern
 keywords: OBD, Diagnose, Codierung, VAG, Mercedes, VCDS, Xentry, OBDeleven, Flashen, Steuergerät, Passthru
 hide:
   - navigation # Versteckt die linke Navigation auf der Startseite für einen sauberen Look
+  - toc # Versteckt das Inhaltsverzeichnis auf der rechten Seite für volle Breite
 ---
 
 ## Interaktiver Tool-Finder
 
 Du bist dir unsicher, welche Hard- oder Software du für dein Projekt benötigst? Beantworte drei kurze Fragen, und unser System gibt dir eine fundierte Empfehlung!
 
-<div id="obd-finder-app" style="max-width: 600px; margin: 0 auto;">
+<div id="obd-finder-app" style="max-width: 600px; margin: 0 auto; margin-bottom: 3rem;">
   <div id="step1" class="finder-step">
     <p><strong>1. Welche Automarke fährst du?</strong></p>
     <button class="md-button md-button--primary" onclick="window.setBrand('VAG')">VW, Audi, Seat, Skoda</button>
@@ -39,21 +40,13 @@ Du bist dir unsicher, welche Hard- oder Software du für dein Projekt benötigst
 
 ---
 
-# Willkommen im OBD Expert Guide
-
-**Diagnose, Codierung und Engineering auf Herstellerniveau.**
-
-Diese Wissensdatenbank bietet tiefe Einblicke und Praxis-Workflows für Mercedes-Benz und den VAG-Konzern. Lerne, wie du die richtige Hard- und Software einsetzt, versteckte Potenziale freischaltest und Steuergeräte (ECUs) sicher programmierst, ohne sie zu beschädigen.
-
----
-
 ## Wissensbereiche
 
 Wähle deinen Bereich, um in die detaillierten Anleitungen und Best-Practices einzutauchen:
 
 <div class="grid cards" markdown>
 
--   **Mercedes-Benz Guide**
+-   :material-car-sports: **Mercedes-Benz Guide**
 
     ---
 
@@ -61,7 +54,7 @@ Wähle deinen Bereich, um in die detaillierten Anleitungen und Best-Practices ei
 
     [:octicons-arrow-right-24: Zur Mercedes-Übersicht](mercedes/software/architektur.md)
 
--   **VAG Konzern Guide**
+-   :material-car-hatchback: **VAG Konzern Guide**
 
     ---
 
@@ -69,7 +62,7 @@ Wähle deinen Bereich, um in die detaillierten Anleitungen und Best-Practices ei
 
     [:octicons-arrow-right-24: Zur VAG-Übersicht](vag/software.md)
 
--   **FAQ & Hilfe**
+-   :material-frequently-asked-questions: **FAQ & Hilfe**
 
     ---
 
@@ -77,7 +70,7 @@ Wähle deinen Bereich, um in die detaillierten Anleitungen und Best-Practices ei
 
     [:octicons-arrow-right-24: Zu den FAQs](faq.md)
 
--   **Sicherheit & Haftung**
+-   :material-shield-alert: **Sicherheit & Haftung**
 
     ---
 
