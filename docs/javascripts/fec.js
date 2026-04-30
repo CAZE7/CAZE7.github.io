@@ -51,6 +51,8 @@ function renderCodes() {
     .toString(16)
     .toUpperCase();
 
+  const fragment = document.createDocumentFragment();
+
   codes.forEach(item => {
     if (!item.visible) return;
 
@@ -99,8 +101,10 @@ function renderCodes() {
 
     wrapper.appendChild(label);
     wrapper.appendChild(textarea);
-    codesContainerEl.appendChild(wrapper);
+    fragment.appendChild(wrapper);
   });
+
+  codesContainerEl.appendChild(fragment);
 
   if (jumbotronEl) {
     jumbotronEl.style.display = selectedCount > 0 ? "none" : "block";
