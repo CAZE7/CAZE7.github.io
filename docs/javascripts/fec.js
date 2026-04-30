@@ -167,3 +167,8 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     });
 });
+
+// Export for Node.js testing
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { stringToHex, hasCode, validateLength };
+}
