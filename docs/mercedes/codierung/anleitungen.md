@@ -26,10 +26,10 @@ Bevor du mit einer spezifischen Codierung beginnst, müssen diese Voraussetzunge
 * **SMR-D Dateien:** Die passenden Dateien können aus dem Installationsverzeichnis von Xentry in das DTS-Projekt importiert werden.
 
 ??? tip "Der generelle Codier-Ablauf (Klicken zum Öffnen)"
-    1. **Firewall Unlock:** Viele Steuergeräte (z. B. via EZS167 oder BCMFA2) sind geschützt. Führe unter *Generic Jobs* den **Security Access** (Level 37, 3B oder via Seed/Key) aus.
-    2. **Extended Start:** Öffne die Ziel-ECU in einem neuen Tab und führe *Extended Start* aus.
-    3. **Codieren:** Wechsle ins *Variant Coding*, wähle die Domain, ändere die Fragmente und klicke auf **Do Coding**.
-    4. **Speichern & Reset:** Bei neuen Fahrzeugen muss die Änderung fixiert werden: Führe **Synchronize to Non-volatile Memory** und anschließend einen **Hard Reset** aus.
+    1. **Firewall Unlock:** Viele Steuergeräte (z. B. via EZS167 oder BCMFA2) sind geschützt. Führe im Tab *Diagnostic Services* den **Security Access** (z.B. Level 37, 3B oder via Seed/Key) auf dem Gateway-Steuergerät aus.
+    2. **Extended Start:** Wähle die Ziel-ECU im Tab *Diagnostic Services* aus und führe *Start Extended Session* aus.
+    3. **Codieren:** Wechsle ins *Variant Coding*, wähle die Domain, ändere die Fragmente und klicke auf **Do Coding**. (Achtung: Dies speichert nur ins temporäre RAM!)
+    4. **Speichern & Reset:** Damit die Codierung nach einem Neustart nicht verloren geht, muss sie zwingend synchronisiert werden: Führe im Tab *Diagnostic Services* den Befehl **31 01 Synchronize to Non-volatile Memory Start** und anschließend einen **11 01 Hard Reset** aus. (Details zum "Vergessen" von Codierungen siehe [DTS Monaco Guide](../software/dts_monaco.md#51-variantencodierung-speichersynchronisation)).
 
 ---
 

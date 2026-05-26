@@ -84,13 +84,61 @@ Ein DTS Monaco-Projekt fasst die Fahrzeug-Gesamtstruktur zusammen. Details zu de
 
 ## 5. Codierung & Flashing in der Praxis
 
-### 5.1 Variantencodierung
-1. Projekt laden → Ziel-Steuergerät auswählen.
-2. **Variant Coding** Tab öffnen.
-3. **ZUERST: "Read coding from ECU"** und als Backup sichern!
-4. Werte ändern (Dropdown oder Hex).
-5. **Write coding to ECU** anklicken.
-6. Hard Reset / Ignition OFF/ON (je nach Steuergerät).
+### 5.1 Variantencodierung & Speichersynchronisation
+
+Ein häufiges Phänomen bei neueren Baureihen (z.B. W118, W167, W205 Facelift, W213, MBUX/HU6) ist, dass das Steuergerät (ECU) nach der Codierung die neuen Werte scheinbar akzeptiert, sie aber nach einem Neustart "vergisst".
+
+#### Warum behält das Steuergerät die Codierung nicht?
+
+Bei älteren Baureihen (oft mit **Vediamo** und .CBF-Dateien bearbeitet) reichte es meist aus, die Variantencodierung (Variant Coding) in das Steuergerät zu schreiben (Write/Do Coding). Die Daten wurden sofort in den Festspeicher (EEPROM) gebrannt.
+
+Bei modernen Baureihen (diagnostiziert mit **DTS Monaco** und .SMR-d-Dateien) haben sich die Sicherheits- und Speicherarchitekturen geändert:
+
+1. **Sicherheitsbarrieren (Firewall):** Oft blockiert das zentrale Gateway (z.B. EZS) Schreibzugriffe auf andere Steuergeräte.
+2. **Flüchtiger Speicher (RAM):** Wenn in DTS Monaco eine Codierung durchgeführt wird, schreibt die Software die neuen Werte oft nur in den **flüchtigen Zwischenspeicher** des Steuergeräts. Sobald die Diagnosesitzung beendet oder das Steuergerät neu gestartet wird (Zündung aus/an), gehen die temporären Werte im RAM verloren und es lädt wieder die alte Codierung aus dem Festspeicher.
+
+Damit die Codierung permanent bleibt, muss sie explizit in den nicht-flüchtigen Speicher synchronisiert werden (**Synchronize to Non-volatile Memory Start**).
+
+#### Der korrekte Codierungsablauf (Best Practice)
+
+Um sicherzustellen, dass eine Codierung permanent vom Steuergerät übernommen wird, muss in DTS Monaco folgender Workflow eingehalten werden:
+
+**Schritt 1: Firewall entsperren (Security Access)**
+Bevor codiert werden kann, muss oft das übergeordnete Steuergerät (z.B. Zündschloss EZS167 oder BCM) entsperrt werden.
+* Gehe in den Tab **Diagnostic Services**.
+* Wähle das EZS aus.
+* Navigiere zu *Generic Jobs* -> Wähle z.B. Security Access Level 37 (oder Level 3B, je nach Fahrzeug).
+* Klicke auf **Transmit**. Unten im Log muss "Status: Success / Acknowledged" stehen.
+
+**Schritt 2: Steuergerät in die "Extended Session" versetzen**
+* Wähle das Ziel-Steuergerät im Tab *Diagnostic Services* aus.
+* Unter *Session* den Befehl **Start Extended Session** auswählen.
+* Auf **Transmit** klicken.
+
+**Schritt 3: Variantencodierung durchführen**
+* Wechsle oben in den Tab **Variant Coding**.
+* Wähle das Ziel-Steuergerät aus, ändere die gewünschten Parameter. **Wichtig:** Vorher immer ein Backup machen ("Read coding from ECU").
+* Klicke auf **Do Coding** (bzw. Write).
+* *Achtung: An diesem Punkt ist die Codierung noch NICHT dauerhaft gespeichert!*
+
+**Schritt 4: Synchronisation in den permanenten Speicher (Der wichtigste Schritt!)**
+* Wechsle **zurück** in den Tab **Diagnostic Services**.
+* Wähle wieder dein Ziel-Steuergerät aus.
+* Suche in der Liste (oft unter *Asynchronous Routine* oder *Generic Jobs*) nach dem Diagnose-Service `[31]`.
+* Führe folgenden Befehl aus: **31 01 Synchronize to Non-volatile Memory Start** -> Klicke auf **Transmit**. Unten sollte "Routine in progress" oder "Acknowledged" stehen.
+* Führe direkt danach (falls vorhanden) den Befehl aus: **31 01 Synchronize to Non-volatile Memory Result** -> Klicke auf **Transmit**.
+
+**Schritt 5: Hard Reset (Steuergerät neu starten)**
+Damit die neuen, nun permanent gespeicherten Werte aktiv werden, muss das Steuergerät neu booten.
+* Bleibe im Tab *Diagnostic Services* beim Ziel-Steuergerät.
+* Scrolle zum Bereich *ECU* oder *Reset*.
+* Wähle **11 01 Hard Reset** und klicke auf **Transmit**.
+
+#### Zusammenfassung der Fehlerquellen
+Wenn eine Codierung "rausfliegt", liegt es in 99% der Fälle an einem dieser drei Fehler:
+1. **Vergessene Synchronisation:** Der Befehl *Synchronize to Non-volatile Memory Start* wurde im Anschluss an die Codierung nicht gesendet.
+2. **Falsche Session:** Die Parameter wurden in der Standard-Sitzung geändert, welche das Speichern von Haus aus blockiert.
+3. **Fehlender Hard Reset:** Nach dem Speichern wurde das SG nicht per Diagnosebefehl neu gestartet, sondern einfach der Stecker gezogen oder die Zündung hart unterbrochen.
 
 ### 5.2 SeedKey-Freischaltung (Security Access)
 * **Level 1:** Grundlegende Diagnose
